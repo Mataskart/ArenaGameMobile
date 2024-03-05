@@ -14,6 +14,7 @@ public class Health : MonoBehaviour
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetInteractable(false);
     }
     void Update()
     {
