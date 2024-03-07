@@ -51,6 +51,6 @@ public class Health : MonoBehaviour
 
     void LoadMenu()
     {
-        SceneManager.LoadSceneAsync(0);
+        SceneManager.LoadScene("MainMenu");
     }
 }
