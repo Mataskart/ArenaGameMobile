@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Health : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Health : MonoBehaviour
     public int currentHealth;
 
     public HealthBar healthBar;
+    public TextMeshProUGUI youDied;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,9 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         healthBar.SetInteractable(false);
+
+        youDied = FindObjectOfType<TextMeshProUGUI>();
+        youDied.gameObject.SetActive(false);
     }
     void Update()
     {
@@ -35,8 +40,8 @@ public class Health : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            LoadMenu(); // temp
-            // Die();
+            youDied.gameObject.SetActive(true);
+            Invoke("LoadMenu", 3);
         }
     }
     void Heal(int healAmount)
@@ -51,6 +56,7 @@ public class Health : MonoBehaviour
 
     void LoadMenu()
     {
+
         SceneManager.LoadScene("MainMenu");
     }
 }
