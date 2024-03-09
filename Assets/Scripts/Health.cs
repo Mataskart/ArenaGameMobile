@@ -16,38 +16,58 @@ public class Health : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
-        healthBar.SetInteractable(false);
+        if (healthBar != null)
+        {
+            healthBar.SetMaxHealth(maxHealth);
+            healthBar.SetInteractable(false);
 
-        youDied = FindObjectOfType<TextMeshProUGUI>();
-        youDied.gameObject.SetActive(false);
+            youDied = FindObjectOfType<TextMeshProUGUI>();
+            youDied.gameObject.SetActive(false);
+        }
     }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TakeDamage(20);
+           // TakeDamage(20);
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
-            Heal(7);
+          //  Heal(7);
         }
     }
-    void TakeDamage(int damage)
+    public void SetHealth(int maxHealth, int health)
+    {
+        this.maxHealth = maxHealth;
+        this.currentHealth = health;
+    }
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            youDied.gameObject.SetActive(true);
-            Invoke("LoadMenu", 3);
+            if (healthBar != null)
+            {
+                youDied.gameObject.SetActive(true);
+                Invoke("LoadMenu", 3);
+            }
+            else {
+                Destroy(gameObject);
+            }
         }
     }
     void Heal(int healAmount)
     {
         currentHealth += healAmount;
-        healthBar.SetHealth(currentHealth);
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
