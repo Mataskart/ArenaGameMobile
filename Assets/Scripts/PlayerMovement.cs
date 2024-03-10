@@ -18,6 +18,8 @@ public class Movement : MonoBehaviour
     }
     void Update()
     {
+        // Add a small jitter to the player's position
+        transform.position = new Vector2(transform.position.x + Random.Range(-0.001f, 0.001f), transform.position.y + Random.Range(-0.001f, 0.001f));
         ProcessInputs();
         Move();
     }

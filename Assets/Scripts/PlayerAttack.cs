@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private GameObject attackArea = default;
-    private float timeToAttack = 0.25f;
+    private float timeToAttack = 0.5f;
 
     // Start is called before the first frame update
     void Start()

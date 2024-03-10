@@ -12,12 +12,15 @@ public class EnemyScript : MonoBehaviour
     [SerializeField]
     private float speed = 1.5f;
     [SerializeField]
-    private float attackCooldown = 1f; // Cooldown period in seconds
+    private float attackCooldown = 0.5f; // Cooldown period in seconds
+    [SerializeField]
+    private float initialAttackDelay = 1f; // Initial delay before first attack
 
     [SerializeField]
     private EnemyData data;
     private GameObject player;
     private float attackTimer; // Timer for tracking cooldown
+    private bool firstContact = false; // Flag for tracking first contact with player
 
     bool facingRight = true;
 
@@ -39,6 +42,8 @@ public class EnemyScript : MonoBehaviour
         {
             attackTimer -= Time.deltaTime;
         }
+        // Add a small jitter to the enemy's position
+        transform.position = new Vector2(transform.position.x + Random.Range(-0.001f, 0.001f), transform.position.y + Random.Range(-0.001f, 0.001f));
     }
     
     private void SetEnemyValues()
@@ -74,6 +79,14 @@ public class EnemyScript : MonoBehaviour
             anim.SetFloat("Speed", 0.1f);
         }
     }
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.CompareTag("Player"))
+        {
+            firstContact = true;
+            attackTimer = initialAttackDelay; // Set the timer to the initial delay
+        }
+    }
     private void OnTriggerStay2D(Collider2D collider)
     {
         if(collider.CompareTag("Player"))
@@ -81,7 +94,11 @@ public class EnemyScript : MonoBehaviour
             if(collider.GetComponent<Health>() != null && attackTimer <= 0)
             {
                 collider.GetComponent<Health>().TakeDamage(damage);
-                attackTimer = attackCooldown; // Reset the timer
+                if (firstContact)
+                {
+                    firstContact = false; // Reset the flag
+                    attackTimer = attackCooldown; // Reset the timer to the regular cooldown
+                }
             }
         }
     }
