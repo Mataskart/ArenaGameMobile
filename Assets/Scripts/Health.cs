@@ -56,7 +56,7 @@ public class Health : MonoBehaviour
                 youDied.gameObject.SetActive(true);
                 Invoke("LoadMenu", 3);
             }
-            else {
+            else { 
                 Destroy(gameObject);
             }
         }

@@ -73,10 +73,12 @@ public class EnemyScript : MonoBehaviour
         if (moveDirectionAnim == Vector3.zero)
         {
             anim.SetFloat("Speed", 0);
+            anim.SetBool("isMoving", false);
         }
         else
         {
             anim.SetFloat("Speed", 0.1f);
+            anim.SetBool("isMoving", true);
         }
     }
     private void OnTriggerEnter2D(Collider2D collider)
@@ -94,6 +96,7 @@ public class EnemyScript : MonoBehaviour
             if(collider.GetComponent<Health>() != null && attackTimer <= 0)
             {
                 collider.GetComponent<Health>().TakeDamage(damage);
+                anim.SetBool("isAttacking", true);
                 if (firstContact)
                 {
                     firstContact = false; // Reset the flag
@@ -101,6 +104,11 @@ public class EnemyScript : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void endAttack()
+    {
+        anim.SetBool("isAttacking", false);
     }
 
     void Flip()
