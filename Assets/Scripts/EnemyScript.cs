@@ -21,8 +21,8 @@ public class EnemyScript : MonoBehaviour
     private GameObject player;
     private float attackTimer; // Timer for tracking cooldown
     private bool firstContact = false; // Flag for tracking first contact with player
-
     bool facingRight = true;
+    private bool isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +36,13 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isDead)
+        {
+            // If the enemy is dead, maybe prevent further actions or movement
+            anim.SetBool("isDead", true); // Trigger death animation
+            return; // Skip the rest of the update
+        }
+
         Swarm();
         // Reduce the timer by the time passed since the last frame
         if (attackTimer > 0)
@@ -106,6 +113,17 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    public void CheckDeath()
+    {
+        if (GetComponent<Health>().currentHealth <= 0)
+        {
+            isDead = true;
+            anim.SetBool("isDead", true); // Trigger death animation
+            Destroy(gameObject, 0.4f); // Destroy after 3 seconds
+        }
+    }
+
+    
     public void endAttack()
     {
         anim.SetBool("isAttacking", false);

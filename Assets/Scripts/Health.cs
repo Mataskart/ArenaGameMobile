@@ -8,7 +8,6 @@ public class Health : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
-
     public HealthBar healthBar;
     public TextMeshProUGUI youDied;
 
@@ -20,7 +19,6 @@ public class Health : MonoBehaviour
         {
             healthBar.SetMaxHealth(maxHealth);
             healthBar.SetInteractable(false);
-
             youDied = FindObjectOfType<TextMeshProUGUI>();
             youDied.gameObject.SetActive(false);
         }
@@ -48,6 +46,7 @@ public class Health : MonoBehaviour
         {
             healthBar.SetHealth(currentHealth);
         }
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -56,11 +55,24 @@ public class Health : MonoBehaviour
                 youDied.gameObject.SetActive(true);
                 Invoke("LoadMenu", 3);
             }
-            else { 
-                Destroy(gameObject);
+            
+            else
+            {
+                // If this is an enemy, check and handle death
+                EnemyScript enemyScript = GetComponent<EnemyScript>();
+                if (enemyScript != null)
+                {
+                    enemyScript.CheckDeath();
+                }
+                else
+                {
+                    // If it's not an enemy (e.g., the player), handle accordingly
+                    Destroy(gameObject);
+                }
             }
         }
     }
+
     void Heal(int healAmount)
     {
         currentHealth += healAmount;
