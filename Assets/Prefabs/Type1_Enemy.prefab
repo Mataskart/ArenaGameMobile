@@ -132,6 +132,7 @@ MonoBehaviour:
   damage: 5
   speed: 1.5
   attackCooldown: 1
+  initialAttackDelay: 1
   data: {fileID: 11400000, guid: e00c7ff90e2f6444d84331f36f084653, type: 2}
 --- !u!114 &-2250731894395932651
 MonoBehaviour:

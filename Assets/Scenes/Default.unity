@@ -244,6 +244,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2250731894395932651, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2250731894395932651, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1494972512438636988, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
       propertyPath: m_Name
       value: Type1_Enemy
@@ -3122,7 +3130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6782f79ece0ed344b91e38d59a4e5655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 10000
   currentHealth: 0
   healthBar: {fileID: 1682915774}
   youDied: {fileID: 879556521}

@@ -23,6 +23,7 @@ public class EnemyScript : MonoBehaviour
     private bool firstContact = false; // Flag for tracking first contact with player
     bool facingRight = true;
     private bool isDead = false;
+    private bool isHurt = false;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,16 @@ public class EnemyScript : MonoBehaviour
             // If the enemy is dead, maybe prevent further actions or movement
             anim.SetBool("isDead", true); // Trigger death animation
             return; // Skip the rest of the update
+        }
+
+        if (isHurt)
+        {
+            anim.SetBool("isHurt", true);
+            isHurt = false; // Reset the isHurt flag after triggering the animation
+        }
+        else
+        {
+            anim.SetBool("isHurt", false);
         }
 
         Swarm();
@@ -103,6 +114,7 @@ public class EnemyScript : MonoBehaviour
             if(collider.GetComponent<Health>() != null && attackTimer <= 0)
             {
                 collider.GetComponent<Health>().TakeDamage(damage);
+                isHurt = true;
                 anim.SetBool("isAttacking", true);
                 if (firstContact)
                 {
