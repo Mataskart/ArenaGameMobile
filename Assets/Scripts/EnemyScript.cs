@@ -119,7 +119,7 @@ public class EnemyScript : MonoBehaviour
         {
             isDead = true;
             anim.SetBool("isDead", true); // Trigger death animation
-            Destroy(gameObject, 0.4f); // Destroy after 3 seconds
+            Destroy(gameObject, 3f); // Destroy after 3 seconds
         }
     }
 
