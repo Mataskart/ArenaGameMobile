@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 
 public class MainMenu : MonoBehaviour
 {
+    public AudioMixer audioMixer;
     public AudioSource myAudio;
     public AudioClip hover;
     Resolution[] resolutions;
@@ -47,6 +49,16 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         SceneManager.LoadScene("Default");
+    }
+
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("volume", volume);
+    }
+
+    public void SetQuality(int index)
+    {
+        QualitySettings.SetQualityLevel(index);
     }
 
     public void QuitGame()

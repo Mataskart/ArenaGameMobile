@@ -3130,7 +3130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6782f79ece0ed344b91e38d59a4e5655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10000
+  maxHealth: 100
   currentHealth: 0
   healthBar: {fileID: 1682915774}
   youDied: {fileID: 879556521}
