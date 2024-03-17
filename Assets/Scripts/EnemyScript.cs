@@ -78,12 +78,12 @@ public class EnemyScript : MonoBehaviour
         direction.Normalize();
         float moveX = direction.x;
         float moveY = direction.y;
-        if (moveX > 0 && !facingRight)
+        if (moveX > 0 && !facingRight && attackTimer <= 0)
         {
             Flip();
         }
         
-        if(moveX < 0 && facingRight)
+        if(moveX < 0 && facingRight && attackTimer <= 0)
         {
             Flip();
         }
