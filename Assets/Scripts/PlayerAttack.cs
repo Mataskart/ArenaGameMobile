@@ -6,10 +6,12 @@ public class PlayerAttack : MonoBehaviour
 {
     private GameObject attackArea = default;
     private float timeToAttack = 0.5f;
+    public Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         attackArea = transform.GetChild(0).gameObject;
         StartCoroutine(ContinuousAttack());
     }
@@ -32,7 +34,9 @@ public class PlayerAttack : MonoBehaviour
 
     private IEnumerator DisableAttackAfterDelay()
     {
+        //anim.SetBool("isAttacking", true);
         yield return new WaitForSeconds(timeToAttack); // Wait for the specified time before disabling the attack
         attackArea.SetActive(false);
+        //anim.SetBool("isAttacking", false);
     }
 }

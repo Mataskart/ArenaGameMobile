@@ -41,10 +41,12 @@ public class Health : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        Movement playerMovement = GetComponent<Movement>();
         currentHealth -= damage;
         if (healthBar != null)
         {
             healthBar.SetHealth(currentHealth);
+            playerMovement.CheckHurt();
         }
 
         if (currentHealth <= 0)
@@ -52,7 +54,6 @@ public class Health : MonoBehaviour
             currentHealth = 0;
             if (healthBar != null)
             {
-                Movement playerMovement = GetComponent<Movement>();
                 playerMovement.CheckDeath();
                 youDied.gameObject.SetActive(true);
                 Invoke("LoadMenu", 3);
