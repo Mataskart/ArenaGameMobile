@@ -52,6 +52,8 @@ public class Health : MonoBehaviour
             currentHealth = 0;
             if (healthBar != null)
             {
+                Movement playerMovement = GetComponent<Movement>();
+                playerMovement.CheckDeath();
                 youDied.gameObject.SetActive(true);
                 Invoke("LoadMenu", 3);
             }

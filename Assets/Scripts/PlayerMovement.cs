@@ -10,6 +10,9 @@ public class Movement : MonoBehaviour
     private Vector2 moveDirection;
     private Vector3 moveDirectionAnim;
     bool facingRight = true;
+    private bool isDead = false;
+    private bool isHurt = false;
+
 
     // Update is called once per frame
     void Start()
@@ -18,7 +21,12 @@ public class Movement : MonoBehaviour
     }
     void Update()
     {
-        // Add a small jitter to the player's position
+        if (isDead)
+        {
+            // If the enemy is dead, maybe prevent further actions or movement
+            anim.SetBool("isDead", true); // Trigger death animation
+            return; // Skip the rest of the update
+        }   
         transform.position = new Vector2(transform.position.x + Random.Range(-0.001f, 0.001f), transform.position.y + Random.Range(-0.001f, 0.001f));
         ProcessInputs();
         Move();
@@ -27,7 +35,7 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     { }
 
-    void ProcessInputs() {         
+    void ProcessInputs() {      
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         if (moveX > 0 && !facingRight)
@@ -64,5 +72,15 @@ public class Movement : MonoBehaviour
         gameObject.transform.localScale = currentScale;
 
         facingRight = !facingRight;
+    }
+
+    public void CheckDeath()
+    {
+        if (GetComponent<Health>().currentHealth <= 0)
+        {
+            isDead = true;
+            anim.SetBool("isDead", true); // Trigger death animation
+            Destroy(gameObject, 5f); // Destroy after 3 seconds
+        }
     }
 }
