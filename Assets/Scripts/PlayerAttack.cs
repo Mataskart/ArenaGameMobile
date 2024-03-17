@@ -27,6 +27,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
+        anim.SetTrigger("isAttacking");
         attackArea.SetActive(true);
         // You may want to add any additional attack logic here
         StartCoroutine(DisableAttackAfterDelay());
@@ -34,9 +35,8 @@ public class PlayerAttack : MonoBehaviour
 
     private IEnumerator DisableAttackAfterDelay()
     {
-        //anim.SetBool("isAttacking", true);
         yield return new WaitForSeconds(timeToAttack); // Wait for the specified time before disabling the attack
         attackArea.SetActive(false);
-        //anim.SetBool("isAttacking", false);
+        anim.ResetTrigger("isAttacking");
     }
 }

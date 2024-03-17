@@ -10,6 +10,7 @@ public class Health : MonoBehaviour
     public int currentHealth;
     public HealthBar healthBar;
     public TextMeshProUGUI youDied;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class Health : MonoBehaviour
             youDied = FindObjectOfType<TextMeshProUGUI>();
             youDied.gameObject.SetActive(false);
         }
+         animator = GetComponent<Animator>();
     }
     void Update()
     {
@@ -46,7 +48,6 @@ public class Health : MonoBehaviour
         if (healthBar != null)
         {
             healthBar.SetHealth(currentHealth);
-            playerMovement.CheckHurt();
         }
 
         if (currentHealth <= 0)
@@ -72,6 +73,14 @@ public class Health : MonoBehaviour
                     // If it's not an enemy (e.g., the player), handle accordingly
                     Destroy(gameObject);
                 }
+            }
+        }
+        else
+        {
+            // Trigger the hurt animation here
+            if (animator != null)
+            {
+                animator.SetTrigger("isHurt"); // Set the "isHurt" trigger
             }
         }
     }
