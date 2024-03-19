@@ -1,0 +1,7 @@
+Base multiplier- 1x
+
+Basic enemy - 10 points
+Harder enemy - 100 points
+(future enemies) - x points
+
+Each kill increases multiplier by 2x up to 8x, multiplier goes back down to 1x after 5 seconds of no kills.
