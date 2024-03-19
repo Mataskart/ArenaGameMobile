@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     public AudioClip hover;
     Resolution[] resolutions;
     public TMPro.TMP_Dropdown resolutionDropdown;
+
     void Start()
     {
         resolutions = Screen.resolutions;
