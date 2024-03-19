@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyScript : MonoBehaviour
 {
@@ -27,8 +28,7 @@ public class EnemyScript : MonoBehaviour
     bool facingRight = true;
     private bool isDead = false;
     private bool isHurt = false;
-
-    [SerializeField] FloatingHealthBar floatingHealthBar;
+    public Slider slider;
 
     // Start is called before the first frame update
     void Start()
@@ -40,12 +40,15 @@ public class EnemyScript : MonoBehaviour
 
         // Subscribe to the OnEnemyKilled event
         OnEnemyKilled += PlayerScore.Instance.Enemy_OnEnemyKilled;
-        floatingHealthBar = GetComponentInChildren<FloatingHealthBar>();
+        
+        slider = GetComponentInChildren<Slider>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (isDead)
         {
             // If the enemy is dead, maybe prevent further actions or movement
@@ -56,7 +59,7 @@ public class EnemyScript : MonoBehaviour
         if (isHurt)
         {
             anim.SetBool("isHurt", true);
-            isHurt = false; // Reset the isHurt flag after triggering the animation
+            isHurt = false; // Reset the isHurt flag after triggering the animation            
         }
         else
         {
@@ -82,6 +85,7 @@ public class EnemyScript : MonoBehaviour
 
     private void Swarm()
     {
+        //slider.transform.localPosition = new Vector3(0f, 3f, 0f);
         transform.position = Vector2.MoveTowards(transform.position,player.transform.position,speed*Time.deltaTime);
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
