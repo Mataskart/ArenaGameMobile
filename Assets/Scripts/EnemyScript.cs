@@ -166,4 +166,5 @@ public class EnemyScript : MonoBehaviour
 
         facingRight = !facingRight;
     }
+
 }
