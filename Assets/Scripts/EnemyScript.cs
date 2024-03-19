@@ -28,6 +28,8 @@ public class EnemyScript : MonoBehaviour
     private bool isDead = false;
     private bool isHurt = false;
 
+    [SerializeField] FloatingHealthBar floatingHealthBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +40,7 @@ public class EnemyScript : MonoBehaviour
 
         // Subscribe to the OnEnemyKilled event
         OnEnemyKilled += PlayerScore.Instance.Enemy_OnEnemyKilled;
+        floatingHealthBar = GetComponentInChildren<FloatingHealthBar>();
     }
 
     // Update is called once per frame
