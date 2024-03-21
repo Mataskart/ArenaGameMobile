@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -63.003}
+  m_AnchoredPosition: {x: 0, y: -63}
   m_SizeDelta: {x: 472.1404, y: 82.5591}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4599566
@@ -666,7 +666,6 @@ GameObject:
   - component: {fileID: 420538023}
   - component: {fileID: 420538022}
   - component: {fileID: 420538021}
-  - component: {fileID: 420538025}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -761,21 +760,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &420538025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 420538020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c917422b56ddf4ea5e9b35829e3bf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerActive: 0
-  startTime: 0
-  timeUI: {fileID: 4599566}
 --- !u!1 &462206550
 GameObject:
   m_ObjectHideFlags: 3
@@ -4569,7 +4553,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 860fe2cdfd2e8d84fb17e396083e4539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timestart: 0
   timeUI: {fileID: 4599566}
 --- !u!1 &1497953151
 GameObject:
