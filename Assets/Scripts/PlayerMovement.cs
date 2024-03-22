@@ -34,21 +34,22 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     { }
 
-    void ProcessInputs() {      
+    void ProcessInputs()
+    {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         if (moveX > 0 && !facingRight)
         {
             Flip();
         }
-        
-        if(moveX < 0 && facingRight)
+
+        if (moveX < 0 && facingRight)
         {
             Flip();
         }
 
         moveDirection = new Vector2(moveX, moveY).normalized;
-        moveDirectionAnim = new Vector3(moveX,0, moveY);
+        moveDirectionAnim = new Vector3(moveX, 0, moveY);
         if (moveDirectionAnim == Vector3.zero)
         {
             anim.SetFloat("Speed", 0);
@@ -81,5 +82,10 @@ public class Movement : MonoBehaviour
             anim.SetBool("isDead", true); // Trigger death animation
             Destroy(gameObject, 5f); // Destroy after 3 seconds
         }
+    }
+
+    public bool GetDeath()
+    {
+        return isDead;
     }
 }
