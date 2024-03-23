@@ -7,11 +7,12 @@ using System;
 public class PlayerScore : MonoBehaviour
 {
     public int score;
-    public int scoreMultiplier; // Multiplier for score, starts at 1x and doubles up to 8x, degrades back to 1x after 5 seconds of no kills
-    public float scoreMultiplierTimer; // Timer for tracking score multiplier duration
+    private int scoreMultiplier; // Multiplier for score, starts at 1x and doubles up to 8x, degrades back to 1x after 5 seconds of no kills
+    private float scoreMultiplierTimer; // Timer for tracking score multiplier duration
     private int scoreForBasicEnemy = 10;
     private int scoreForBossEnemy = 100;
     public TextMeshProUGUI scoreUI;
+    public TextMeshProUGUI highScoreUI;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,8 @@ public class PlayerScore : MonoBehaviour
         scoreUI.text = "Score: 0";
         scoreUI.gameObject.SetActive(true);
         EnemyScript.OnEnemyKilled += Enemy_OnEnemyKilled;
+        UpdateHighScore();
+        highScoreUI.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -42,6 +45,8 @@ public class PlayerScore : MonoBehaviour
     {
         // Increase score and reset timer when an enemy is killed
         score += scoreForBasicEnemy * scoreMultiplier;
+        CheckHighScore();
+        UpdateHighScore();
         scoreMultiplierTimer = 0;
 
         // Increase multiplier, up to a maximum of 8
@@ -50,8 +55,22 @@ public class PlayerScore : MonoBehaviour
             scoreMultiplier *= 2;
         }
     }
+
     private void OnDestroy()
     {
         EnemyScript.OnEnemyKilled -= Enemy_OnEnemyKilled;
+    }
+
+    void CheckHighScore()
+    {
+        if(score > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+        }
+    }
+
+    void UpdateHighScore()
+    {
+        highScoreUI.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
 }
