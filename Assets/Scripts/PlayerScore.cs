@@ -12,20 +12,6 @@ public class PlayerScore : MonoBehaviour
     private int scoreForBossEnemy = 100;
     public TextMeshProUGUI scoreUI;
 
-    public static PlayerScore Instance { get; private set; }
-
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     // Start is called before the first frame update
     void Start()
     {

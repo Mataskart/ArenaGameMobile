@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class EnemyScript : MonoBehaviour
 {
-    public delegate void EnemyKilledHandler(EnemyScript enemy);
-    public event EnemyKilledHandler OnEnemyKilled;
-
     public Animator anim;
     private Vector3 moveDirectionAnim;
 
@@ -38,9 +35,6 @@ public class EnemyScript : MonoBehaviour
         SetEnemyValues();
         attackTimer = 0f; // Initialize timer
 
-        // Subscribe to the OnEnemyKilled event
-        OnEnemyKilled += PlayerScore.Instance.Enemy_OnEnemyKilled;
-        
         slider = GetComponentInChildren<Slider>();
 
     }
@@ -144,13 +138,8 @@ public class EnemyScript : MonoBehaviour
         {
             isDead = true;
             anim.SetBool("isDead", true); // Trigger death animation
-            OnEnemyKilled?.Invoke(this); // Trigger the OnEnemyKilled event
             Destroy(gameObject, 3f); // Destroy after 3 seconds
         }
-    }
-    void OnDestroy()
-    {
-        OnEnemyKilled -= PlayerScore.Instance.Enemy_OnEnemyKilled;
     }
 
     public void endAttack()
