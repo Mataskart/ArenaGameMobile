@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class EnemyScript : MonoBehaviour
 {
     public Animator anim;
     private Vector3 moveDirectionAnim;
+
+    public static event Action<EnemyScript> OnEnemyKilled;
 
     [SerializeField]
     private int damage = 5;
@@ -67,7 +70,7 @@ public class EnemyScript : MonoBehaviour
             attackTimer -= Time.deltaTime;
         }
         // Add a small jitter to the enemy's position
-        transform.position = new Vector2(transform.position.x + Random.Range(-0.001f, 0.001f), transform.position.y + Random.Range(-0.001f, 0.001f));
+        transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-0.001f, 0.001f), transform.position.y + UnityEngine.Random.Range(-0.001f, 0.001f));
     }
     
     private void SetEnemyValues()
@@ -134,10 +137,22 @@ public class EnemyScript : MonoBehaviour
 
     public void CheckDeath()
     {
+        if (isDead) return; // If the enemy is already dead, exit the method
+
         if (GetComponent<Health>().currentHealth <= 0)
         {
             isDead = true;
             anim.SetBool("isDead", true); // Trigger death animation
+            speed = 0; // Stop moving
+
+            // disable all colliders so that the corpse cannot be interacted with
+            Collider2D[] colliders = GetComponents<Collider2D>();
+            foreach (Collider2D col in colliders)
+            {
+                col.enabled = false;
+            }
+
+            OnEnemyKilled?.Invoke(this);
             Destroy(gameObject, 3f); // Destroy after 3 seconds
         }
     }
