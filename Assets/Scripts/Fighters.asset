@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93624586dd085b9468c189b8bb863c6d, type: 3}
+  m_Name: Fighters
+  m_EditorClassIdentifier: 
+  fighter:
+  - fighterName: SAMURAI
+    fighterSprite: {fileID: 1397306649, guid: 7912d41d5a172df458e974bf8751bdf0, type: 3}
+    fighterAnimator: {fileID: 9100000, guid: 17e156090ee409d42b40756699e3e8b1, type: 2}
+  - fighterName: TEST
+    fighterSprite: {fileID: 1580326561, guid: d2e57ddafdac04c468141595247ae36a, type: 3}
+    fighterAnimator: {fileID: 9100000, guid: 2b44e617884bfa6479b61c9bb13a3139, type: 2}
