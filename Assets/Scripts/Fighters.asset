@@ -16,6 +16,3 @@ MonoBehaviour:
   - fighterName: SAMURAI
     fighterSprite: {fileID: 1397306649, guid: 7912d41d5a172df458e974bf8751bdf0, type: 3}
     fighterAnimator: {fileID: 9100000, guid: 17e156090ee409d42b40756699e3e8b1, type: 2}
-  - fighterName: TEST
-    fighterSprite: {fileID: 1580326561, guid: d2e57ddafdac04c468141595247ae36a, type: 3}
-    fighterAnimator: {fileID: 9100000, guid: 2b44e617884bfa6479b61c9bb13a3139, type: 2}
