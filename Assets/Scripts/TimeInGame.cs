@@ -8,6 +8,7 @@ public class ElapsedTime : MonoBehaviour
 {
     private static bool timerRunning = false;
     private static float startTime;
+    private static float totalTimePlayed;
     public TextMeshProUGUI timeUI;
 
     public Movement death;
@@ -30,6 +31,14 @@ public class ElapsedTime : MonoBehaviour
         StartTimer();
         timeUI.text = "00:00";
         timeUI.gameObject.SetActive(true);
+
+        totalTimePlayed = PlayerPrefs.GetFloat("TotalTimePlayed", 0f);
+    }
+
+    void OnDestroy()
+    {
+        PlayerPrefs.SetFloat("TotalTimePlayed", totalTimePlayed);
+        PlayerPrefs.Save();
     }
 
     // Update is called once per frame
@@ -46,6 +55,8 @@ public class ElapsedTime : MonoBehaviour
             string seconds = ((int)t % 60).ToString("00");
 
             timeUI.text = minutes + ":" + seconds;
+
+            totalTimePlayed += Time.deltaTime;
         }
     }
 

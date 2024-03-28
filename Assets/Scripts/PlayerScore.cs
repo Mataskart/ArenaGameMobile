@@ -6,6 +6,7 @@ using System;
 
 public class PlayerScore : MonoBehaviour
 {
+    private int totalEnemiesKilled;
     public int score;
     private int scoreMultiplier; // Multiplier for score, starts at 1x and doubles up to 8x, degrades back to 1x after 5 seconds of no kills
     private float scoreMultiplierTimer; // Timer for tracking score multiplier duration
@@ -24,6 +25,7 @@ public class PlayerScore : MonoBehaviour
         EnemyScript.OnEnemyKilled += Enemy_OnEnemyKilled;
         UpdateHighScore();
         highScoreUI.gameObject.SetActive(true);
+        totalEnemiesKilled = PlayerPrefs.GetInt("TotalEnemiesKilled", 0);
     }
 
     // Update is called once per frame
@@ -43,6 +45,9 @@ public class PlayerScore : MonoBehaviour
 
     public void Enemy_OnEnemyKilled(EnemyScript enemy)
     {
+        totalEnemiesKilled++;
+        PlayerPrefs.SetInt("TotalEnemiesKilled", totalEnemiesKilled);
+        PlayerPrefs.Save();
         // Increase score and reset timer when an enemy is killed
         score += scoreForBasicEnemy * scoreMultiplier;
         CheckHighScore();
@@ -63,7 +68,7 @@ public class PlayerScore : MonoBehaviour
 
     void CheckHighScore()
     {
-        if(score > PlayerPrefs.GetInt("HighScore", 0))
+        if (score > PlayerPrefs.GetInt("HighScore", 0))
         {
             PlayerPrefs.SetInt("HighScore", score);
         }

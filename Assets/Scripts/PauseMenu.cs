@@ -21,7 +21,7 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
             {

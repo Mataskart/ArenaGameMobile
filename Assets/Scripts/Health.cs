@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
+    private int gamesPlayed;
     public int maxHealth = 100;
     public int currentHealth;
     public HealthBar healthBar;
@@ -30,17 +31,17 @@ public class Health : MonoBehaviour
         {
             slider.value = 100f;
         }
-         animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-           // TakeDamage(20);
+            // TakeDamage(20);
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
-          //  Heal(7);
+            //  Heal(7);
         }
     }
     public void SetHealth(int maxHealth, int health)
@@ -70,7 +71,7 @@ public class Health : MonoBehaviour
                 youDied.gameObject.SetActive(true);
                 Invoke("LoadMenu", 3);
             }
-            
+
             else
             {
                 // If this is an enemy, check and handle death
