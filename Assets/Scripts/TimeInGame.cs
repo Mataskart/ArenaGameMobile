@@ -10,8 +10,7 @@ public class ElapsedTime : MonoBehaviour
     private static float startTime;
     private static float totalTimePlayed;
     public TextMeshProUGUI timeUI;
-
-    public Movement death;
+    private Movement death;
     public static ElapsedTime Instance { get; private set; }
 
     void Awake()

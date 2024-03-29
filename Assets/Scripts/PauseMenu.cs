@@ -8,14 +8,11 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
 {
     public GameObject pauseMenu;
     public static bool isPaused;
-    public TextMeshProUGUI youDied;
-
     // Start is called before the first frame update
     void Start()
     {
         pauseMenu.SetActive(false);
         isPaused = false;
-        youDied.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -50,7 +47,6 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
     public void GoToMainMenu()
     {
         Time.timeScale = 1f;
-        youDied.gameObject.SetActive(false);
         SceneManager.LoadScene("MainMenu");
     }
     public void QuitGame()

@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using System.Security.Cryptography;
 
 public class Health : MonoBehaviour
 {
-    private int gamesPlayed;
     public int maxHealth = 100;
     public int currentHealth;
     public HealthBar healthBar;
     public FloatingHealthBar floatingHealthBar;
     public TextMeshProUGUI youDied;
-    public Animator animator;
+    private Animator animator;
     public Slider slider;
 
     // Start is called before the first frame update
@@ -24,8 +24,7 @@ public class Health : MonoBehaviour
         {
             healthBar.SetMaxHealth(maxHealth);
             healthBar.SetInteractable(false);
-            youDied = FindObjectOfType<TextMeshProUGUI>();
-            youDied.gameObject.SetActive(false);
+            //youDied.gameObject.SetActive(false);
         }
         if (slider != null)
         {
