@@ -4,14 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.TextCore.Text;
-using UnityEditor.Animations;
 
 public class FighterManager : MonoBehaviour
 {
     public FighterDatabase fighterDB;
     public TMP_Text nameText;
     public SpriteRenderer spriteFighter;
-    public Animator animator;
 
     private int selectedOption = 0;
 
@@ -49,6 +47,5 @@ public class FighterManager : MonoBehaviour
         Fighter fighter = fighterDB.GetFighter(selectedOption);
         spriteFighter.sprite = fighter.fighterSprite;
         nameText.text = fighter.fighterName;
-        animator.runtimeAnimatorController = fighter.fighterAnimator;
     }
 }
