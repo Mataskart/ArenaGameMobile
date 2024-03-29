@@ -17,11 +17,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
-        UpdateHighScore();
-        UpdateEnemiesKilled();
-        UpdateGamesPlayed();
-        UpdateTimePlayed();
-        UpdateDamageDealt();
+        UpdateStats();
     }
     void Update()
     {
@@ -34,12 +30,32 @@ public class MainMenu : MonoBehaviour
         SetGamesPlayed();
     }
 
+    public void ConfirmYesButton()
+    {
+        PlayerPrefs.SetInt("HighScore", 0);
+        PlayerPrefs.SetInt("TotalEnemiesKilled", 0);
+        PlayerPrefs.SetInt("GamesPlayed", 0);
+        PlayerPrefs.SetFloat("TotalTimePlayed", 0f);
+        PlayerPrefs.SetFloat("TotalDamageDealt", 0f);
+        PlayerPrefs.Save();
+
+        UpdateStats();
+    }
     public void QuitButton()
     {
         Application.Quit();
     }
 
-    public void UpdateHighScore()
+    private void UpdateStats()
+    {
+        UpdateHighScore();
+        UpdateEnemiesKilled();
+        UpdateGamesPlayed();
+        UpdateTimePlayed();
+        UpdateDamageDealt();
+    }
+
+    private void UpdateHighScore()
     {
         if (highscoreText != null)
         {
@@ -48,7 +64,7 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void UpdateEnemiesKilled()
+    private void UpdateEnemiesKilled()
     {
         if (enemiesKilledText != null)
         {
@@ -57,7 +73,7 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void UpdateGamesPlayed()
+    private void UpdateGamesPlayed()
     {
         if (gamesPlayedText != null)
         {
@@ -66,7 +82,7 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void UpdateTimePlayed()
+    private void UpdateTimePlayed()
     {
         if (timePlayedText != null)
         {
@@ -79,7 +95,7 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void UpdateDamageDealt()
+    private void UpdateDamageDealt()
     {
         if (timePlayedText != null)
         {
@@ -87,8 +103,7 @@ public class MainMenu : MonoBehaviour
             totalDamageDealt.gameObject.SetActive(true);
         }
     }
-
-    public void SetGamesPlayed()
+    private void SetGamesPlayed()
     {
         gamesPlayed++;
         PlayerPrefs.SetInt("GamesPlayed", gamesPlayed);
