@@ -34,14 +34,14 @@ public class Health : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // TakeDamage(20);
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            //  Heal(7);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    // TakeDamage(20);
+        //}
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    //  Heal(7);
+        //}
     }
     public void SetHealth(int maxHealth, int health)
     {
@@ -52,14 +52,6 @@ public class Health : MonoBehaviour
     {
         Movement playerMovement = GetComponent<Movement>();
         currentHealth -= damage;
-        if (healthBar != null)
-        {
-            healthBar.SetHealth(currentHealth);
-        }
-        if (slider != null)
-        {
-            slider.value = currentHealth;
-        }
 
         if (currentHealth <= 0)
         {
@@ -94,6 +86,17 @@ public class Health : MonoBehaviour
                 animator.SetTrigger("isHurt"); // Set the "isHurt" trigger
             }
         }
+
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
+        if (slider != null)
+        {
+            slider.value = currentHealth;
+        }
+
+
     }
 
     void Heal(int healAmount)

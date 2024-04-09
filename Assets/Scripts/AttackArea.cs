@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackArea : MonoBehaviour
 {
-    private int damage = 7;
+    private int damage = 20;
     private int totalDamageDealt;
 
     void Start()
@@ -16,7 +16,7 @@ public class AttackArea : MonoBehaviour
         if (collider.GetComponent<Health>() != null)
         {
             Health health = collider.GetComponent<Health>();
-            health.TakeDamage(damage);
+            health.TakeDamage(damage/2);
             // Increment total damage dealt
             totalDamageDealt += damage;
             // Save the updated total damage dealt to PlayerPrefs

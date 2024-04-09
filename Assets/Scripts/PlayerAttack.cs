@@ -38,5 +38,6 @@ public class PlayerAttack : MonoBehaviour
         attackArea.SetActive(false);
         anim.ResetTrigger("isAttacking");
         isAttacking = false;
+
     }
 }
