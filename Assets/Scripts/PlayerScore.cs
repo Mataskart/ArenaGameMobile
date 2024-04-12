@@ -14,6 +14,8 @@ public class PlayerScore : MonoBehaviour
     private int scoreForBossEnemy = 100;
     public TextMeshProUGUI scoreUI;
     public TextMeshProUGUI highScoreUI;
+    public TextMeshProUGUI newHighScoreUI;
+    public bool highScoreBeaten = false;
 
     // Start is called before the first frame update
     void Start()
@@ -70,8 +72,19 @@ public class PlayerScore : MonoBehaviour
     {
         if (score > PlayerPrefs.GetInt("HighScore", 0))
         {
+            if (!highScoreBeaten)
+            {
+                newHighScoreUI.gameObject.SetActive(true);
+                Invoke("EndHighScoreUI", 3);
+                highScoreBeaten = true;
+            }
             PlayerPrefs.SetInt("HighScore", score);
         }
+    }
+
+    void EndHighScoreUI()
+    {
+        newHighScoreUI.gameObject.SetActive(false);
     }
 
     void UpdateHighScore()
