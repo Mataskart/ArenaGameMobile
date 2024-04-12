@@ -54519,7 +54519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57bc51215e79c9e46beb57898edba9c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
   levelUI: {fileID: 342624989}
   playerLevelUI: {fileID: 575541463}
 --- !u!1 &1497953151

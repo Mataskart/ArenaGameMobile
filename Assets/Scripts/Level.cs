@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    public int level;
+    private static int level = 1;
     public TextMeshProUGUI levelUI;
     public TextMeshProUGUI playerLevelUI;
     private float timeSinceLastIncrement = 0f;
@@ -27,9 +27,9 @@ public class Level : MonoBehaviour
     }
     void Start()
     {
-        levelUI.text = "Level: 1";
+        levelUI.text = "Level: " + level.ToString();
         levelUI.gameObject.SetActive(true);
-        playerLevelUI.text = "Level 1";
+        playerLevelUI.text = "Level " + level.ToString();
         playerLevelUI.gameObject.SetActive(true);
         Invoke("StopLevelBig", 3f);
     }
@@ -64,5 +64,10 @@ public class Level : MonoBehaviour
     private void StopLevelBig()
     {
         playerLevelUI.gameObject.SetActive(false);
+    }
+
+    public static int GetLevel()
+    {
+        return level;
     }
 }
