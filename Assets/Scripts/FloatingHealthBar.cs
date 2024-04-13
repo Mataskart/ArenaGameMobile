@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class FloatingHealthBar : MonoBehaviour
 {
     [SerializeField] private Slider slider;
-
      public void SetMaxHealth(int health)
     {
         slider.maxValue = health;

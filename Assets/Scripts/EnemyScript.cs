@@ -37,7 +37,6 @@ public class EnemyScript : MonoBehaviour
         anim = GetComponent<Animator>();
         SetEnemyValues();
         attackTimer = 0f; // Initialize timer
-
         slider = GetComponentInChildren<Slider>();
 
     }
@@ -45,11 +44,12 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         if (isDead)
         {
             // If the enemy is dead, maybe prevent further actions or movement
             anim.SetBool("isDead", true); // Trigger death animation
+            slider.gameObject.SetActive(false);
             return; // Skip the rest of the update
         }
 
@@ -72,7 +72,7 @@ public class EnemyScript : MonoBehaviour
         // Add a small jitter to the enemy's position
         transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-0.001f, 0.001f), transform.position.y + UnityEngine.Random.Range(-0.001f, 0.001f));
     }
-    
+
     private void SetEnemyValues()
     {
         GetComponent<Health>().SetHealth(data.hp, data.hp);
@@ -83,7 +83,7 @@ public class EnemyScript : MonoBehaviour
     private void Swarm()
     {
         //slider.transform.localPosition = new Vector3(0f, 3f, 0f);
-        transform.position = Vector2.MoveTowards(transform.position,player.transform.position,speed*Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
         float moveX = direction.x;
@@ -92,12 +92,12 @@ public class EnemyScript : MonoBehaviour
         {
             Flip();
         }
-        
-        if(moveX < 0 && facingRight && attackTimer <= 0)
+
+        if (moveX < 0 && facingRight && attackTimer <= 0)
         {
             Flip();
         }
-        moveDirectionAnim = new Vector3(moveX,0, moveY);
+        moveDirectionAnim = new Vector3(moveX, 0, moveY);
         if (moveDirectionAnim == Vector3.zero)
         {
             anim.SetFloat("Speed", 0);
@@ -111,7 +111,7 @@ public class EnemyScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.CompareTag("Player"))
+        if (collider.CompareTag("Player"))
         {
             firstContact = true;
             attackTimer = initialAttackDelay; // Set the timer to the initial delay
@@ -119,9 +119,9 @@ public class EnemyScript : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collider)
     {
-        if(collider.CompareTag("Player"))
+        if (collider.CompareTag("Player"))
         {
-            if(collider.GetComponent<Health>() != null && attackTimer <= 0)
+            if (collider.GetComponent<Health>() != null && attackTimer <= 0)
             {
                 collider.GetComponent<Health>().TakeDamage(damage);
                 isHurt = true;
