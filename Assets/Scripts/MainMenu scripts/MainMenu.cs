@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Playables;
+using Michsky.MUIP;
 
 public class MainMenu : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class MainMenu : MonoBehaviour
     public TMP_Text timePlayedText;
     public TMP_Text totalDamageDealt;
     private int gamesPlayed;
+    [SerializeField] private NotificationManager notification;
 
     void Start()
     {

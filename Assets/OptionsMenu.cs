@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
+using Michsky.MUIP;
+using Unity.VisualScripting;
 
 public class OptionsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
-    public TMP_Dropdown resolutionsDropdown;
+    public CustomDropdown resolutionsDropdown;
     Resolution[] resolutions;
+    Sprite sprite = null;
     public void SetVolume(float volume)
     {
         audioMixer.SetFloat("volume", volume);
@@ -24,24 +27,19 @@ public class OptionsMenu : MonoBehaviour
     {
         resolutions = Screen.resolutions;
 
-        resolutionsDropdown.ClearOptions();
-
-        List<string> options = new List<string>();
-        int currentResolutionIndex = 0;
         for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
+            resolutionsDropdown.CreateNewItem(option, sprite);
 
             if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
             {
-                currentResolutionIndex = i;
+                resolutionsDropdown.ChangeDropdownInfo(i);
             }
         }
 
-        resolutionsDropdown.AddOptions(options);
-        resolutionsDropdown.value = currentResolutionIndex;
-        resolutionsDropdown.RefreshShownValue();
+        resolutionsDropdown.SetupDropdown();
+        resolutionsDropdown.onValueChanged.AddListener(setResolution);
     }
 
     public void setResolution(int index)
