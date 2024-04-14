@@ -6,25 +6,13 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    private static int level = 1;
+    private int level = 1; // Non-static level variable
     public TextMeshProUGUI levelUI;
     public TextMeshProUGUI playerLevelUI;
     private float timeSinceLastIncrement = 0f;
     private const float levelDuration = 30f;
 
     public static Level Instance { get; private set; }
-
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     void Start()
     {
         levelUI.text = "Level: " + level.ToString();
@@ -66,7 +54,7 @@ public class Level : MonoBehaviour
         playerLevelUI.gameObject.SetActive(false);
     }
 
-    public static int GetLevel()
+    public int GetLevel() // Updated method
     {
         return level;
     }
