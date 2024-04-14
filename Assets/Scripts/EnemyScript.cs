@@ -27,7 +27,7 @@ public class EnemyScript : MonoBehaviour
     private float attackTimer; // Timer for tracking cooldown
     bool facingRight = true;
     public Slider slider;
-    private float timeUntilFlip = 0.5f;
+    private float timeUntilFlip = 0.25f;
 
     //Animation states
     string currentState;
@@ -76,7 +76,7 @@ public class EnemyScript : MonoBehaviour
     private void FixedUpdate()
     {
         lastPosition = transform.position;
-        bool isMoving = Vector3.Distance(transform.position, lastPosition) > 0.001f;
+        bool isMoving = Vector3.Distance(transform.position, lastPosition) > 0.1f;
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
         float moveX = direction.x;
@@ -95,10 +95,9 @@ public class EnemyScript : MonoBehaviour
             float attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("AttackComplete",attackDelay);
         }
-        else if(isRunning == true){
+        else if(isRunning){
             ChangeAnimationState(ENEMY_RUN);
-            float RunDelay = anim.GetCurrentAnimatorStateInfo(0).length;
-            Invoke("RunComplete",RunDelay);
+            Invoke("RunComplete",0f);
         }
         else
         {
@@ -136,11 +135,11 @@ public class EnemyScript : MonoBehaviour
 
     private void Swarm()
     {
-        float minimumDistance = 2.0f; // Adjust this value as needed
+        float minimumDistance = 1f; // Adjust this value as needed
         if (Vector2.Distance(transform.position, player.transform.position) > minimumDistance)
         {
             isRunning = true;
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x,player.transform.position.y + 0.5f), speed * Time.deltaTime);
         }
     }
     private void OnTriggerEnter2D(Collider2D collider)
@@ -229,6 +228,6 @@ public class EnemyScript : MonoBehaviour
 
     private void SetTimeUntilFlip()
     {
-        timeUntilFlip = 0.5f;
+        timeUntilFlip = 0.25f;
     }
 }
