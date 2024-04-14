@@ -15,18 +15,12 @@ public class MainMenu : MonoBehaviour
     public TMP_Text timePlayedText;
     public TMP_Text totalDamageDealt;
     private int gamesPlayed;
-    [SerializeField] private NotificationManager notification;
 
     void Start()
     {
         gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
         UpdateStats();
     }
-    void Update()
-    {
-
-    }
-
     public void PlayButton()
     {
         SceneManager.LoadScene("Default");

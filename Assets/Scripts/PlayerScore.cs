@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using Michsky.MUIP;
 
 public class PlayerScore : MonoBehaviour
 {
@@ -17,9 +18,13 @@ public class PlayerScore : MonoBehaviour
     public TextMeshProUGUI newHighScoreUI;
     public bool highScoreBeaten = false;
 
+    [SerializeField]
+    private NotificationManager newAchievement;
+
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.SetInt("Born to kill", 0);
         score = 0;
         scoreMultiplier = 1;
         scoreUI.text = "Score: 0";
@@ -50,6 +55,11 @@ public class PlayerScore : MonoBehaviour
         totalEnemiesKilled++;
         PlayerPrefs.SetInt("TotalEnemiesKilled", totalEnemiesKilled);
         PlayerPrefs.Save();
+        if (PlayerPrefs.GetInt("TotalEnemiesKilled", 0) == 1 && PlayerPrefs.GetInt("Born to kill", 0) == 0)
+        {
+            PlayerPrefs.SetInt("Born to kill", 1);
+            newAchievement.Open();
+        }
         // Increase score and reset timer when an enemy is killed
         score += scoreForBasicEnemy * scoreMultiplier;
         CheckHighScore();
