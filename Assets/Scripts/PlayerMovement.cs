@@ -11,7 +11,6 @@ public class Movement : MonoBehaviour
     private Vector3 moveDirectionAnim;
     bool facingRight = true;
     private bool isDead = false;
-    private bool isHurt = false;
 
     // Update is called once per frame
     void Start()
