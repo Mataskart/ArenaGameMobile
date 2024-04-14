@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -736.39215, y: -290.62494}
+  m_AnchoredPosition: {x: -735.74, y: -290.59}
   m_SizeDelta: {x: 98.9437, y: 19.1725}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1404758801859045397
@@ -134,9 +134,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494972512438636988}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.33, y: -0.63, z: 0.032372735}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 0.125}
+  m_LocalScale: {x: 0.10000001, y: 0.10000001, z: 0.10000001}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2379439781358974699}
@@ -183,7 +183,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1580326561, guid: d2e57ddafdac04c468141595247ae36a, type: 3}
+  m_Sprite: {fileID: 1666881902, guid: fe7ed626d175a1d4d88ff75162990e86, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -234,8 +234,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  damage: 5
-  speed: 1.5
+  damage: 45
+  speed: 2.5
   attackCooldown: 1
   initialAttackDelay: 1
   data: {fileID: 11400000, guid: e00c7ff90e2f6444d84331f36f084653, type: 2}
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6782f79ece0ed344b91e38d59a4e5655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 350
   currentHealth: 0
   healthBar: {fileID: 0}
   floatingHealthBar: {fileID: 0}
@@ -268,7 +268,7 @@ Animator:
   m_GameObject: {fileID: 1494972512438636988}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2b44e617884bfa6479b61c9bb13a3139, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3e5d7e2d682f9ee49803dd737e822d3c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -324,17 +324,17 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -2.11074, y: -13.036143}
-      - {x: 6.829099, y: -12.983379}
-      - {x: 6.7617702, y: 0.20377839}
-      - {x: -0.9047363, y: 0.29607373}
-      - {x: -2.9654984, y: 1.1550881}
-      - {x: -4.0975657, y: 0.63548696}
-      - {x: -4.8459826, y: -0.0199942}
-      - {x: -5.4451933, y: -3.0377378}
-      - {x: -5.8124557, y: -5.8668675}
-      - {x: -5.688729, y: -9.079688}
-      - {x: -5.604293, y: -13.005678}
-      - {x: -3.6355913, y: -13.173615}
+      - {x: 9.394273, y: -13.160286}
+      - {x: 8.619312, y: 0.38068497}
+      - {x: 3.0757093, y: 0.47298312}
+      - {x: 0.21884799, y: 0.5359066}
+      - {x: -1.7977579, y: -0.16060108}
+      - {x: -3.0769, y: -0.55071956}
+      - {x: -3.6761105, y: -2.418562}
+      - {x: -4.397186, y: -4.451604}
+      - {x: -4.008102, y: -6.602968}
+      - {x: -2.86221, y: -9.467513}
+      - {x: -2.7510471, y: -12.908253}
   m_UseDelaunayMesh: 0
 --- !u!60 &2093134338967005476
 PolygonCollider2D:
@@ -381,13 +381,13 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -2.1022797, y: -5.000965}
-      - {x: -3.4784737, y: -5.17568}
-      - {x: -4.5799417, y: -5.21907}
-      - {x: -4.933158, y: -7.385577}
-      - {x: -4.5262938, y: -12.799998}
-      - {x: 0.018108845, y: -12.829603}
-      - {x: -0.27618623, y: -7.155414}
-      - {x: -0.5160136, y: -4.3999767}
+      - {x: -2.2401164, y: -5.17568}
+      - {x: -3.2531285, y: -5.3959765}
+      - {x: -3.1640697, y: -7.2086706}
+      - {x: -2.049574, y: -12.446185}
+      - {x: 2.8486478, y: -12.918059}
+      - {x: 3.1735342, y: -8.305321}
+      - {x: 2.8452508, y: -5.0191526}
   m_UseDelaunayMesh: 0
 --- !u!1 &2785616717475930877
 GameObject:

@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 237888ad4efd6114e870cedbcd0c97dd
-      internalID: 604270564
+      spriteID: dbde4f8ee8388c240afc0f4dbbb0f228
+      internalID: 1630808116
       vertices: []
       indices: 
       edges: []
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7063e948199864d47be6c8d5552bfe65
-      internalID: -384966620
+      spriteID: dd6c36b0dd6438c4e93fe9b64e171d05
+      internalID: 187184614
       vertices: []
       indices: 
       edges: []
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 833fb56582956e84389d0cf85048a232
-      internalID: 1547871890
+      spriteID: 15fb4d51109ae8d4f8477ebd61c7a531
+      internalID: 2137067409
       vertices: []
       indices: 
       edges: []
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 389f3b599b1acbc4180aab3533604071
-      internalID: 1768643944
+      spriteID: a87338ebd3ee92d4f85712a34d6b06f2
+      internalID: -2146562856
       vertices: []
       indices: 
       edges: []
@@ -208,29 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88ec3829975c8cc45add28d3041e4edf
-      internalID: -353755304
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dead_5
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 679b599b86ea1d841b7458510105ee16
-      internalID: -1594007821
+      spriteID: 99348a1392941d64589636ed635c229f
+      internalID: -1158778349
       vertices: []
       indices: 
       edges: []
@@ -246,12 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Dead_0: 604270564
-      Dead_1: -384966620
-      Dead_2: 1547871890
-      Dead_3: 1768643944
-      Dead_4: -353755304
-      Dead_5: -1594007821
+      Dead_0: 1630808116
+      Dead_1: 187184614
+      Dead_2: 2137067409
+      Dead_3: -2146562856
+      Dead_4: -1158778349
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

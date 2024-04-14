@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c59f195b060e4f429193b827b3a6c73, type: 3}
-  m_Name: EnemyStatSetting
+  m_Name: Type2_Settings
   m_EditorClassIdentifier: 
-  hp: 35
-  damage: 15
-  speed: 1.5
+  hp: 85
+  damage: 35
+  speed: 2

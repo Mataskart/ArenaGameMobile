@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e3740f463a8a00744abd06ab57a827ae
-      internalID: -975363244
+      spriteID: 71e95c0d1eeb7e44fa98951542c98335
+      internalID: -2011352787
       vertices: []
       indices: 
       edges: []
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 062a7935bf5b5224a981ea838832aa01
-      internalID: 1709815945
+      spriteID: b284a777f0ca62346aaffc91d90859b6
+      internalID: 1527356243
       vertices: []
       indices: 
       edges: []
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21340431bbb5ba74ba1102275ff747e7
-      internalID: -919259829
+      spriteID: 16ce75f90962f3345b20a5c64a2f96b3
+      internalID: -804081320
       vertices: []
       indices: 
       edges: []
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ba54ded994ee63743a54c492d987d620
-      internalID: -812180172
+      spriteID: 790e587aa386d27429243be921e98026
+      internalID: -585350895
       vertices: []
       indices: 
       edges: []
@@ -208,8 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da66020d43cc4c741900f942304f0dec
-      internalID: -221456725
+      spriteID: 5a6ae481d65fd1b419963842d8d08c03
+      internalID: 1467973412
       vertices: []
       indices: 
       edges: []
@@ -225,11 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Hurt_0: -975363244
-      Hurt_1: 1709815945
-      Hurt_2: -919259829
-      Hurt_3: -812180172
-      Hurt_4: -221456725
+      Hurt_0: -2011352787
+      Hurt_1: 1527356243
+      Hurt_2: -804081320
+      Hurt_3: -585350895
+      Hurt_4: 1467973412
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
