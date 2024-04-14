@@ -81,9 +81,10 @@ public class Health : MonoBehaviour
         else
         {
             // Trigger the hurt animation here
-            if (animator != null)
+            if (animator != null && GetComponent<EnemyScript>() != null)
             {
-                animator.SetTrigger("isHurt"); // Set the "isHurt" trigger
+                EnemyScript enemyScript = GetComponent<EnemyScript>();
+                enemyScript.HurtAnim(); // Set the "isHurt" trigger
             }
         }
         

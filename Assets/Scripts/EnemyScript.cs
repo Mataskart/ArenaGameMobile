@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Unity.PlasticSCM.Editor.WebApi;
 
 public class EnemyScript : MonoBehaviour
 {
@@ -12,9 +13,9 @@ public class EnemyScript : MonoBehaviour
     public static event Action<EnemyScript> OnEnemyKilled;
 
     [SerializeField]
-    private int damage = 5;
+    private int damage;
     [SerializeField]
-    private float speed = 1.5f;
+    private float speed;
     [SerializeField]
     private float attackCooldown = 0.5f; // Cooldown period in seconds
     [SerializeField]
@@ -24,11 +25,22 @@ public class EnemyScript : MonoBehaviour
     private EnemyData data;
     private GameObject player;
     private float attackTimer; // Timer for tracking cooldown
-    private bool firstContact = false; // Flag for tracking first contact with player
     bool facingRight = true;
-    private bool isDead = false;
-    private bool isHurt = false;
     public Slider slider;
+    private float timeUntilFlip = 0.5f;
+
+    //Animation states
+    string currentState;
+    const string ENEMY_IDLE = "idle";
+    const string ENEMY_RUN = "run";
+    const string ENEMY_ATTACK = "attack";
+    private bool isAttacking = false;
+    const string ENEMY_DEAD = "dead";
+    private bool isDead = false;
+    const string ENEMY_PRE_ATTACK = "preAttack";
+    private bool isPreAttacking = false;
+    const string ENEMY_TAKE_DAMAGE = "takeDamage";
+    private bool isHurt = false;
 
     // Start is called before the first frame update
     void Start()
@@ -47,32 +59,64 @@ public class EnemyScript : MonoBehaviour
 
         if (isDead)
         {
-            // If the enemy is dead, maybe prevent further actions or movement
-            //anim.SetBool("isDead", true); // Trigger death animation
             slider.gameObject.SetActive(false);
-            return; // Skip the rest of the update
-        }
-
-        if (isHurt)
-        {
-            anim.SetBool("isHurt", true);
-            isHurt = false; // Reset the isHurt flag after triggering the animation            
-        }
-        else
-        {
-            anim.SetBool("isHurt", false);
+            return;
         }
 
         Swarm();
-        // Reduce the timer by the time passed since the last frame
+
         if (attackTimer > 0)
         {
             attackTimer -= Time.deltaTime;
         }
-        // Add a small jitter to the enemy's position
+
         transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-0.001f, 0.001f), transform.position.y + UnityEngine.Random.Range(-0.001f, 0.001f));
     }
 
+    private void FixedUpdate()
+    {
+        Vector2 direction = player.transform.position - transform.position;
+        direction.Normalize();
+        float moveX = direction.x;
+        float moveY = direction.y;
+        moveDirectionAnim = new Vector3(moveX, 0, moveY);
+        if(isDead == true){
+            ChangeAnimationState(ENEMY_DEAD);
+        }
+        else if(isHurt == true){
+            ChangeAnimationState(ENEMY_ATTACK);
+            float hurtDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+            Invoke("HurtComplete",hurtDelay);
+        }
+        else if(isAttacking == true){
+            ChangeAnimationState(ENEMY_ATTACK);
+            float attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+            Invoke("AttackComplete",attackDelay);
+        }
+        else if (moveDirectionAnim == Vector3.zero)
+        {
+            ChangeAnimationState(ENEMY_IDLE);
+        }
+        else
+        {
+            ChangeAnimationState(ENEMY_RUN);
+        }
+        timeUntilFlip -= Time.deltaTime;
+        if(timeUntilFlip <= 0)
+        {
+            if (moveX > 0 && !facingRight && attackTimer <= 0)
+            {
+                Flip();
+            }
+
+            if (moveX < 0 && facingRight && attackTimer <= 0)
+            {
+                Flip();
+            }
+            SetTimeUntilFlip();
+        }
+
+    }
     private void SetEnemyValues()
     {
         GetComponent<Health>().SetHealth(data.hp, data.hp);
@@ -83,56 +127,29 @@ public class EnemyScript : MonoBehaviour
 
     private void Swarm()
     {
-        //slider.transform.localPosition = new Vector3(0f, 3f, 0f);
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        Vector2 direction = player.transform.position - transform.position;
-        direction.Normalize();
-        float moveX = direction.x;
-        float moveY = direction.y;
-        if (moveX > 0 && !facingRight && attackTimer <= 0)
-        {
-            Flip();
-        }
-
-        if (moveX < 0 && facingRight && attackTimer <= 0)
-        {
-            Flip();
-        }
-        moveDirectionAnim = new Vector3(moveX, 0, moveY);
-        if (moveDirectionAnim == Vector3.zero)
-        {
-            anim.SetFloat("Speed", 0);
-            anim.SetBool("isMoving", false);
-        }
-        else
-        {
-            anim.SetFloat("Speed", 0.1f);
-            anim.SetBool("isMoving", true);
-        }
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.CompareTag("Player"))
         {
-            firstContact = true;
             attackTimer = initialAttackDelay; // Set the timer to the initial delay
         }
     }
     
     private void OnTriggerStay2D(Collider2D collider)
-{
+    {
     if(collider.CompareTag("Player"))
     {
         if(collider.GetComponent<Health>() != null && attackTimer <= 0)
         {
             collider.GetComponent<Health>().TakeDamage(damage);
-            isHurt = true;
-            anim.SetBool("isAttacking", true);
+            isAttacking = true;
             attackTimer = attackCooldown; // Reset the timer to the regular cooldown
         }
             else if (attackTimer > 0)
             {
-                anim.SetTrigger("readyToAttack");
+                isPreAttacking = true;
             }
         }
     }
@@ -146,11 +163,6 @@ public class EnemyScript : MonoBehaviour
         {
             isDead = true;
             Debug.Log("health <- 0."); // This will print a message to the Unity Console
-
-            anim.SetBool("isAttacking", false);
-            anim.SetBool("isMoving", false);
-            anim.SetBool("isHurt", false);
-            anim.SetBool("isDead", true); // Trigger death animation
             speed = 0; // Stop moving
 
             // disable all colliders so that the corpse cannot be interacted with
@@ -163,11 +175,19 @@ public class EnemyScript : MonoBehaviour
             OnEnemyKilled?.Invoke(this);
             Destroy(gameObject, 3f); // Destroy after 3 seconds
         }
+    }   
+    public void HurtAnim()
+    {
+        isHurt = true;
     }
 
-    public void endAttack()
+    public void AttackComplete()
     {
-        anim.SetBool("isAttacking", false);
+        isAttacking = false;
+    }
+    public void HurtComplete()
+    {
+        isHurt = false;
     }
 
     void Flip()
@@ -179,4 +199,14 @@ public class EnemyScript : MonoBehaviour
         facingRight = !facingRight;
     }
 
+    void ChangeAnimationState(string newState){
+        if(currentState == newState) return;
+        anim.Play(newState);
+        currentState = newState;
+    }
+
+    private void SetTimeUntilFlip()
+    {
+        timeUntilFlip = 0.5f;
+    }
 }
