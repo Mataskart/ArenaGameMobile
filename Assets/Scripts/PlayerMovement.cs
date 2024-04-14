@@ -25,6 +25,7 @@ public class Movement : MonoBehaviour
             anim.SetBool("isDead", true); // Trigger death animation
             return; // Skip the rest of the update
         }
+        transform.position = new Vector2(transform.position.x + Random.Range(-0.00001f, 0.00001f), transform.position.y + Random.Range(-0.00001f, 0.00001f));
         ProcessInputs();
         Move();
     }

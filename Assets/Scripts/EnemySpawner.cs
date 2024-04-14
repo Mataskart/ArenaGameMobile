@@ -9,6 +9,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private GameObject Type1_EnemyPrefab;
     [SerializeField]
+    private GameObject Type2_EnemyPrefab;
+    [SerializeField]
     private float minimumSpawnTime;
     [SerializeField]
     private float maximumSpawnTime;
@@ -20,10 +22,20 @@ public class EnemySpawner : MonoBehaviour
     }
     void Update()
     {
+        GameObject selected;
+        GameObject levelObject = GameObject.Find("Player");
+        Level levelScript = levelObject.GetComponent<Level>();
+        int level = levelScript.GetLevel();
         timeUntilSpawn -= Time.deltaTime;
         if(timeUntilSpawn <= 0)
-        {
-            Instantiate(Type1_EnemyPrefab,new Vector3(Random.Range(-5f,5),Random.Range(-6f,6),0),Quaternion.identity);
+        {   
+            if(level == 1){
+            selected = Type1_EnemyPrefab;
+            }
+            else{
+            selected = Type2_EnemyPrefab;
+            }
+            Instantiate(selected,new Vector3(Random.Range(-5f,5),Random.Range(-6f,6),0),Quaternion.identity);
             SetTimeUntilSpawn();
         }
     }
