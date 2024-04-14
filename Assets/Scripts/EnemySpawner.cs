@@ -1,26 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject Type1_EnemyPrefab;
-
     [SerializeField]
-    private float Type1_EnemyInterval = 5f;
+    private float minimumSpawnTime;
+    [SerializeField]
+    private float maximumSpawnTime;
+    private float timeUntilSpawn;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake(){
+        SetTimeUntilSpawn();
+    }
+    void Update()
     {
-        StartCoroutine(spawnEnemy(Type1_EnemyInterval, Type1_EnemyPrefab));
+        timeUntilSpawn -= Time.deltaTime;
+        if(timeUntilSpawn <= 0)
+        {
+            Instantiate(Type1_EnemyPrefab,new Vector3(Random.Range(-5f,5),Random.Range(-6f,6),0),Quaternion.identity);
+            SetTimeUntilSpawn();
+        }
     }
 
-    private IEnumerator spawnEnemy(float interval, GameObject enemy)
+    private void SetTimeUntilSpawn()
     {
-        yield return new WaitForSeconds(interval);
-        GameObject newEnemy = Instantiate(enemy, new Vector3(Random.Range(-5f, 5f), Random.Range(-6f, 6f), 0), Quaternion.identity);
-
-        StartCoroutine(spawnEnemy(interval, enemy));
+        timeUntilSpawn = Random.Range(minimumSpawnTime,maximumSpawnTime);
     }
+
 }

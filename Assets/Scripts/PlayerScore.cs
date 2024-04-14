@@ -11,7 +11,7 @@ public class PlayerScore : MonoBehaviour
     private int scoreMultiplier; // Multiplier for score, starts at 1x and doubles up to 8x, degrades back to 1x after 5 seconds of no kills
     private float scoreMultiplierTimer; // Timer for tracking score multiplier duration
     private int scoreForBasicEnemy = 10;
-    private int scoreForBossEnemy = 100;
+    //private int scoreForBossEnemy = 100;
     public TextMeshProUGUI scoreUI;
     public TextMeshProUGUI highScoreUI;
     public TextMeshProUGUI newHighScoreUI;
