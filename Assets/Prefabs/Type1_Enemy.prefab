@@ -116,7 +116,6 @@ GameObject:
   - component: {fileID: 7111304449767523900}
   - component: {fileID: 8923902280215632530}
   - component: {fileID: -2250731894395932651}
-  - component: {fileID: 8864421430480320598}
   - component: {fileID: 8391611063306470104}
   - component: {fileID: 7372319402852748299}
   - component: {fileID: 2093134338967005476}
@@ -258,53 +257,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   floatingHealthBar: {fileID: 0}
   youDied: {fileID: 0}
-  animator: {fileID: 0}
   slider: {fileID: 1404758801859045397}
---- !u!61 &8864421430480320598
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1494972512438636988}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 25.6, y: 25.6}
-    newSize: {x: 2, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 8, y: 7}
-  m_EdgeRadius: 0
 --- !u!95 &8391611063306470104
 Animator:
   serializedVersion: 5
@@ -370,26 +323,18 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -2.6000001, y: -9.2}
-      - {x: -3.2, y: -6.4}
-      - {x: -1.2, y: -5.4}
-      - {x: -1.2, y: -4.2000003}
+    - - {x: -3.7, y: -9.2}
+      - {x: -3.46, y: -6.4}
       - {x: -3.2, y: -3.4}
-      - {x: -3.4, y: 0.2}
-      - {x: -5.4, y: 1.4}
-      - {x: -7.2000003, y: 1.4}
-      - {x: -7.6, y: 0.8}
-      - {x: -9.2, y: -2.6000001}
-      - {x: -9.2, y: -4.6}
-      - {x: -12.8, y: -4.2000003}
-      - {x: -12.8, y: -5.8}
-      - {x: -12.2, y: -6.2000003}
-      - {x: -9, y: -6.4}
-      - {x: -9, y: -8.6}
-      - {x: -8.400001, y: -12.8}
-      - {x: -3, y: -12.8}
-      - {x: -2.8, y: -12.400001}
-      - {x: -4, y: -11.6}
+      - {x: -3.68, y: 0.2}
+      - {x: -5.37, y: 1.4}
+      - {x: -7.09, y: 1.4}
+      - {x: -7.81, y: 0.8}
+      - {x: -8.6, y: -2.6000001}
+      - {x: -9.2, y: -6.4}
+      - {x: -9.24, y: -8.6}
+      - {x: -8.32, y: -12.8}
+      - {x: -3.8, y: -12.79}
   m_UseDelaunayMesh: 0
 --- !u!60 &2093134338967005476
 PolygonCollider2D:
@@ -435,26 +380,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -2.6000001, y: -9.2}
-      - {x: -3.2, y: -6.4}
-      - {x: -1.2, y: -5.4}
-      - {x: -1.2, y: -4.2000003}
-      - {x: -3.2, y: -3.4}
-      - {x: -3.4, y: 0.2}
-      - {x: -5.4, y: 1.4}
-      - {x: -7.2000003, y: 1.4}
-      - {x: -7.6, y: 0.8}
-      - {x: -9.2, y: -2.6000001}
-      - {x: -9.2, y: -4.6}
-      - {x: -12.8, y: -4.2000003}
-      - {x: -12.8, y: -5.8}
-      - {x: -12.2, y: -6.2000003}
-      - {x: -9, y: -6.4}
-      - {x: -9, y: -8.6}
-      - {x: -8.400001, y: -12.8}
-      - {x: -3, y: -12.8}
-      - {x: -2.8, y: -12.400001}
-      - {x: -4, y: -11.6}
+    - - {x: -5, y: 1.26}
+      - {x: -7.32, y: 1.18}
+      - {x: -8.64, y: -4.6}
+      - {x: -8.5, y: -8.6}
+      - {x: -7.97, y: -12.8}
+      - {x: -4, y: -12.72}
+      - {x: -3.91, y: -9.52}
+      - {x: -4.07, y: -4.63}
   m_UseDelaunayMesh: 0
 --- !u!1 &2785616717475930877
 GameObject:

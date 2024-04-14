@@ -86,6 +86,7 @@ public class Health : MonoBehaviour
                 animator.SetTrigger("isHurt"); // Set the "isHurt" trigger
             }
         }
+        
 
         if (healthBar != null)
         {

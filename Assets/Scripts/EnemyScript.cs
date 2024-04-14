@@ -48,7 +48,7 @@ public class EnemyScript : MonoBehaviour
         if (isDead)
         {
             // If the enemy is dead, maybe prevent further actions or movement
-            anim.SetBool("isDead", true); // Trigger death animation
+            //anim.SetBool("isDead", true); // Trigger death animation
             slider.gameObject.SetActive(false);
             return; // Skip the rest of the update
         }
@@ -78,6 +78,7 @@ public class EnemyScript : MonoBehaviour
         GetComponent<Health>().SetHealth(data.hp, data.hp);
         damage = data.damage;
         speed = data.speed;
+        slider.maxValue = data.hp;
     }
 
     private void Swarm()
@@ -117,31 +118,34 @@ public class EnemyScript : MonoBehaviour
             attackTimer = initialAttackDelay; // Set the timer to the initial delay
         }
     }
+    
     private void OnTriggerStay2D(Collider2D collider)
+{
+    if(collider.CompareTag("Player"))
     {
-        if (collider.CompareTag("Player"))
+        if(collider.GetComponent<Health>() != null && attackTimer <= 0)
         {
-            if (collider.GetComponent<Health>() != null && attackTimer <= 0)
-            {
-                collider.GetComponent<Health>().TakeDamage(damage);
-                isHurt = true;
-                anim.SetBool("isAttacking", true);
-                if (firstContact)
-                {
-                    firstContact = false; // Reset the flag
-                    attackTimer = attackCooldown; // Reset the timer to the regular cooldown
-                }
-            }
+            collider.GetComponent<Health>().TakeDamage(damage);
+            isHurt = true;
+            anim.SetBool("isAttacking", true);
+            attackTimer = attackCooldown; // Reset the timer to the regular cooldown
         }
     }
+}
 
     public void CheckDeath()
     {
+        Debug.Log("CheckDeath() has been called."); // This will print a message to the Unity Console
         if (isDead) return; // If the enemy is already dead, exit the method
 
         if (GetComponent<Health>().currentHealth <= 0)
         {
             isDead = true;
+            Debug.Log("health <- 0."); // This will print a message to the Unity Console
+
+            anim.SetBool("isAttacking", false);
+            anim.SetBool("isMoving", false);
+            anim.SetBool("isHurt", false);
             anim.SetBool("isDead", true); // Trigger death animation
             speed = 0; // Stop moving
 
