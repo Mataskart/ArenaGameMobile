@@ -4182,13 +4182,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Type1_Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 2285836538130919960, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 1494972512438636988, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2285836538130919960, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2285836538130919960, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3213671499609400313, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4229,22 +4233,6 @@ PrefabInstance:
     - target: {fileID: 3213671499609400313, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7372319402852748299, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
-      value: 6.829099
-      objectReference: {fileID: 0}
-    - target: {fileID: 7372319402852748299, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
-      value: -12.983379
-      objectReference: {fileID: 0}
-    - target: {fileID: 7372319402852748299, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
-      value: 6.7617702
-      objectReference: {fileID: 0}
-    - target: {fileID: 7372319402852748299, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
-      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
-      value: 0.20377839
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4403,7 +4391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &878913949
 Transform:
   m_ObjectHideFlags: 0
@@ -4432,6 +4420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type1_EnemyPrefab: {fileID: 1494972512438636988, guid: 5c693e78675ea0641a70de1626a93333, type: 3}
+  Type2_EnemyPrefab: {fileID: 1494972512438636988, guid: 2272bc41070a521498f241e8e56e3427, type: 3}
   minimumSpawnTime: 0.3
   maximumSpawnTime: 2.3
 --- !u!1 &958008514
