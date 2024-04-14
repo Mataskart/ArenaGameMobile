@@ -130,8 +130,12 @@ public class EnemyScript : MonoBehaviour
             anim.SetBool("isAttacking", true);
             attackTimer = attackCooldown; // Reset the timer to the regular cooldown
         }
+            else if (attackTimer > 0)
+            {
+                anim.SetTrigger("readyToAttack");
+            }
+        }
     }
-}
 
     public void CheckDeath()
     {
