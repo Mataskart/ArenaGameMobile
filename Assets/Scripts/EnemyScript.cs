@@ -8,7 +8,7 @@ using Unity.PlasticSCM.Editor.WebApi;
 public class EnemyScript : MonoBehaviour
 {
     public Animator anim;
-    private Vector3 moveDirectionAnim;
+    private Vector2 moveDirectionAnim;
 
     public static event Action<EnemyScript> OnEnemyKilled;
 
@@ -33,6 +33,7 @@ public class EnemyScript : MonoBehaviour
     string currentState;
     const string ENEMY_IDLE = "idle";
     const string ENEMY_RUN = "run";
+    private bool isRunning = false;
     const string ENEMY_ATTACK = "attack";
     private bool isAttacking = false;
     const string ENEMY_DEAD = "dead";
@@ -41,6 +42,7 @@ public class EnemyScript : MonoBehaviour
     private bool isPreAttacking = false;
     const string ENEMY_TAKE_DAMAGE = "takeDamage";
     private bool isHurt = false;
+    Vector3 lastPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -69,22 +71,22 @@ public class EnemyScript : MonoBehaviour
         {
             attackTimer -= Time.deltaTime;
         }
-
-        transform.position = new Vector2(transform.position.x + UnityEngine.Random.Range(-0.001f, 0.001f), transform.position.y + UnityEngine.Random.Range(-0.001f, 0.001f));
     }
 
     private void FixedUpdate()
     {
+        lastPosition = transform.position;
+        bool isMoving = Vector3.Distance(transform.position, lastPosition) > 0.001f;
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
         float moveX = direction.x;
         float moveY = direction.y;
-        moveDirectionAnim = new Vector3(moveX, 0, moveY);
+        moveDirectionAnim = new Vector2(moveX, moveY);
         if(isDead == true){
             ChangeAnimationState(ENEMY_DEAD);
         }
         else if(isHurt == true){
-            ChangeAnimationState(ENEMY_ATTACK);
+            ChangeAnimationState(ENEMY_TAKE_DAMAGE);
             float hurtDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("HurtComplete",hurtDelay);
         }
@@ -93,13 +95,20 @@ public class EnemyScript : MonoBehaviour
             float attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("AttackComplete",attackDelay);
         }
-        else if (moveDirectionAnim == Vector3.zero)
-        {
-            ChangeAnimationState(ENEMY_IDLE);
+        else if(isRunning == true){
+            ChangeAnimationState(ENEMY_RUN);
+            float RunDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+            Invoke("RunComplete",RunDelay);
         }
         else
         {
-            ChangeAnimationState(ENEMY_RUN);
+            if(isPreAttacking == true){
+            ChangeAnimationState(ENEMY_PRE_ATTACK);
+            float PreAttackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+            Invoke("PreAttackComplete",PreAttackDelay);
+            }
+            else if(!isMoving)
+                ChangeAnimationState(ENEMY_IDLE);
         }
         timeUntilFlip -= Time.deltaTime;
         if(timeUntilFlip <= 0)
@@ -127,7 +136,12 @@ public class EnemyScript : MonoBehaviour
 
     private void Swarm()
     {
+        float minimumDistance = 2.0f; // Adjust this value as needed
+        if (Vector2.Distance(transform.position, player.transform.position) > minimumDistance)
+        {
+            isRunning = true;
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -184,6 +198,14 @@ public class EnemyScript : MonoBehaviour
     public void AttackComplete()
     {
         isAttacking = false;
+    }
+    public void RunComplete()
+    {
+        isRunning = false;
+    }
+    public void PreAttackComplete()
+    {
+        isPreAttacking = false;
     }
     public void HurtComplete()
     {
