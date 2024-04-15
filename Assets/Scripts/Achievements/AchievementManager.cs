@@ -7,6 +7,8 @@ using System;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEditor;
+using System.Linq;
+
 using TMPro;
 public class AchievementManager : MonoBehaviour
 {
@@ -52,7 +54,8 @@ public class AchievementManager : MonoBehaviour
                 achievement.row1.rowType = ListView.RowType.Text;
                 achievement.row2.rowType = ListView.RowType.Text;
                 achievement.row0.rowIcon = achievements.achievementSpriteBW;
-                achievement.row1.rowText = achievements.achievementTitle;
+                string titleModified = ShuffleString(achievements.achievementTitle);
+                achievement.row1.rowText = titleModified;
                 achievement.row2.rowText = achievements.achievementShortDescription;
 
                 achievementsListView.listItems.Add(achievement);
@@ -89,5 +92,21 @@ public class AchievementManager : MonoBehaviour
         }
         string completed = "COMPLETED " + completedCount.ToString() + " / " + achievementsDb.AchievementCount.ToString();
         return completed;
+    }
+
+    private string ShuffleString(string str)
+    {
+        System.Random rng = new System.Random();
+        char[] array = str.ToCharArray();
+        int n = array.Length;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            var value = array[k];
+            array[k] = array[n];
+            array[n] = value;
+        }
+        return new string(array);
     }
 }
