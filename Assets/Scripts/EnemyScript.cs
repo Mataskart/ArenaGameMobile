@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using Unity.PlasticSCM.Editor.WebApi;
 
 public class EnemyScript : MonoBehaviour
 {
@@ -82,35 +81,40 @@ public class EnemyScript : MonoBehaviour
         float moveX = direction.x;
         float moveY = direction.y;
         moveDirectionAnim = new Vector2(moveX, moveY);
-        if(isDead == true){
+        if (isDead == true)
+        {
             ChangeAnimationState(ENEMY_DEAD);
         }
-        else if(isHurt == true){
+        else if (isHurt == true)
+        {
             ChangeAnimationState(ENEMY_TAKE_DAMAGE);
             float hurtDelay = anim.GetCurrentAnimatorStateInfo(0).length;
-            Invoke("HurtComplete",hurtDelay);
+            Invoke("HurtComplete", hurtDelay);
         }
-        else if(isAttacking == true){
+        else if (isAttacking == true)
+        {
             ChangeAnimationState(ENEMY_ATTACK);
             float attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
-            Invoke("AttackComplete",attackDelay);
+            Invoke("AttackComplete", attackDelay);
         }
-        else if(isRunning){
+        else if (isRunning)
+        {
             ChangeAnimationState(ENEMY_RUN);
-            Invoke("RunComplete",0f);
+            Invoke("RunComplete", 0f);
         }
         else
         {
-            if(isPreAttacking == true){
-            ChangeAnimationState(ENEMY_PRE_ATTACK);
-            float PreAttackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
-            Invoke("PreAttackComplete",PreAttackDelay);
+            if (isPreAttacking == true)
+            {
+                ChangeAnimationState(ENEMY_PRE_ATTACK);
+                float PreAttackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+                Invoke("PreAttackComplete", PreAttackDelay);
             }
-            else if(!isMoving)
+            else if (!isMoving)
                 ChangeAnimationState(ENEMY_IDLE);
         }
         timeUntilFlip -= Time.deltaTime;
-        if(timeUntilFlip <= 0)
+        if (timeUntilFlip <= 0)
         {
             if (moveX > 0 && !facingRight && attackTimer <= 0)
             {
@@ -139,7 +143,7 @@ public class EnemyScript : MonoBehaviour
         if (Vector2.Distance(transform.position, player.transform.position) > minimumDistance)
         {
             isRunning = true;
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x,player.transform.position.y + 0.5f), speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x, player.transform.position.y + 0.5f), speed * Time.deltaTime);
         }
     }
     private void OnTriggerEnter2D(Collider2D collider)
@@ -149,17 +153,17 @@ public class EnemyScript : MonoBehaviour
             attackTimer = initialAttackDelay; // Set the timer to the initial delay
         }
     }
-    
+
     private void OnTriggerStay2D(Collider2D collider)
     {
-    if(collider.CompareTag("Player"))
-    {
-        if(collider.GetComponent<Health>() != null && attackTimer <= 0)
+        if (collider.CompareTag("Player"))
         {
-            collider.GetComponent<Health>().TakeDamage(damage);
-            isAttacking = true;
-            attackTimer = attackCooldown; // Reset the timer to the regular cooldown
-        }
+            if (collider.GetComponent<Health>() != null && attackTimer <= 0)
+            {
+                collider.GetComponent<Health>().TakeDamage(damage);
+                isAttacking = true;
+                attackTimer = attackCooldown; // Reset the timer to the regular cooldown
+            }
             else if (attackTimer > 0)
             {
                 isPreAttacking = true;
@@ -188,7 +192,7 @@ public class EnemyScript : MonoBehaviour
             OnEnemyKilled?.Invoke(this);
             Destroy(gameObject, 3f); // Destroy after 3 seconds
         }
-    }   
+    }
     public void HurtAnim()
     {
         isHurt = true;
@@ -220,8 +224,9 @@ public class EnemyScript : MonoBehaviour
         facingRight = !facingRight;
     }
 
-    void ChangeAnimationState(string newState){
-        if(currentState == newState) return;
+    void ChangeAnimationState(string newState)
+    {
+        if (currentState == newState) return;
         anim.Play(newState);
         currentState = newState;
     }

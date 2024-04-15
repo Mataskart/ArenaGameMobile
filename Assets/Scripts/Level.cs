@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using Michsky.MUIP;
 
 public class Level : MonoBehaviour
 {
@@ -11,8 +12,10 @@ public class Level : MonoBehaviour
     public TextMeshProUGUI playerLevelUI;
     private float timeSinceLastIncrement = 0f;
     private const float levelDuration = 30f;
-
     public static Level Instance { get; private set; }
+
+    [SerializeField]
+    private NotificationManager newAchievement;
     void Start()
     {
         levelUI.text = "Level: " + level.ToString();
@@ -25,6 +28,7 @@ public class Level : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckLvlAchievement();
         timeSinceLastIncrement += Time.deltaTime;
 
         if (timeSinceLastIncrement >= levelDuration)
@@ -57,5 +61,14 @@ public class Level : MonoBehaviour
     public int GetLevel() // Updated method
     {
         return level;
+    }
+
+    public void CheckLvlAchievement()
+    {
+        if (level == 3 && PlayerPrefs.GetInt("SURVIVAL I", 0) == 0)
+        {
+            PlayerPrefs.SetInt("SURVIVAL I", 1);
+            newAchievement.Open();
+        }
     }
 }

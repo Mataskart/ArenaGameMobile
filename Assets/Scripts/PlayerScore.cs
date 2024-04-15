@@ -24,7 +24,6 @@ public class PlayerScore : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("BORN TO KILL", 0);
         score = 0;
         scoreMultiplier = 1;
         scoreUI.text = "Score: 0";

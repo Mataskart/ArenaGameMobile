@@ -21,6 +21,11 @@ public class MainMenu : MonoBehaviour
         gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
         UpdateStats();
     }
+
+    void Update()
+    {
+        gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
+    }
     public void PlayButton()
     {
         SceneManager.LoadScene("Default");

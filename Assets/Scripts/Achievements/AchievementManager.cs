@@ -7,13 +7,15 @@ using System;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEditor;
-
+using TMPro;
 public class AchievementManager : MonoBehaviour
 {
     public AchievementsDatabase achievementsDb;
     public ListView achievementsListView;
+    public TextMeshProUGUI completedTxt;
     void Start()
     {
+        completedTxt.text = CountCompleted();
         LoadAchievements();
     }
 
@@ -22,9 +24,9 @@ public class AchievementManager : MonoBehaviour
         for (int i = 0; i < achievementsDb.AchievementCount; i++)
         {
             ListView.ListItem achievement = new ListView.ListItem();
-            Achievement achievments = achievementsDb.GetAchievement(i);
+            Achievement achievements = achievementsDb.GetAchievement(i);
 
-            bool completed = CheckIfCompleted(achievments);
+            bool completed = CheckIfCompleted(achievements);
 
             if (completed)
             {
@@ -35,10 +37,9 @@ public class AchievementManager : MonoBehaviour
                 achievement.row0.iconScale = 1.3f;
                 achievement.row1.rowType = ListView.RowType.Text;
                 achievement.row2.rowType = ListView.RowType.Text;
-                achievement.row0.rowIcon = achievments.achievementSpriteCompleted;
-                achievement.row1.rowText = achievments.achievementTitle;
-                achievement.row2.rowText = achievments.achievementShortDescription;
-
+                achievement.row0.rowIcon = achievements.achievementSpriteCompleted;
+                achievement.row1.rowText = achievements.achievementTitle;
+                achievement.row2.rowText = achievements.achievementShortDescription;
                 achievementsListView.listItems.Add(achievement);
             }
             else
@@ -50,13 +51,14 @@ public class AchievementManager : MonoBehaviour
                 achievement.row0.iconScale = 1.3f;
                 achievement.row1.rowType = ListView.RowType.Text;
                 achievement.row2.rowType = ListView.RowType.Text;
-                achievement.row0.rowIcon = achievments.achievementSpriteBW;
-                achievement.row1.rowText = achievments.achievementTitle;
-                achievement.row2.rowText = achievments.achievementShortDescription;
+                achievement.row0.rowIcon = achievements.achievementSpriteBW;
+                achievement.row1.rowText = achievements.achievementTitle;
+                achievement.row2.rowText = achievements.achievementShortDescription;
 
                 achievementsListView.listItems.Add(achievement);
             }
         }
+
         achievementsListView.InitializeItems();
     }
 
@@ -72,5 +74,20 @@ public class AchievementManager : MonoBehaviour
         {
             return false;
         }
+    }
+    private string CountCompleted()
+    {
+        int completedCount = 0;
+        for (int i = 0; i < achievementsDb.AchievementCount; i++)
+        {
+            Achievement achievement = achievementsDb.GetAchievement(i);
+
+            if (PlayerPrefs.GetInt(achievement.achievementTitle, 0) == 1)
+            {
+                completedCount++;
+            }
+        }
+        string completed = "COMPLETED " + completedCount.ToString() + " / " + achievementsDb.AchievementCount.ToString();
+        return completed;
     }
 }

@@ -25,7 +25,7 @@ MonoBehaviour:
     achievementShortDescription: KILL 10 ENEMIES WITHOUT LOSING HEALTH
     achievementSpriteCompleted: {fileID: 21300000, guid: 22a2b596027cfcf45922ba357dd20208, type: 3}
     achievementSpriteBW: {fileID: 21300000, guid: 3594468d737e45a4d9d75aa849bfd4f7, type: 3}
-  - achievementTitle: MASTER OF COMBAR
+  - achievementTitle: MASTER OF COMBAT
     achievementShortDescription: WIN A MATCH WITHOUT TAKING ANY DAMAGE
     achievementSpriteCompleted: {fileID: 21300000, guid: 0d800d3b382498b43903cac18dc893a8, type: 3}
     achievementSpriteBW: {fileID: 21300000, guid: ab9d2781efd55884398b0d994e8d7017, type: 3}
