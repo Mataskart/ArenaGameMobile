@@ -24,7 +24,7 @@ public class PlayerScore : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("Born to kill", 0);
+        PlayerPrefs.SetInt("BORN TO KILL", 0);
         score = 0;
         scoreMultiplier = 1;
         scoreUI.text = "Score: 0";
@@ -55,9 +55,9 @@ public class PlayerScore : MonoBehaviour
         totalEnemiesKilled++;
         PlayerPrefs.SetInt("TotalEnemiesKilled", totalEnemiesKilled);
         PlayerPrefs.Save();
-        if (PlayerPrefs.GetInt("TotalEnemiesKilled", 0) == 1 && PlayerPrefs.GetInt("Born to kill", 0) == 0)
+        if (PlayerPrefs.GetInt("TotalEnemiesKilled", 0) == 1 && PlayerPrefs.GetInt("BORN TO KILL", 0) == 0)
         {
-            PlayerPrefs.SetInt("Born to kill", 1);
+            PlayerPrefs.SetInt("BORN TO KILL", 1);
             newAchievement.Open();
         }
         // Increase score and reset timer when an enemy is killed
