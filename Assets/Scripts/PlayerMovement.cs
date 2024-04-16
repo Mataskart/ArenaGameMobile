@@ -6,12 +6,11 @@ public class Movement : MonoBehaviour
 {
     public float moveSpeed;
     public Rigidbody2D rb;
-    public Animator anim;
+    private Animator anim;
     private Vector2 moveDirection;
     private Vector3 moveDirectionAnim;
     bool facingRight = true;
     private bool isDead = false;
-    private bool isHurt = false;
 
     // Update is called once per frame
     void Start()
@@ -26,7 +25,7 @@ public class Movement : MonoBehaviour
             anim.SetBool("isDead", true); // Trigger death animation
             return; // Skip the rest of the update
         }
-        transform.position = new Vector2(transform.position.x + Random.Range(-0.001f, 0.001f), transform.position.y + Random.Range(-0.001f, 0.001f));
+        transform.position = new Vector2(transform.position.x + Random.Range(-0.00001f, 0.00001f), transform.position.y + Random.Range(-0.00001f, 0.00001f));
         ProcessInputs();
         Move();
     }
@@ -34,21 +33,22 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     { }
 
-    void ProcessInputs() {      
+    void ProcessInputs()
+    {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         if (moveX > 0 && !facingRight)
         {
             Flip();
         }
-        
-        if(moveX < 0 && facingRight)
+
+        if (moveX < 0 && facingRight)
         {
             Flip();
         }
 
         moveDirection = new Vector2(moveX, moveY).normalized;
-        moveDirectionAnim = new Vector3(moveX,0, moveY);
+        moveDirectionAnim = new Vector3(moveX, 0, moveY);
         if (moveDirectionAnim == Vector3.zero)
         {
             anim.SetFloat("Speed", 0);
@@ -81,5 +81,10 @@ public class Movement : MonoBehaviour
             anim.SetBool("isDead", true); // Trigger death animation
             Destroy(gameObject, 5f); // Destroy after 3 seconds
         }
+    }
+
+    public bool GetDeath()
+    {
+        return isDead;
     }
 }

@@ -6,37 +6,38 @@ public class PlayerAttack : MonoBehaviour
 {
     private GameObject attackArea = default;
     private float timeToAttack = 0.5f;
-    public Animator anim;
+    private Animator anim;
+    private bool isAttacking = false;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         attackArea = transform.GetChild(0).gameObject;
-        StartCoroutine(ContinuousAttack());
+        attackArea.SetActive(false);
     }
 
-    private IEnumerator ContinuousAttack()
+    // Update is called once per frame
+    void Update()
     {
-        while (true) // This will keep the coroutine running indefinitely
+        if (Input.GetKeyDown(KeyCode.Space) && !isAttacking)
         {
-            Attack();
-            yield return new WaitForSeconds(timeToAttack); // Wait for the specified time before attacking again
+            StartCoroutine(Attack());
         }
     }
 
-    private void Attack()
+    private IEnumerator Attack()
     {
+        isAttacking = true;
         anim.SetTrigger("isAttacking");
         attackArea.SetActive(true);
-        // You may want to add any additional attack logic here
-        StartCoroutine(DisableAttackAfterDelay());
-    }
+        // Add any additional attack logic here
 
-    private IEnumerator DisableAttackAfterDelay()
-    {
         yield return new WaitForSeconds(timeToAttack); // Wait for the specified time before disabling the attack
+
         attackArea.SetActive(false);
         anim.ResetTrigger("isAttacking");
+        isAttacking = false;
+
     }
 }

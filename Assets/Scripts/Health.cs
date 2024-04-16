@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
+using System.Security.Cryptography;
 
 public class Health : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
     public HealthBar healthBar;
+    public FloatingHealthBar floatingHealthBar;
     public TextMeshProUGUI youDied;
-    public Animator animator;
+    private Animator animator;
+    public Slider slider;
 
     // Start is called before the first frame update
     void Start()
@@ -20,21 +24,24 @@ public class Health : MonoBehaviour
         {
             healthBar.SetMaxHealth(maxHealth);
             healthBar.SetInteractable(false);
-            youDied = FindObjectOfType<TextMeshProUGUI>();
-            youDied.gameObject.SetActive(false);
+            //youDied.gameObject.SetActive(false);
         }
-         animator = GetComponent<Animator>();
+        if (slider != null)
+        {
+            slider.value = 100f;
+        }
+        animator = GetComponent<Animator>();
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-           // TakeDamage(20);
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-          //  Heal(7);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    // TakeDamage(20);
+        //}
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    //  Heal(7);
+        //}
     }
     public void SetHealth(int maxHealth, int health)
     {
@@ -45,10 +52,6 @@ public class Health : MonoBehaviour
     {
         Movement playerMovement = GetComponent<Movement>();
         currentHealth -= damage;
-        if (healthBar != null)
-        {
-            healthBar.SetHealth(currentHealth);
-        }
 
         if (currentHealth <= 0)
         {
@@ -59,7 +62,7 @@ public class Health : MonoBehaviour
                 youDied.gameObject.SetActive(true);
                 Invoke("LoadMenu", 3);
             }
-            
+
             else
             {
                 // If this is an enemy, check and handle death
@@ -78,11 +81,27 @@ public class Health : MonoBehaviour
         else
         {
             // Trigger the hurt animation here
-            if (animator != null)
+            if (animator != null && GetComponent<EnemyScript>() == null){
+                animator.SetTrigger("isHurt");
+            }
+            if (animator != null && GetComponent<EnemyScript>() != null)
             {
-                animator.SetTrigger("isHurt"); // Set the "isHurt" trigger
+                EnemyScript enemyScript = GetComponent<EnemyScript>();
+                enemyScript.HurtAnim(); // Set the "isHurt" trigger
             }
         }
+        
+
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
+        if (slider != null)
+        {
+            slider.value = currentHealth;
+        }
+
+
     }
 
     void Heal(int healAmount)
