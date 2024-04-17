@@ -33,11 +33,16 @@ public class PlayerAttack : MonoBehaviour
         attackArea.SetActive(true);
         // Add any additional attack logic here
 
+        Movement playerMovement = GetComponent<Movement>();
+        float originalSpeed = playerMovement.moveSpeed;
+        playerMovement.moveSpeed *= 0.3f; // Slow down player movement while attacking
+
         yield return new WaitForSeconds(timeToAttack); // Wait for the specified time before disabling the attack
+
+        playerMovement.moveSpeed = originalSpeed; // Reset player movement speed to normal
 
         attackArea.SetActive(false);
         anim.ResetTrigger("isAttacking");
         isAttacking = false;
-
     }
 }

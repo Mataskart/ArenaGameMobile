@@ -15,6 +15,7 @@ public class Health : MonoBehaviour
     public TextMeshProUGUI youDied;
     private Animator animator;
     public Slider slider;
+    private float originalSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,8 @@ public class Health : MonoBehaviour
             slider.value = 100f;
         }
         animator = GetComponent<Animator>();
+        Movement playerMovement = GetComponent<Movement>();
+        originalSpeed = playerMovement.moveSpeed;
     }
     void Update()
     {
@@ -89,6 +92,9 @@ public class Health : MonoBehaviour
                 EnemyScript enemyScript = GetComponent<EnemyScript>();
                 enemyScript.HurtAnim(); // Set the "isHurt" trigger
             }
+            float originalSpeed = playerMovement.moveSpeed;
+            playerMovement.moveSpeed *= 0.7f; // Slow down player movement when taking damage
+            Invoke("ResetSpeed", 1f); // Reset speed after 1 second
         }
         
 
@@ -100,8 +106,12 @@ public class Health : MonoBehaviour
         {
             slider.value = currentHealth;
         }
+    }
 
-
+    void ResetSpeed()
+    {
+        Movement playerMovement = GetComponent<Movement>();
+        playerMovement.moveSpeed = originalSpeed; // Reset player movement speed to normal
     }
 
     void Heal(int healAmount)
