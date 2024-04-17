@@ -78,8 +78,9 @@ public class Movement : MonoBehaviour
         if (GetComponent<Health>().currentHealth <= 0)
         {
             isDead = true;
+            rb.velocity = Vector2.zero;
             anim.SetBool("isDead", true); // Trigger death animation
-            Destroy(gameObject, 5f); // Destroy after 3 seconds
+            Destroy(gameObject, 5f); // Destroy after 5 seconds
         }
     }
 
