@@ -95,7 +95,10 @@ public class Movement : MonoBehaviour
 
     void Move()
     {
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        if (!isDead)
+        {
+            rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        }
     }
 
     void Flip()
