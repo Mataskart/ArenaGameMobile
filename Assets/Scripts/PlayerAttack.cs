@@ -5,14 +5,11 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private GameObject attackArea = default;
-    private float timeToAttack = 0.5f;
-    private Animator anim;
-    private bool isAttacking = false;
+    private float timeUntilAttack=0;
 
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
         attackArea = transform.GetChild(0).gameObject;
         attackArea.SetActive(false);
     }
@@ -20,29 +17,33 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isAttacking)
+        timeUntilAttack -= Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Space) && timeUntilAttack <= 0)
         {
-            StartCoroutine(Attack());
+            Attack();
+            SetTimeUntilAttack();
         }
     }
 
-    private IEnumerator Attack()
+    private void Attack()
     {
-        isAttacking = true;
-        anim.SetTrigger("isAttacking");
+        Movement movement = GetComponent<Movement>();
         attackArea.SetActive(true);
+        movement.AttackAnim(); 
         // Add any additional attack logic here
 
         Movement playerMovement = GetComponent<Movement>();
-        float originalSpeed = playerMovement.moveSpeed;
         playerMovement.moveSpeed *= 0.3f; // Slow down player movement while attacking
-
-        yield return new WaitForSeconds(timeToAttack); // Wait for the specified time before disabling the attack
-
-        playerMovement.moveSpeed = originalSpeed; // Reset player movement speed to normal
-
+        Invoke("SpeedReturn",0.15f);
         attackArea.SetActive(false);
-        anim.ResetTrigger("isAttacking");
-        isAttacking = false;
+    }
+    private void SetTimeUntilAttack()
+    {
+        timeUntilAttack = 0.15f;
+    }
+    private void SpeedReturn()
+    {
+        Movement playerMovement = GetComponent<Movement>();
+        playerMovement.moveSpeed = 3f; // Reset player movement speed to normal
     }
 }

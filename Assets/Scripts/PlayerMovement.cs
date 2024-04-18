@@ -10,7 +10,21 @@ public class Movement : MonoBehaviour
     private Vector2 moveDirection;
     private Vector3 moveDirectionAnim;
     bool facingRight = true;
+
+    //Animation states
+    string currentState;
+    const string PLAYER_IDLE = "idle";
+    const string PLAYER_RUN = "run";
+    private bool isRunning = false;
+    const string PLAYER_ATTACK = "attack1";
+    private bool isAttacking = false;
+    const string PLAYER_DEAD = "death";
     private bool isDead = false;
+    const string PLAYER_COOLDOWN = "CooldownIdle";
+    private bool isPreAttacking = false;
+    const string PLAYER_TAKE_DAMAGE = "take hit";
+    private bool isHurt = false;
+    Vector3 lastPosition;
 
     // Update is called once per frame
     void Start()
@@ -19,44 +33,64 @@ public class Movement : MonoBehaviour
     }
     void Update()
     {
-        if (isDead)
-        {
-            // If the enemy is dead, maybe prevent further actions or movement
-            anim.SetBool("isDead", true); // Trigger death animation
-            return; // Skip the rest of the update
-        }
-        transform.position = new Vector2(transform.position.x + Random.Range(-0.00001f, 0.00001f), transform.position.y + Random.Range(-0.00001f, 0.00001f));
         ProcessInputs();
         Move();
     }
     // Fixedupdate is called at a fixed interval and is independent of frame rate.
     void FixedUpdate()
-    { }
-
-    void ProcessInputs()
-    {
+    { 
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
+        moveDirection = new Vector2(moveX, moveY).normalized;
+        moveDirectionAnim = new Vector3(moveX, 0, moveY);
+        if (isDead)
+        {
+            ChangeAnimationState(PLAYER_DEAD);
+            return;
+        }
+        else if (isHurt == true)
+        {
+            ChangeAnimationState(PLAYER_TAKE_DAMAGE);
+            float hurtDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+            Invoke("HurtComplete", hurtDelay);
+            
+        }
+        else if (isAttacking == true)
+        {
+            ChangeAnimationState(PLAYER_ATTACK);
+            float attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+            Invoke("AttackComplete", attackDelay);
+        }
+        else
+        {
+            if (isPreAttacking == true)
+            {
+                ChangeAnimationState(PLAYER_COOLDOWN);
+                float PreAttackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+                Invoke("PreAttackComplete", PreAttackDelay);
+            }
+            else if (moveDirectionAnim == Vector3.zero)
+            {
+                ChangeAnimationState(PLAYER_IDLE);
+            }
+            else
+            {
+                ChangeAnimationState(PLAYER_RUN);
+            }
+        }
+         
         if (moveX > 0 && !facingRight)
         {
             Flip();
         }
-
         if (moveX < 0 && facingRight)
         {
             Flip();
         }
+    }
 
-        moveDirection = new Vector2(moveX, moveY).normalized;
-        moveDirectionAnim = new Vector3(moveX, 0, moveY);
-        if (moveDirectionAnim == Vector3.zero)
-        {
-            anim.SetFloat("Speed", 0);
-        }
-        else
-        {
-            anim.SetFloat("Speed", 0.1f);
-        }
+    void ProcessInputs()
+    {
     }
 
     void Move()
@@ -79,7 +113,6 @@ public class Movement : MonoBehaviour
         {
             isDead = true;
             rb.velocity = Vector2.zero;
-            anim.SetBool("isDead", true); // Trigger death animation
             Destroy(gameObject, 5f); // Destroy after 5 seconds
         }
     }
@@ -87,5 +120,36 @@ public class Movement : MonoBehaviour
     public bool GetDeath()
     {
         return isDead;
+    }
+
+    void ChangeAnimationState(string newState)
+    {
+        if (currentState == newState) return;
+        anim.Play(newState);
+        currentState = newState;
+    }
+    public void HurtComplete()
+    {
+        isHurt = false;
+    }
+    public void HurtAnim()
+    {
+        isHurt = true;
+    }
+    public void AttackAnim()
+    {
+        isAttacking = true;
+    }
+    public void AttackComplete()
+    {
+        isAttacking = false;
+    }
+    public void RunComplete()
+    {
+        isRunning = false;
+    }
+    public void PreAttackComplete()
+    {
+        isPreAttacking = false;
     }
 }
