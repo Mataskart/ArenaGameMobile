@@ -16,6 +16,7 @@ public class Health : MonoBehaviour
     private Animator animator;
     public Slider slider;
     private float originalSpeed;
+    private bool isEnemy;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,15 @@ public class Health : MonoBehaviour
         }
         animator = GetComponent<Animator>();
         Movement playerMovement = GetComponent<Movement>();
-        originalSpeed = playerMovement.moveSpeed;
+        if (playerMovement != null) // Add this null check
+        {
+            originalSpeed = playerMovement.moveSpeed;
+            isEnemy = false;
+        }
+        else
+        {
+            isEnemy = true;
+        }
     }
     void Update()
     {
@@ -92,11 +101,14 @@ public class Health : MonoBehaviour
                 EnemyScript enemyScript = GetComponent<EnemyScript>();
                 enemyScript.HurtAnim(); // Set the "isHurt" trigger
             }
-            float originalSpeed = playerMovement.moveSpeed;
-            playerMovement.moveSpeed *= 0.7f; // Slow down player movement when taking damage
-            Invoke("ResetSpeed", 1f); // Reset speed after 1 second
+
+            if(isEnemy == false)
+            {
+                float originalSpeed = playerMovement.moveSpeed;
+                playerMovement.moveSpeed *= 0.7f; // Slow down player movement when taking damage
+                Invoke("ResetSpeed", 1f); // Reset speed after 1 second
+            }
         }
-        
 
         if (healthBar != null)
         {
