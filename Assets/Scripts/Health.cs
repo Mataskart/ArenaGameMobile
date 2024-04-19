@@ -20,6 +20,8 @@ public class Health : MonoBehaviour
     private bool isEnemy;
     public LowHealthController lowHealthController;
     public Image damageTakenEffect;
+    public PlayerScore enemies;
+    public AchievementManager achievementManager;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +51,10 @@ public class Health : MonoBehaviour
     }
     void Update()
     {
+        if (currentHealth == 100 && enemies.GetEnemiesKilled() == 10)
+        {
+            achievementManager.CompleteAchievement("NO TIME TO DIE");
+        }
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    // TakeDamage(20);
@@ -158,7 +164,6 @@ public class Health : MonoBehaviour
 
     void LoadMenu()
     {
-
         SceneManager.LoadScene("MainMenu");
     }
 

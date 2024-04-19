@@ -15,6 +15,9 @@ public class AchievementManager : MonoBehaviour
     public AchievementsDatabase achievementsDb;
     public ListView achievementsListView;
     public TextMeshProUGUI completedTxt;
+
+    [SerializeField]
+    private NotificationManager newAchievement;
     void Start()
     {
         completedTxt.text = CountCompleted();
@@ -78,6 +81,25 @@ public class AchievementManager : MonoBehaviour
             return false;
         }
     }
+    public bool CompleteAchievement(string achievementName)
+    {
+        int completed = PlayerPrefs.GetInt(achievementName, 0);
+
+        if (completed == 1)
+        {
+            return true;
+        }
+        else
+        {
+            SetAchievement(achievementName);
+            return false;
+        }
+    }
+    private void SetAchievement(string name)
+    {
+        PlayerPrefs.SetInt(name, 1);
+        newAchievement.Open();
+    }
     private string CountCompleted()
     {
         int completedCount = 0;
@@ -109,4 +131,6 @@ public class AchievementManager : MonoBehaviour
         }
         return new string(array);
     }
+
+
 }

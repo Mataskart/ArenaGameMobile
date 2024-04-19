@@ -13,9 +13,7 @@ public class Level : MonoBehaviour
     private float timeSinceLastIncrement = 0f;
     private const float levelDuration = 30f;
     public static Level Instance { get; private set; }
-
-    [SerializeField]
-    private NotificationManager newAchievement;
+    public AchievementManager achievementManager;
     void Start()
     {
         levelUI.text = "Level: " + level.ToString();
@@ -65,10 +63,9 @@ public class Level : MonoBehaviour
 
     public void CheckLvlAchievement()
     {
-        if (level == 3 && PlayerPrefs.GetInt("SURVIVAL I", 0) == 0)
+        if (level == 1)
         {
-            PlayerPrefs.SetInt("SURVIVAL I", 1);
-            newAchievement.Open();
+            achievementManager.CompleteAchievement("SURVIVAL I");
         }
     }
 }

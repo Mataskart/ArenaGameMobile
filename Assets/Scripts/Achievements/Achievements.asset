@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Achievements
   m_EditorClassIdentifier: 
   achievement:
+  - achievementTitle: WELCOME WARRIOR
+    achievementShortDescription: START YOUR FIRST GAME
+    achievementSpriteCompleted: {fileID: 21300000, guid: 51fd794e247c85240a9ede78ac021547, type: 3}
+    achievementSpriteBW: {fileID: 21300000, guid: 89f451811f9533a468bbc3058fd1f0aa, type: 3}
   - achievementTitle: BORN TO KILL
     achievementShortDescription: KILL YOUR FIRST ENEMY
     achievementSpriteCompleted: {fileID: 21300000, guid: 51fd794e247c85240a9ede78ac021547, type: 3}
