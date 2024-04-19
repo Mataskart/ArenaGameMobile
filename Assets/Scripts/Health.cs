@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 using System.Security.Cryptography;
+using Leguar.LowHealth;
 
 public class Health : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class Health : MonoBehaviour
     public Slider slider;
     private float originalSpeed;
     private bool isEnemy;
+    public LowHealthController lowHealthController;
+    public Image damageTakenEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +68,18 @@ public class Health : MonoBehaviour
         Movement playerMovement = GetComponent<Movement>();
         currentHealth -= damage;
 
+        if (GetComponent<EnemyScript>() == null)
+        {
+            float setLowHealth = (float)currentHealth / 100;
+            lowHealthController.SetPlayerHealthSmoothly(setLowHealth, 0.5f);
+
+            if (currentHealth > 0)
+            {
+                damageTakenEffect.gameObject.SetActive(true);
+                Invoke("ResetDmgTaken", 0.2f);
+            }
+        }
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -93,9 +108,10 @@ public class Health : MonoBehaviour
         else
         {
             // Trigger the hurt animation here
-            if (animator != null && GetComponent<EnemyScript>() == null){
+            if (animator != null && GetComponent<EnemyScript>() == null)
+            {
                 Movement movement = GetComponent<Movement>();
-                movement.HurtAnim(); 
+                movement.HurtAnim();
             }
             if (animator != null && GetComponent<EnemyScript>() != null)
             {
@@ -103,7 +119,7 @@ public class Health : MonoBehaviour
                 enemyScript.HurtAnim();
             }
 
-            if(isEnemy == false)
+            if (isEnemy == false)
             {
                 float originalSpeed = playerMovement.moveSpeed;
                 playerMovement.moveSpeed *= 0.7f; // Slow down player movement when taking damage
@@ -144,5 +160,10 @@ public class Health : MonoBehaviour
     {
 
         SceneManager.LoadScene("MainMenu");
+    }
+
+    void ResetDmgTaken()
+    {
+        damageTakenEffect.gameObject.SetActive(false);
     }
 }
