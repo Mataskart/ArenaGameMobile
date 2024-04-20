@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Security.Cryptography;
 using Leguar.LowHealth;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Health : MonoBehaviour
 {
@@ -20,8 +21,6 @@ public class Health : MonoBehaviour
     private bool isEnemy;
     public LowHealthController lowHealthController;
     public Image damageTakenEffect;
-    public PlayerScore enemies;
-    public AchievementManager achievementManager;
 
     // Start is called before the first frame update
     void Start()
@@ -51,10 +50,7 @@ public class Health : MonoBehaviour
     }
     void Update()
     {
-        if (currentHealth == 100 && enemies.GetEnemiesKilled() == 10)
-        {
-            achievementManager.CompleteAchievement("NO TIME TO DIE");
-        }
+        CheckAchievement();
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    // TakeDamage(20);
@@ -170,5 +166,27 @@ public class Health : MonoBehaviour
     void ResetDmgTaken()
     {
         damageTakenEffect.gameObject.SetActive(false);
+    }
+    void CheckAchievement()
+    {
+        GameObject player = GameObject.Find("Player");
+        PlayerScore scoreScript = player.GetComponent<PlayerScore>();
+        int enemiesKilled = scoreScript.GetEnemiesKilled();
+
+        GameObject achievementManager = GameObject.Find("AchievementManager");
+        AchievementManager achievementScript = achievementManager.GetComponent<AchievementManager>();
+
+
+        if (currentHealth == 100 && enemiesKilled == 10)
+        {
+            achievementScript.CompleteAchievement("NO TIME TO DIE");
+        }
+
+        Level levelScript = player.GetComponent<Level>();
+        int currentLevel = levelScript.GetLevel();
+        if (currentHealth == 100 && currentLevel == 5)
+        {
+            achievementScript.CompleteAchievement("MASTER OF COMBAT");
+        }
     }
 }

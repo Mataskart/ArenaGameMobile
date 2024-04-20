@@ -13,7 +13,6 @@ public class Level : MonoBehaviour
     private float timeSinceLastIncrement = 0f;
     private const float levelDuration = 30f;
     public static Level Instance { get; private set; }
-    public AchievementManager achievementManager;
     void Start()
     {
         levelUI.text = "Level: " + level.ToString();
@@ -26,7 +25,7 @@ public class Level : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckLvlAchievement();
+        CheckAchievement();
         timeSinceLastIncrement += Time.deltaTime;
 
         if (timeSinceLastIncrement >= levelDuration)
@@ -55,17 +54,27 @@ public class Level : MonoBehaviour
     {
         playerLevelUI.gameObject.SetActive(false);
     }
-
     public int GetLevel() // Updated method
     {
         return level;
     }
-
-    public void CheckLvlAchievement()
+    public void CheckAchievement()
     {
-        if (level == 1)
+        int gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
+        GameObject achievementManager = GameObject.Find("AchievementManager");
+        AchievementManager achievementScript = achievementManager.GetComponent<AchievementManager>();
+        if (level == 3)
         {
-            achievementManager.CompleteAchievement("SURVIVAL I");
+            achievementScript.CompleteAchievement("SURVIVAL I");
+        }
+        if (level == 40)
+        {
+            achievementScript.CompleteAchievement("UNBEATABLE WARRIOR");
+        }
+
+        if (gamesPlayed == 1)
+        {
+            achievementScript.CompleteAchievement("WELCOME WARRIOR");
         }
     }
 }

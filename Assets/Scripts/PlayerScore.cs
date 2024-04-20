@@ -17,8 +17,7 @@ public class PlayerScore : MonoBehaviour
     public TextMeshProUGUI highScoreUI;
     public TextMeshProUGUI newHighScoreUI;
     public bool highScoreBeaten = false;
-    public AchievementManager achievementManager;
-    private int enemiesKilled;
+    private int enemiesKilled = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -54,10 +53,6 @@ public class PlayerScore : MonoBehaviour
         totalEnemiesKilled++;
         PlayerPrefs.SetInt("TotalEnemiesKilled", totalEnemiesKilled);
         PlayerPrefs.Save();
-        if (PlayerPrefs.GetInt("TotalEnemiesKilled", 0) == 1)
-        {
-            achievementManager.CompleteAchievement("BORN TO KILL");
-        }
         // Increase score and reset timer when an enemy is killed
         score += scoreForBasicEnemy * scoreMultiplier;
         CheckHighScore();
