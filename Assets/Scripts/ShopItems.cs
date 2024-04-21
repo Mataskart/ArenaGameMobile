@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ShopItems : MonoBehaviour
 {
-    public Health playerHealth;
-    public Movement playerMovement;
-    public PlayerScore playerScore;
+    private Health playerHealth;
+    private Movement playerMovement;
+    private PlayerScore playerScore;
 
     public RawImage healthPotionImage;
     public bool isHealthPotionPurchased = false;
