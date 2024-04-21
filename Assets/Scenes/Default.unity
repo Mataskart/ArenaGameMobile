@@ -55145,6 +55145,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7113b614a2b1f844291f986a67b87926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: {fileID: 0}
+  playerMovement: {fileID: 0}
+  playerScore: {fileID: 0}
+  healthPotionImage: {fileID: 339933955}
+  isHealthPotionPurchased: 0
+  regenerationRate: 10
 --- !u!1 &1503748946
 GameObject:
   m_ObjectHideFlags: 0
