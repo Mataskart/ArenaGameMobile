@@ -34,10 +34,11 @@ public class Movement : MonoBehaviour
     void Update()
     {
         ProcessInputs();
+        PlayAnimation();
         Move();
     }
-    // Fixedupdate is called at a fixed interval and is independent of frame rate.
-    void FixedUpdate()
+
+    void PlayAnimation()
     { 
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");

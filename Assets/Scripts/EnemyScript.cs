@@ -72,7 +72,7 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         lastPosition = transform.position;
         bool isMoving = Vector3.Distance(transform.position, lastPosition) > 0.1f;
