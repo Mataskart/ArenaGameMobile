@@ -69,11 +69,12 @@ public class Health : MonoBehaviour
     {
         Movement playerMovement = GetComponent<Movement>();
         currentHealth -= damage;
+        Debug.Log("Player health: " + currentHealth);
 
         if (GetComponent<EnemyScript>() == null)
         {
             float setLowHealth = (float)currentHealth / 100;
-            lowHealthController.SetPlayerHealthSmoothly(setLowHealth, 0.5f);
+           //S lowHealthController.SetPlayerHealthSmoothly(setLowHealth, 0.5f);
 
             if (currentHealth > 0)
             {

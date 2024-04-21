@@ -160,6 +160,7 @@ public class EnemyScript : MonoBehaviour
         {
             if (collider.GetComponent<Health>() != null && attackTimer <= 0)
             {
+                Debug.Log("Enemy attacking player."); // This will print a message to the Unity Console
                 collider.GetComponent<Health>().TakeDamage(damage);
                 isAttacking = true;
                 attackTimer = attackCooldown; // Reset the timer to the regular cooldown

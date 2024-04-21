@@ -30,13 +30,18 @@ public class PlayerAttack : MonoBehaviour
         Movement movement = GetComponent<Movement>();
         attackArea.SetActive(true);
         movement.AttackAnim(); 
-        // Add any additional attack logic here
 
         Movement playerMovement = GetComponent<Movement>();
         playerMovement.moveSpeed *= 0.3f; // Slow down player movement while attacking
         Invoke("SpeedReturn",0.15f);
+        Invoke("DeactivateAttackArea", 0.2f); // Delay the deactivation
+    }
+
+    private void DeactivateAttackArea()
+    {
         attackArea.SetActive(false);
     }
+
     private void SetTimeUntilAttack()
     {
         timeUntilAttack = 0.15f;

@@ -15,6 +15,7 @@ public class AttackArea : MonoBehaviour
     {
         if (collider.GetComponent<Health>() != null)
         {
+            Debug.Log("Player attacking enemy."); // This will print a message to the Unity Console
             Health health = collider.GetComponent<Health>();
             health.TakeDamage(damage/2);
             // Increment total damage dealt
