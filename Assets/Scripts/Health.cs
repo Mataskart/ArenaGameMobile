@@ -51,6 +51,10 @@ public class Health : MonoBehaviour
     void Update()
     {
         CheckAchievement();
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    // TakeDamage(20);
