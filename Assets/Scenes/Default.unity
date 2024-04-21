@@ -3529,6 +3529,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfea5ed4cd5feff47bd657f6899ae6c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visionLossEnabled: 1
+  visionLossStartsAt: 0.5
+  visionLossMaxEffect: 0.8
+  visionLossHeartBeat: 0.5
+  detailLossEnabled: 0
+  detailLossStartsAt: 0.3
+  detailLossMaxEffect: 0.5
+  colorLossEnabled: 1
+  colorLossStartsAt: 0.4
+  colorLossTowardRedStartsAt: 0.25
+  doubleVisionEnabled: 0
+  doubleVisionStartsAt: 0.1
+  doubleVisionMaxEffect: 0.01
+  doubleVisionWaving: 0.5
+  stopEffectsWhenZeroHealth: 1
+  showInEditor: 0
+  simulateHealth: 0
 --- !u!1 &563564459
 GameObject:
   m_ObjectHideFlags: 0
@@ -55128,12 +55145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7113b614a2b1f844291f986a67b87926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
-  playerMovement: {fileID: 0}
-  playerScore: {fileID: 0}
-  healthPotionImage: {fileID: 339933955}
-  isHealthPotionPurchased: 0
-  regenerationRate: 5
 --- !u!1 &1503748946
 GameObject:
   m_ObjectHideFlags: 0

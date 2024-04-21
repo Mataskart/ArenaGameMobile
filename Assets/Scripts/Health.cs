@@ -78,7 +78,7 @@ public class Health : MonoBehaviour
         if (GetComponent<EnemyScript>() == null)
         {
             float setLowHealth = (float)currentHealth / 100;
-           //S lowHealthController.SetPlayerHealthSmoothly(setLowHealth, 0.5f);
+            lowHealthController.SetPlayerHealthSmoothly(setLowHealth, 0.5f);
 
             if (currentHealth > 0)
             {
