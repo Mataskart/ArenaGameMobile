@@ -69,11 +69,11 @@ public class Movement : MonoBehaviour
                 float PreAttackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
                 Invoke("PreAttackComplete", PreAttackDelay);
             }
-            else if (moveDirectionAnim == Vector3.zero)
+            else if (moveDirectionAnim == Vector3.zero && !Input.GetKeyDown(KeyCode.Space))
             {
                 ChangeAnimationState(PLAYER_IDLE);
             }
-            else
+            else if(!Input.GetKeyDown(KeyCode.Space))
             {
                 ChangeAnimationState(PLAYER_RUN);
             }

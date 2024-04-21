@@ -78,7 +78,7 @@ public class Health : MonoBehaviour
         if (GetComponent<EnemyScript>() == null)
         {
             float setLowHealth = (float)currentHealth / 100;
-            lowHealthController.SetPlayerHealthSmoothly(setLowHealth, 0.5f);
+            //lowHealthController.SetPlayerHealthSmoothly(setLowHealth, 0.5f);
 
             if (currentHealth > 0)
             {
@@ -128,7 +128,6 @@ public class Health : MonoBehaviour
 
             if (isEnemy == false)
             {
-                float originalSpeed = playerMovement.moveSpeed;
                 playerMovement.moveSpeed *= 0.7f; // Slow down player movement when taking damage
                 Invoke("ResetSpeed", 1f); // Reset speed after 1 second
             }

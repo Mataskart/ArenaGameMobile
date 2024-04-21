@@ -44,7 +44,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void SetTimeUntilAttack()
     {
-        timeUntilAttack = 0.15f;
+        timeUntilAttack = 0.5f;
     }
     private void SpeedReturn()
     {
