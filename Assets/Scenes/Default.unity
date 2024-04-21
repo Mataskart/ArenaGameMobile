@@ -1018,6 +1018,78 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339106409}
   m_CullTransparentMesh: 1
+--- !u!1 &339933953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339933954}
+  - component: {fileID: 339933956}
+  - component: {fileID: 339933955}
+  m_Layer: 5
+  m_Name: HealthPotion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &339933954
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339933953}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 420538024}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -535.4, y: 489.6}
+  m_SizeDelta: {x: 508, y: 903}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &339933955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339933953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 5f54c7542338e4f4e8e31e0cec92773d, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &339933956
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339933953}
+  m_CullTransparentMesh: 1
 --- !u!1 &342624987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,6 +1329,7 @@ RectTransform:
   - {fileID: 1019329811}
   - {fileID: 339106410}
   - {fileID: 1762618181}
+  - {fileID: 339933954}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3456,23 +3529,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfea5ed4cd5feff47bd657f6899ae6c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionLossEnabled: 1
-  visionLossStartsAt: 0.55
-  visionLossMaxEffect: 0.6
-  visionLossHeartBeat: 0
-  detailLossEnabled: 0
-  detailLossStartsAt: 0.45
-  detailLossMaxEffect: 0.8
-  colorLossEnabled: 1
-  colorLossStartsAt: 0.65
-  colorLossTowardRedStartsAt: 0.15
-  doubleVisionEnabled: 0
-  doubleVisionStartsAt: 0.25
-  doubleVisionMaxEffect: 0.35
-  doubleVisionWaving: 0.5
-  stopEffectsWhenZeroHealth: 1
-  showInEditor: 1
-  simulateHealth: 1
 --- !u!1 &563564459
 GameObject:
   m_ObjectHideFlags: 0
@@ -54778,6 +54834,7 @@ GameObject:
   - component: {fileID: 1484007432}
   - component: {fileID: 1484007433}
   - component: {fileID: 1484007434}
+  - component: {fileID: 1484007435}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -55059,6 +55116,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelUI: {fileID: 342624989}
   playerLevelUI: {fileID: 575541463}
+--- !u!114 &1484007435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484007421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7113b614a2b1f844291f986a67b87926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 0}
+  playerMovement: {fileID: 0}
+  playerScore: {fileID: 0}
+  healthPotionImage: {fileID: 339933955}
+  isHealthPotionPurchased: 0
+  regenerationRate: 5
 --- !u!1 &1503748946
 GameObject:
   m_ObjectHideFlags: 0
