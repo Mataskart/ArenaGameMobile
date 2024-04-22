@@ -26,6 +26,15 @@ public class Movement : MonoBehaviour
     private bool isHurt = false;
     Vector3 lastPosition;
 
+    [Header("Dashing")]
+    [SerializeField] private float dashingVelocity = 14f;
+    [SerializeField] private float dashingTime = 0.5f;
+    [SerializeField] private float dashingCooldown = 5f;
+    [SerializeField] private TrailRenderer trail;
+    private Vector2 dashingDirection;
+    private bool isDashing;
+    private bool canDash = true;
+
     // Update is called once per frame
     void Start()
     {
@@ -33,13 +42,22 @@ public class Movement : MonoBehaviour
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E) && canDash)
+        {
+            Dash();
+        }
+        if (isDashing)
+        {
+            rb.velocity = dashingDirection.normalized * dashingVelocity;
+            return;
+        }
         ProcessInputs();
         PlayAnimation();
         Move();
     }
 
     void PlayAnimation()
-    { 
+    {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveDirection = new Vector2(moveX, moveY).normalized;
@@ -54,7 +72,7 @@ public class Movement : MonoBehaviour
             ChangeAnimationState(PLAYER_TAKE_DAMAGE);
             float hurtDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("HurtComplete", hurtDelay);
-            
+
         }
         else if (isAttacking == true)
         {
@@ -74,12 +92,12 @@ public class Movement : MonoBehaviour
             {
                 ChangeAnimationState(PLAYER_IDLE);
             }
-            else if(!Input.GetKeyDown(KeyCode.Space))
+            else if (!Input.GetKeyDown(KeyCode.Space))
             {
                 ChangeAnimationState(PLAYER_RUN);
             }
         }
-         
+
         if (moveX > 0 && !facingRight)
         {
             Flip();
@@ -156,4 +174,27 @@ public class Movement : MonoBehaviour
     {
         isPreAttacking = false;
     }
+
+    private void Dash()
+    {
+        isDashing = true;
+        canDash = false;
+        trail.emitting = true;
+        dashingDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (dashingDirection == Vector2.zero)
+        {
+            dashingDirection = new Vector2(transform.localScale.x, 0);
+        }
+        StartCoroutine(StopDash());
+    }
+
+    private IEnumerator StopDash()
+    {
+        yield return new WaitForSeconds(dashingTime);
+        trail.emitting = false;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+    }
+
 }

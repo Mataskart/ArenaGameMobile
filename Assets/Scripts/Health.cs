@@ -179,6 +179,12 @@ public class Health : MonoBehaviour
 
         GameObject achievementManager = GameObject.Find("AchievementManager");
         AchievementManager achievementScript = achievementManager.GetComponent<AchievementManager>();
+        int enemiesTotal = PlayerPrefs.GetInt("TotalEnemiesKilled");
+
+        if (enemiesTotal == 1 && enemiesKilled == 1)
+        {
+            achievementScript.CompleteAchievement("BORN TO KILL");
+        }
 
 
         if (currentHealth == 100 && enemiesKilled == 10)
