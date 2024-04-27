@@ -14,6 +14,8 @@ public class MainMenu : MonoBehaviour
     public TMP_Text gamesPlayedText;
     public TMP_Text timePlayedText;
     public TMP_Text totalDamageDealt;
+    public TextMeshProUGUI moneyText;
+
     private int gamesPlayed;
 
     void Start()
@@ -55,6 +57,7 @@ public class MainMenu : MonoBehaviour
         UpdateGamesPlayed();
         UpdateTimePlayed();
         UpdateDamageDealt();
+        UpdateMoney();
     }
 
     private void UpdateHighScore()
@@ -110,5 +113,11 @@ public class MainMenu : MonoBehaviour
         gamesPlayed++;
         PlayerPrefs.SetInt("GamesPlayed", gamesPlayed);
         PlayerPrefs.Save();
+    }
+
+    private void UpdateMoney()
+    {
+        int money = PlayerPrefs.GetInt("Money", 0);
+        moneyText.text = "Money: " + money.ToString();
     }
 }

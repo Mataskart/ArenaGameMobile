@@ -9,10 +9,12 @@ public class ShopItems : MonoBehaviour
     private Movement playerMovement;
     private PlayerScore playerScore;
 
+    public ParticleSystem regenParticles;
     public RawImage healthPotionImage;
     public bool isHealthPotionPurchased = false;
     private bool isRegenerating = false;
     public int regenerationRate = 5;
+
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,11 @@ public class ShopItems : MonoBehaviour
         playerHealth = GetComponent<Health>();
         playerMovement = GetComponent<Movement>();
         playerScore = GetComponent<PlayerScore>();
+
+        if (regenParticles != null)
+        {
+            regenParticles.Stop();
+        }
     }
 
     // Update is called once per frame
@@ -34,6 +41,18 @@ public class ShopItems : MonoBehaviour
         if (isHealthPotionPurchased)
         {
             healthPotionImage.gameObject.SetActive(true);
+            if (!regenParticles.isPlaying)
+            {
+                regenParticles.Play();
+            }
+        }
+        else
+        {
+            healthPotionImage.gameObject.SetActive(false);
+            if (regenParticles.isPlaying)
+            {
+                regenParticles.Stop();
+            }
         }
     }
 
