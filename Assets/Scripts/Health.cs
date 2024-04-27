@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using Leguar.LowHealth;
 using System.Security.Cryptography;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -19,6 +20,7 @@ public class Health : MonoBehaviour
     private float originalSpeed;
     private bool isEnemy;
     public Image damageTakenEffect;
+    public LowHealthController lowHealthController;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +55,7 @@ public class Health : MonoBehaviour
         {
             healthBar.SetHealth(currentHealth);
         }
+
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    // TakeDamage(20);
@@ -75,6 +78,10 @@ public class Health : MonoBehaviour
 
         if (GetComponent<EnemyScript>() == null)
         {
+            float healthController = (float)currentHealth / 100;
+            Debug.Log(currentHealth + " dabartine");
+            Debug.Log(healthController + " apskaiciuota");
+            lowHealthController.SetPlayerHealthSmoothly(healthController, 0.5f);
             if (currentHealth > 0)
             {
                 damageTakenEffect.gameObject.SetActive(true);

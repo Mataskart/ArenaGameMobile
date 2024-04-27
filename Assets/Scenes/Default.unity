@@ -8335,6 +8335,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8450,6 +8451,35 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfea5ed4cd5feff47bd657f6899ae6c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visionLossEnabled: 1
+  visionLossStartsAt: 0.55
+  visionLossMaxEffect: 0.6
+  visionLossHeartBeat: 0
+  detailLossEnabled: 0
+  detailLossStartsAt: 0.45
+  detailLossMaxEffect: 0.8
+  colorLossEnabled: 1
+  colorLossStartsAt: 0.65
+  colorLossTowardRedStartsAt: 0.15
+  doubleVisionEnabled: 0
+  doubleVisionStartsAt: 0.25
+  doubleVisionMaxEffect: 0.35
+  doubleVisionWaving: 0.5
+  stopEffectsWhenZeroHealth: 1
+  showInEditor: 0
+  simulateHealth: 1
 --- !u!1 &563564459
 GameObject:
   m_ObjectHideFlags: 0
@@ -110676,6 +110706,7 @@ MonoBehaviour:
   youDied: {fileID: 1788878775}
   slider: {fileID: 0}
   damageTakenEffect: {fileID: 1762618182}
+  lowHealthController: {fileID: 519420034}
 --- !u!95 &1484007428
 Animator:
   serializedVersion: 5
