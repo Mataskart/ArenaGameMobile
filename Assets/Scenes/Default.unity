@@ -105495,7 +105495,6 @@ MonoBehaviour:
   floatingHealthBar: {fileID: 0}
   youDied: {fileID: 1788878775}
   slider: {fileID: 0}
-  lowHealthController: {fileID: 0}
   damageTakenEffect: {fileID: 1762618182}
 --- !u!95 &1484007428
 Animator:

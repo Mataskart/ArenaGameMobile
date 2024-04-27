@@ -8,6 +8,11 @@ public class AchievementManager : MonoBehaviour
     public AchievementsDatabase achievementsDatabase;
     [SerializeField] private NotificationManager notificationManager;
 
+    void Update()
+    {
+        CheckLast();
+    }
+
     public void CompleteAchievement(string name)
     {
         bool alreadyCompleted = CheckAchievement(name);
@@ -44,6 +49,28 @@ public class AchievementManager : MonoBehaviour
                 notificationManager.UpdateUI();
                 notificationManager.Open();
             }
+        }
+    }
+
+    public void CheckLast()
+    {
+        int count = 0;
+        for (int i = 0; i < achievementsDatabase.AchievementCount; i++)
+        {
+            Achievement achievement = achievementsDatabase.GetAchievement(i);
+
+            if (!achievement.achievementTitle.Equals("CHAMPION OF ARENA"))
+            {
+                if (CheckAchievement(achievement.achievementTitle))
+                {
+                    count++;
+                }
+            }
+        }
+
+        if (count == achievementsDatabase.AchievementCount - 1)
+        {
+            CompleteAchievement("CHAMPION OF ARENA");
         }
     }
 }

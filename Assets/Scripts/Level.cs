@@ -63,6 +63,15 @@ public class Level : MonoBehaviour
         int gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
         GameObject achievementManager = GameObject.Find("AchievementManager");
         AchievementManager achievementScript = achievementManager.GetComponent<AchievementManager>();
+
+        GameObject player = GameObject.Find("Player");
+        PlayerScore scoreScript = player.GetComponent<PlayerScore>();
+        int enemiesKilled = scoreScript.GetEnemiesKilled();
+
+        if (level == 2 && enemiesKilled == 0)
+        {
+            achievementScript.CompleteAchievement("FRIENDLY WARRIOR");
+        }
         if (level == 3)
         {
             achievementScript.CompleteAchievement("SURVIVAL I");
@@ -76,5 +85,8 @@ public class Level : MonoBehaviour
         {
             achievementScript.CompleteAchievement("WELCOME WARRIOR");
         }
+
+
+        achievementScript.CheckLast();
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 using System.Security.Cryptography;
-using Leguar.LowHealth;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class Health : MonoBehaviour
@@ -19,7 +18,6 @@ public class Health : MonoBehaviour
     public Slider slider;
     private float originalSpeed;
     private bool isEnemy;
-    public LowHealthController lowHealthController;
     public Image damageTakenEffect;
 
     // Start is called before the first frame update
@@ -77,9 +75,6 @@ public class Health : MonoBehaviour
 
         if (GetComponent<EnemyScript>() == null)
         {
-            float setLowHealth = (float)currentHealth / 100;
-            //lowHealthController.SetPlayerHealthSmoothly(setLowHealth, 0.5f);
-
             if (currentHealth > 0)
             {
                 damageTakenEffect.gameObject.SetActive(true);
@@ -198,5 +193,7 @@ public class Health : MonoBehaviour
         {
             achievementScript.CompleteAchievement("MASTER OF COMBAT");
         }
+
+        achievementScript.CheckLast();
     }
 }

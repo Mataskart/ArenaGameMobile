@@ -55,7 +55,7 @@ public class AchievementMainMenu : MonoBehaviour
                 achievement.row1.rowType = ListView.RowType.Text;
                 achievement.row2.rowType = ListView.RowType.Text;
                 achievement.row0.rowIcon = achievements.achievementSpriteBW;
-                string titleModified = ShuffleString(achievements.achievementTitle);
+                string titleModified = RemakeTitle(achievements.achievementTitle.Length);
                 achievement.row1.rowText = titleModified;
                 achievement.row2.rowText = achievements.achievementShortDescription.ToUpper();
 
@@ -95,21 +95,13 @@ public class AchievementMainMenu : MonoBehaviour
         return completed;
     }
 
-    private string ShuffleString(string str)
+    private string RemakeTitle(int nameLength)
     {
-        System.Random rng = new System.Random();
-        char[] array = str.ToCharArray();
-        int n = array.Length;
-        while (n > 1)
+        string newTitle = "";
+        for (int i = 0; i < nameLength; i++)
         {
-            n--;
-            int k = rng.Next(n + 1);
-            var value = array[k];
-            array[k] = array[n];
-            array[n] = value;
+            newTitle += "-";
         }
-        return new string(array);
+        return newTitle;
     }
-
-
 }

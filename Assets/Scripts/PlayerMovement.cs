@@ -44,6 +44,7 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && canDash)
         {
+            CheckAchievement();
             Dash();
         }
         if (isDashing)
@@ -195,6 +196,13 @@ public class Movement : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+
+    private void CheckAchievement()
+    {
+        GameObject achievementManager = GameObject.Find("AchievementManager");
+        AchievementManager achievementScript = achievementManager.GetComponent<AchievementManager>();
+        achievementScript.CompleteAchievement("I CAN DO THAT?");
     }
 
 }

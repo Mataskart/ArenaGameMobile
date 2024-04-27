@@ -17,12 +17,24 @@ public class AttackArea : MonoBehaviour
         {
             Debug.Log("Player attacking enemy."); // This will print a message to the Unity Console
             Health health = collider.GetComponent<Health>();
-            health.TakeDamage(damage/2);
+            health.TakeDamage(damage / 2);
             // Increment total damage dealt
             totalDamageDealt += damage;
+            CheckAchievement();
             // Save the updated total damage dealt to PlayerPrefs
             PlayerPrefs.SetInt("TotalDamageDealt", totalDamageDealt);
             PlayerPrefs.Save();
+        }
+    }
+
+    private void CheckAchievement()
+    {
+        GameObject achievementManager = GameObject.Find("AchievementManager");
+        AchievementManager achievementScript = achievementManager.GetComponent<AchievementManager>();
+
+        if (totalDamageDealt >= 1000)
+        {
+            achievementScript.CompleteAchievement("NO MERCY");
         }
     }
 }
