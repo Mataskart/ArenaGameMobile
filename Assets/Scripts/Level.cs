@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using Michsky.MUIP;
+using UnityEngine.Tilemaps;
 
 public class Level : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class Level : MonoBehaviour
     private float timeSinceLastIncrement = 0f;
     private const float levelDuration = 30f;
     public static Level Instance { get; private set; }
+    public GameObject tilemap_level_1; 
+    public GameObject tilemap_level_2;
+    public Animator transition;
+    private const float transitionDuration = 1f;
     void Start()
     {
         levelUI.text = "Level: " + level.ToString();
@@ -20,6 +25,7 @@ public class Level : MonoBehaviour
         playerLevelUI.text = "Level " + level.ToString();
         playerLevelUI.gameObject.SetActive(true);
         Invoke("StopLevelBig", 3f);
+        transition.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -34,6 +40,7 @@ public class Level : MonoBehaviour
             UpdateLevelUI();
             UpdateNewLevel();
             timeSinceLastIncrement = 0f;
+            UpdateTilemap(tilemap_level_1, tilemap_level_2, 2);
         }
 
     }
@@ -76,7 +83,7 @@ public class Level : MonoBehaviour
         {
             achievementScript.CompleteAchievement("SURVIVAL I");
         }
-        if (level == 40)
+        if (level == 40) 
         {
             achievementScript.CompleteAchievement("UNBEATABLE WARRIOR");
         }
@@ -89,4 +96,37 @@ public class Level : MonoBehaviour
 
         achievementScript.CheckLast();
     }
+
+    void UpdateTilemap(GameObject tilemap_current, GameObject tilemap_new, int levelNeeded)
+    {
+        // Toggle the active tilemap based on the level
+        if (level == levelNeeded)
+        {
+            StartCoroutine(TransitionAndDeactivate(tilemap_current, tilemap_new));
+        }
+    }
+
+    IEnumerator TransitionAndDeactivate(GameObject tilemap_current, GameObject tilemap_new)
+    {
+        transition.gameObject.SetActive(true);
+        // Start the transition animation
+        transition.SetTrigger("Start");
+
+        // Wait for 0.5 seconds
+        yield return new WaitForSeconds(1f);
+
+        // Deactivate the current tilemap
+        tilemap_current.SetActive(false);
+        SpawnPlayer();
+        // Activate the new tilemap
+        tilemap_new.SetActive(true);
+    }
+
+    void SpawnPlayer()
+    {
+        // Spawn the player at the start of the level
+        GameObject player = GameObject.Find("Player");
+        player.transform.position = new Vector3(0, 0, 0);
+    }
+    
 }
