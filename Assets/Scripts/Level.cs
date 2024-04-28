@@ -16,6 +16,7 @@ public class Level : MonoBehaviour
     public static Level Instance { get; private set; }
     public GameObject tilemap_level_1; 
     public GameObject tilemap_level_2;
+    public GameObject tilemap_level_3;
     public Animator transition;
     private const float transitionDuration = 1f;
     void Start()
@@ -41,6 +42,7 @@ public class Level : MonoBehaviour
             UpdateNewLevel();
             timeSinceLastIncrement = 0f;
             UpdateTilemap(tilemap_level_1, tilemap_level_2, 2);
+            UpdateTilemap(tilemap_level_2, tilemap_level_3, 3);
         }
 
     }
@@ -108,6 +110,7 @@ public class Level : MonoBehaviour
 
     IEnumerator TransitionAndDeactivate(GameObject tilemap_current, GameObject tilemap_new)
     {
+        transition.gameObject.SetActive(false);
         transition.gameObject.SetActive(true);
         // Start the transition animation
         transition.SetTrigger("Start");
