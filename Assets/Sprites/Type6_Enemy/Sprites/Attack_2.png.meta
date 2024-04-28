@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6bddda0dee82ecc4ca4a8de022279b38
+guid: 5116fcc589cd9524680a377682d8ad96
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 4
+  spritePixelsToUnits: 5
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Attack2_0
+      name: Attack_2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ff8dc01964516445906ef229f1c44e7
-      internalID: 1710537439
+      spriteID: 7089dd6c56edcdf46b198ee0a2dba134
+      internalID: -136707334
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack2_1
+      name: Attack_2_1
       rect:
         serializedVersion: 2
         x: 200
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6d328b11ce81804da00e993256ab7c6
-      internalID: -995153444
+      spriteID: b2c105f89fb5599439791b27e51bb085
+      internalID: 208575415
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack2_2
+      name: Attack_2_2
       rect:
         serializedVersion: 2
         x: 400
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b398175259d0f3e42ae8c643a7257a99
-      internalID: 155319866
+      spriteID: 56de9b82b05248a49ba5f4caa8218870
+      internalID: -274370475
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack2_3
+      name: Attack_2_3
       rect:
         serializedVersion: 2
         x: 600
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ffb223d20cbf75149934159a0eabf671
-      internalID: -155387818
+      spriteID: e5bef1d216e6a5d4885a3458e39f69b3
+      internalID: 2043916905
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack2_4
+      name: Attack_2_4
       rect:
         serializedVersion: 2
         x: 800
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61cfbfc7e6530ee41886960ad8857f59
-      internalID: -1231861904
+      spriteID: 94d77fdf52f30e5479e613335a7f22e4
+      internalID: -640983362
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack2_5
+      name: Attack_2_5
       rect:
         serializedVersion: 2
         x: 1000
@@ -229,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3449e5c2b8ea74468245aa629c8f4e2
-      internalID: -949374713
+      spriteID: 70788123908078743a6f3cf82d31a21d
+      internalID: -1370589657
       vertices: []
       indices: 
       edges: []
@@ -246,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Attack2_0: 1710537439
-      Attack2_1: -995153444
-      Attack2_2: 155319866
-      Attack2_3: -155387818
-      Attack2_4: -1231861904
-      Attack2_5: -949374713
+      Attack_2_0: -136707334
+      Attack_2_1: 208575415
+      Attack_2_2: -274370475
+      Attack_2_3: 2043916905
+      Attack_2_4: -640983362
+      Attack_2_5: -1370589657
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

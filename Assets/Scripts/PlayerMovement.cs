@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,8 @@ public class Movement : MonoBehaviour
     const string PLAYER_IDLE = "idle";
     const string PLAYER_RUN = "run";
     private bool isRunning = false;
-    const string PLAYER_ATTACK = "attack1";
+    string PLAYER_ATTACK = "attack1";
+    string PLAYER_ATTACKother = "attack2";
     private bool isAttacking = false;
     const string PLAYER_DEAD = "death";
     private bool isDead = false;
@@ -24,6 +26,7 @@ public class Movement : MonoBehaviour
     private bool isPreAttacking = false;
     const string PLAYER_TAKE_DAMAGE = "take hit";
     private bool isHurt = false;
+    float randomValue = 1;
     Vector3 lastPosition;
 
     [Header("Dashing")]
@@ -77,6 +80,8 @@ public class Movement : MonoBehaviour
         }
         else if (isAttacking == true)
         {
+
+
             ChangeAnimationState(PLAYER_ATTACK);
             float attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("AttackComplete", attackDelay);
@@ -166,6 +171,9 @@ public class Movement : MonoBehaviour
     public void AttackComplete()
     {
         isAttacking = false;
+        var temp = PLAYER_ATTACK;
+        PLAYER_ATTACK = PLAYER_ATTACKother;
+        PLAYER_ATTACKother = temp;
     }
     public void RunComplete()
     {

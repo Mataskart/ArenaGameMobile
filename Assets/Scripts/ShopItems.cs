@@ -32,28 +32,32 @@ public class ShopItems : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if health potion is purchased and player's health is less than max health and not already regenerating, start regenerating health
-        if(isHealthPotionPurchased && playerHealth.currentHealth < playerHealth.maxHealth && !isRegenerating)
+        if(healthPotionImage != null)
         {
-            StartCoroutine(RegenerateHealth());
-        }
+            //if health potion is purchased and player's health is less than max health and not already regenerating, start regenerating health
+            if(isHealthPotionPurchased && playerHealth.currentHealth < playerHealth.maxHealth && !isRegenerating)
+            {
+                StartCoroutine(RegenerateHealth());
+            }
 
-        if (isHealthPotionPurchased)
-        {
-            healthPotionImage.gameObject.SetActive(true);
-            if (!regenParticles.isPlaying)
+            if (isHealthPotionPurchased)
             {
-                regenParticles.Play();
+                healthPotionImage.gameObject.SetActive(true);
+                if (!regenParticles.isPlaying)
+                {
+                    regenParticles.Play();
+                }
+            }
+            else
+            {
+                healthPotionImage.gameObject.SetActive(false);
+                if (regenParticles.isPlaying)
+                {
+                    regenParticles.Stop();
+                }
             }
         }
-        else
-        {
-            healthPotionImage.gameObject.SetActive(false);
-            if (regenParticles.isPlaying)
-            {
-                regenParticles.Stop();
-            }
-        }
+        
     }
 
     IEnumerator RegenerateHealth()
