@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c59f195b060e4f429193b827b3a6c73, type: 3}
-  m_Name: Type6_Settings 1
+  m_Name: Type6_Settings
   m_EditorClassIdentifier: 
-  hp: 150
-  damage: 30
+  hp: 600
+  damage: 35
   speed: 1.75

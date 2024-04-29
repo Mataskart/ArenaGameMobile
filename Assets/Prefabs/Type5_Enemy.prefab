@@ -121,11 +121,11 @@ GameObject:
   - component: {fileID: 2093134338967005476}
   m_Layer: 0
   m_Name: Type5_Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3213671499609400313
 Transform:
   m_ObjectHideFlags: 0
@@ -270,7 +270,7 @@ Animator:
   m_GameObject: {fileID: 1494972512438636988}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 303dfb4155b99014d9a1a5fe51dec6fe, type: 2}
+  m_Controller: {fileID: 9100000, guid: c5b52fe9a9c53f048a845e1bf60fe210, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -460,7 +460,7 @@ RectTransform:
   m_Father: {fileID: 2012542961392273774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -4.939995, y: -0.0000009536743}
   m_SizeDelta: {x: 0.12, y: -0.00000095367}
   m_Pivot: {x: 0.5, y: 0.5}
