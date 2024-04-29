@@ -139,7 +139,7 @@ public class EnemyScript : MonoBehaviour
 
     private void Swarm()
     {
-        float minimumDistance = 1f; // Adjust this value as needed
+        float minimumDistance = 0.1f; // Adjust this value as needed
         if (Vector2.Distance(transform.position, player.transform.position) > minimumDistance)
         {
             isRunning = true;

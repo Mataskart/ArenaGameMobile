@@ -16,7 +16,6 @@ public class Movement : MonoBehaviour
     string currentState;
     const string PLAYER_IDLE = "idle";
     const string PLAYER_RUN = "run";
-    private bool isRunning = false;
     string PLAYER_ATTACK = "attack1";
     string PLAYER_ATTACKother = "attack2";
     private bool isAttacking = false;
@@ -26,7 +25,6 @@ public class Movement : MonoBehaviour
     private bool isPreAttacking = false;
     const string PLAYER_TAKE_DAMAGE = "take hit";
     private bool isHurt = false;
-    float randomValue = 1;
     Vector3 lastPosition;
 
     [Header("Dashing")]
@@ -174,10 +172,6 @@ public class Movement : MonoBehaviour
         var temp = PLAYER_ATTACK;
         PLAYER_ATTACK = PLAYER_ATTACKother;
         PLAYER_ATTACKother = temp;
-    }
-    public void RunComplete()
-    {
-        isRunning = false;
     }
     public void PreAttackComplete()
     {
