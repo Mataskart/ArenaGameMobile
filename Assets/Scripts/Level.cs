@@ -18,6 +18,7 @@ public class Level : MonoBehaviour
     public GameObject tilemap_level_2;
     public GameObject tilemap_level_3;
     public GameObject tilemap_level_4;
+    public GameObject tilemap_boss;
     public Animator transition;
     private const float transitionDuration = 1f;
     void Start()
@@ -44,9 +45,9 @@ public class Level : MonoBehaviour
             timeSinceLastIncrement = 0f;
             UpdateTilemap(tilemap_level_1, tilemap_level_2, 2);
             UpdateTilemap(tilemap_level_2, tilemap_level_3, 3);
-            UpdateTilemap(tilemap_level_3, tilemap_level_4, 4);
+            UpdateTilemap(tilemap_level_3, tilemap_boss, 4);
+            UpdateTilemap(tilemap_boss, tilemap_level_4, 5);
         }
-
     }
 
     private void UpdateLevelUI()
