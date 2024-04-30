@@ -12,7 +12,7 @@ public class Level : MonoBehaviour
     public TextMeshProUGUI levelUI;
     public TextMeshProUGUI playerLevelUI;
     private float timeSinceLastIncrement = 0f;
-    private const float levelDuration = 30f;
+    private const float levelDuration = 15f;
     public static Level Instance { get; private set; }
     public GameObject tilemap_level_1; 
     public GameObject tilemap_level_2;

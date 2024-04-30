@@ -32,7 +32,11 @@ public class ShopItems : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(healthPotionImage != null)
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            isHealthPotionPurchased = true;
+        }
+        if (healthPotionImage != null)
         {
             //if health potion is purchased and player's health is less than max health and not already regenerating, start regenerating health
             if(isHealthPotionPurchased && playerHealth.currentHealth < playerHealth.maxHealth && !isRegenerating)
