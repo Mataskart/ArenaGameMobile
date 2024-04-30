@@ -72,7 +72,7 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         lastPosition = transform.position;
         bool isMoving = Vector3.Distance(transform.position, lastPosition) > 0.1f;
@@ -139,7 +139,7 @@ public class EnemyScript : MonoBehaviour
 
     private void Swarm()
     {
-        float minimumDistance = 1f; // Adjust this value as needed
+        float minimumDistance = 0.1f; // Adjust this value as needed
         if (Vector2.Distance(transform.position, player.transform.position) > minimumDistance)
         {
             isRunning = true;
@@ -160,6 +160,7 @@ public class EnemyScript : MonoBehaviour
         {
             if (collider.GetComponent<Health>() != null && attackTimer <= 0)
             {
+                Debug.Log("Enemy attacking player."); // This will print a message to the Unity Console
                 collider.GetComponent<Health>().TakeDamage(damage);
                 isAttacking = true;
                 attackTimer = attackCooldown; // Reset the timer to the regular cooldown

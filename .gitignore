@@ -71,10 +71,5 @@ crashlytics-build.properties
 **/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
 # Temporary auto-generated Android Assets
-**/[Aa]ssets/[Ss]treamingAssets/aa.meta
 **/[Aa]ssets/[Ss]treamingAssets/aa/*
-Assets/Sprites/Map/Pixel Art Top Down - Basic/Pixel Art Top Down - Basic.unitypackage.meta
-Assets/Sprites/Map/Pixel Art Top Down - Basic/Pixel Art Top Down - Basic.unitypackage.meta
-Assets/Plugins/Febucci/Text Animator/Extra/Typewriter Sound - Package.unitypackage.meta
-Assets/Plugins/Febucci/Text Animator/Integrations/PlayMaker - Integration.unitypackage.meta
-Assets/Plugins/Febucci/Text Animator/Integrations/Visual Scripting - Integration.unitypackage.meta
+

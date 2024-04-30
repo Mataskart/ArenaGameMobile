@@ -28,7 +28,7 @@ MonoBehaviour:
   dropdownPrimaryColor: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 255}
   dropdownItemBackgroundColor: {r: 1, g: 1, b: 1, a: 255}
   dropdownItemPrimaryColor: {r: 0.16862746, g: 0.16862746, b: 0.16862746, a: 255}
-  selectorFont: {fileID: 11400000, guid: 4bd810f1cbcb0f446a8f5a31453e243f, type: 2}
+  selectorFont: {fileID: 11400000, guid: 68feacc620af84649b890b6b18ea5989, type: 2}
   selectorColor: {r: 1, g: 1, b: 1, a: 1}
   selectorHighlightedColor: {r: 0.1764706, g: 0.25490198, b: 0.33333334, a: 1}
   inputFieldFont: {fileID: 11400000, guid: 4bd810f1cbcb0f446a8f5a31453e243f, type: 2}

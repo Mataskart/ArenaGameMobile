@@ -17,9 +17,7 @@ public class PlayerScore : MonoBehaviour
     public TextMeshProUGUI highScoreUI;
     public TextMeshProUGUI newHighScoreUI;
     public bool highScoreBeaten = false;
-
-    [SerializeField]
-    private NotificationManager newAchievement;
+    private int enemiesKilled = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -51,14 +49,10 @@ public class PlayerScore : MonoBehaviour
 
     public void Enemy_OnEnemyKilled(EnemyScript enemy)
     {
+        enemiesKilled++;
         totalEnemiesKilled++;
         PlayerPrefs.SetInt("TotalEnemiesKilled", totalEnemiesKilled);
         PlayerPrefs.Save();
-        if (PlayerPrefs.GetInt("TotalEnemiesKilled", 0) == 1 && PlayerPrefs.GetInt("BORN TO KILL", 0) == 0)
-        {
-            PlayerPrefs.SetInt("BORN TO KILL", 1);
-            newAchievement.Open();
-        }
         // Increase score and reset timer when an enemy is killed
         score += scoreForBasicEnemy * scoreMultiplier;
         CheckHighScore();
@@ -99,5 +93,10 @@ public class PlayerScore : MonoBehaviour
     void UpdateHighScore()
     {
         highScoreUI.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0).ToString();
+    }
+
+    public int GetEnemiesKilled()
+    {
+        return enemiesKilled;
     }
 }

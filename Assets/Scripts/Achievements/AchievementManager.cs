@@ -1,112 +1,76 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Michsky.MUIP;
-using JetBrains.Annotations;
-using System;
-using UnityEngine.UI;
-using Unity.VisualScripting;
-using UnityEditor;
-using System.Linq;
+using UnityEngine;
 
-using TMPro;
 public class AchievementManager : MonoBehaviour
 {
-    public AchievementsDatabase achievementsDb;
-    public ListView achievementsListView;
-    public TextMeshProUGUI completedTxt;
-    void Start()
+    public AchievementsDatabase achievementsDatabase;
+    [SerializeField] private NotificationManager notificationManager;
+
+    void Update()
     {
-        completedTxt.text = CountCompleted();
-        LoadAchievements();
+        CheckLast();
     }
 
-    private void LoadAchievements()
+    public void CompleteAchievement(string name)
     {
-        for (int i = 0; i < achievementsDb.AchievementCount; i++)
+        bool alreadyCompleted = CheckAchievement(name);
+
+        if (!alreadyCompleted)
         {
-            ListView.ListItem achievement = new ListView.ListItem();
-            Achievement achievements = achievementsDb.GetAchievement(i);
-
-            bool completed = CheckIfCompleted(achievements);
-
-            if (completed)
-            {
-                achievement.row0 = new ListView.ListRow();
-                achievement.row1 = new ListView.ListRow();
-                achievement.row2 = new ListView.ListRow();
-                achievement.row0.rowType = ListView.RowType.Icon;
-                achievement.row0.iconScale = 1.3f;
-                achievement.row1.rowType = ListView.RowType.Text;
-                achievement.row2.rowType = ListView.RowType.Text;
-                achievement.row0.rowIcon = achievements.achievementSpriteCompleted;
-                achievement.row1.rowText = achievements.achievementTitle;
-                achievement.row2.rowText = achievements.achievementShortDescription;
-                achievementsListView.listItems.Add(achievement);
-            }
-            else
-            {
-                achievement.row0 = new ListView.ListRow();
-                achievement.row1 = new ListView.ListRow();
-                achievement.row2 = new ListView.ListRow();
-                achievement.row0.rowType = ListView.RowType.Icon;
-                achievement.row0.iconScale = 1.3f;
-                achievement.row1.rowType = ListView.RowType.Text;
-                achievement.row2.rowType = ListView.RowType.Text;
-                achievement.row0.rowIcon = achievements.achievementSpriteBW;
-                string titleModified = ShuffleString(achievements.achievementTitle);
-                achievement.row1.rowText = titleModified;
-                achievement.row2.rowText = achievements.achievementShortDescription;
-
-                achievementsListView.listItems.Add(achievement);
-            }
+            PlayerPrefs.SetInt(name, 1);
+            PlayerPrefs.Save();
+            ShowNotification(name);
         }
-
-        achievementsListView.InitializeItems();
     }
-
-    private bool CheckIfCompleted(Achievement achievement)
+    private bool CheckAchievement(string name)
     {
-        int completed = PlayerPrefs.GetInt(achievement.achievementTitle, 0);
+        int achievement = PlayerPrefs.GetInt(name, 0);
 
-        if (completed == 1)
-        {
-            return true;
-        }
-        else
+        if (achievement == 0)
         {
             return false;
         }
-    }
-    private string CountCompleted()
-    {
-        int completedCount = 0;
-        for (int i = 0; i < achievementsDb.AchievementCount; i++)
+        else
         {
-            Achievement achievement = achievementsDb.GetAchievement(i);
+            return true;
+        }
+    }
+    private void ShowNotification(string name)
+    {
+        for (int i = 0; i < achievementsDatabase.AchievementCount; i++)
+        {
+            Achievement achievement = achievementsDatabase.GetAchievement(i);
 
-            if (PlayerPrefs.GetInt(achievement.achievementTitle, 0) == 1)
+            if (achievement.achievementTitle == name)
             {
-                completedCount++;
+                notificationManager.description = achievement.achievementShortDescription;
+                notificationManager.UpdateUI();
+                notificationManager.Open();
             }
         }
-        string completed = "COMPLETED " + completedCount.ToString() + " / " + achievementsDb.AchievementCount.ToString();
-        return completed;
     }
 
-    private string ShuffleString(string str)
+    public void CheckLast()
     {
-        System.Random rng = new System.Random();
-        char[] array = str.ToCharArray();
-        int n = array.Length;
-        while (n > 1)
+        int count = 0;
+        for (int i = 0; i < achievementsDatabase.AchievementCount; i++)
         {
-            n--;
-            int k = rng.Next(n + 1);
-            var value = array[k];
-            array[k] = array[n];
-            array[n] = value;
+            Achievement achievement = achievementsDatabase.GetAchievement(i);
+
+            if (!achievement.achievementTitle.Equals("CHAMPION OF ARENA"))
+            {
+                if (CheckAchievement(achievement.achievementTitle))
+                {
+                    count++;
+                }
+            }
         }
-        return new string(array);
+
+        if (count == achievementsDatabase.AchievementCount - 1)
+        {
+            CompleteAchievement("CHAMPION OF ARENA");
+        }
     }
 }

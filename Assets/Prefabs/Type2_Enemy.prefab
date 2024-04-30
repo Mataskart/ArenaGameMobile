@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 2093134338967005476}
   m_Layer: 0
   m_Name: Type2_Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -218,7 +218,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &8923902280215632530
@@ -258,6 +258,8 @@ MonoBehaviour:
   floatingHealthBar: {fileID: 0}
   youDied: {fileID: 0}
   slider: {fileID: 1404758801859045397}
+  damageTakenEffect: {fileID: 0}
+  lowHealthController: {fileID: 0}
 --- !u!95 &8391611063306470104
 Animator:
   serializedVersion: 5

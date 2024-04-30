@@ -5,14 +5,11 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private GameObject attackArea = default;
-    private float timeToAttack = 0.5f;
-    private Animator anim;
-    private bool isAttacking = false;
+    private float timeUntilAttack=0;
 
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
         attackArea = transform.GetChild(0).gameObject;
         attackArea.SetActive(false);
     }
@@ -20,24 +17,38 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isAttacking)
+        timeUntilAttack -= Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Space) && timeUntilAttack <= 0)
         {
-            StartCoroutine(Attack());
+            Attack();
+            SetTimeUntilAttack();
         }
     }
 
-    private IEnumerator Attack()
+    private void Attack()
     {
-        isAttacking = true;
-        anim.SetTrigger("isAttacking");
+        Movement movement = GetComponent<Movement>();
         attackArea.SetActive(true);
-        // Add any additional attack logic here
+        movement.AttackAnim(); 
 
-        yield return new WaitForSeconds(timeToAttack); // Wait for the specified time before disabling the attack
+        Movement playerMovement = GetComponent<Movement>();
+        playerMovement.moveSpeed *= 0.3f; // Slow down player movement while attacking
+        Invoke("SpeedReturn",0.15f);
+        Invoke("DeactivateAttackArea", 0.2f); // Delay the deactivation
+    }
 
+    private void DeactivateAttackArea()
+    {
         attackArea.SetActive(false);
-        anim.ResetTrigger("isAttacking");
-        isAttacking = false;
+    }
 
+    private void SetTimeUntilAttack()
+    {
+        timeUntilAttack = 0.75f;
+    }
+    private void SpeedReturn()
+    {
+        Movement playerMovement = GetComponent<Movement>();
+        playerMovement.moveSpeed = 3f; // Reset player movement speed to normal
     }
 }

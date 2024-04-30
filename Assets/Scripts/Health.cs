@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using Leguar.LowHealth;
 using System.Security.Cryptography;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Health : MonoBehaviour
 {
@@ -15,6 +17,10 @@ public class Health : MonoBehaviour
     public TextMeshProUGUI youDied;
     private Animator animator;
     public Slider slider;
+    private float originalSpeed;
+    private bool isEnemy;
+    public Image damageTakenEffect;
+    public LowHealthController lowHealthController;
 
     // Start is called before the first frame update
     void Start()
@@ -31,9 +37,25 @@ public class Health : MonoBehaviour
             slider.value = 100f;
         }
         animator = GetComponent<Animator>();
+        Movement playerMovement = GetComponent<Movement>();
+        if (playerMovement != null) // Add this null check
+        {
+            originalSpeed = playerMovement.moveSpeed;
+            isEnemy = false;
+        }
+        else
+        {
+            isEnemy = true;
+        }
     }
     void Update()
     {
+        CheckAchievement();
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
+
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    // TakeDamage(20);
@@ -52,6 +74,20 @@ public class Health : MonoBehaviour
     {
         Movement playerMovement = GetComponent<Movement>();
         currentHealth -= damage;
+        Debug.Log("Player health: " + currentHealth);
+
+        if (GetComponent<EnemyScript>() == null)
+        {
+            float healthController = (float)currentHealth / 100;
+            Debug.Log(currentHealth + " dabartine");
+            Debug.Log(healthController + " apskaiciuota");
+            lowHealthController.SetPlayerHealthSmoothly(healthController, 0.5f);
+            if (currentHealth > 0)
+            {
+                damageTakenEffect.gameObject.SetActive(true);
+                Invoke("ResetDmgTaken", 0.2f);
+            }
+        }
 
         if (currentHealth <= 0)
         {
@@ -81,16 +117,23 @@ public class Health : MonoBehaviour
         else
         {
             // Trigger the hurt animation here
-            if (animator != null && GetComponent<EnemyScript>() == null){
-                animator.SetTrigger("isHurt");
+            if (animator != null && GetComponent<EnemyScript>() == null)
+            {
+                Movement movement = GetComponent<Movement>();
+                movement.HurtAnim();
             }
             if (animator != null && GetComponent<EnemyScript>() != null)
             {
                 EnemyScript enemyScript = GetComponent<EnemyScript>();
-                enemyScript.HurtAnim(); // Set the "isHurt" trigger
+                enemyScript.HurtAnim();
+            }
+
+            if (isEnemy == false)
+            {
+                playerMovement.moveSpeed *= 0.7f; // Slow down player movement when taking damage
+                Invoke("ResetSpeed", 1f); // Reset speed after 1 second
             }
         }
-        
 
         if (healthBar != null)
         {
@@ -100,8 +143,12 @@ public class Health : MonoBehaviour
         {
             slider.value = currentHealth;
         }
+    }
 
-
+    void ResetSpeed()
+    {
+        Movement playerMovement = GetComponent<Movement>();
+        playerMovement.moveSpeed = originalSpeed; // Reset player movement speed to normal
     }
 
     void Heal(int healAmount)
@@ -119,7 +166,41 @@ public class Health : MonoBehaviour
 
     void LoadMenu()
     {
-
         SceneManager.LoadScene("MainMenu");
+    }
+
+    void ResetDmgTaken()
+    {
+        damageTakenEffect.gameObject.SetActive(false);
+    }
+    void CheckAchievement()
+    {
+        GameObject player = GameObject.Find("Player");
+        PlayerScore scoreScript = player.GetComponent<PlayerScore>();
+        int enemiesKilled = scoreScript.GetEnemiesKilled();
+
+        GameObject achievementManager = GameObject.Find("AchievementManager");
+        AchievementManager achievementScript = achievementManager.GetComponent<AchievementManager>();
+        int enemiesTotal = PlayerPrefs.GetInt("TotalEnemiesKilled");
+
+        if (enemiesTotal == 1 && enemiesKilled == 1)
+        {
+            achievementScript.CompleteAchievement("BORN TO KILL");
+        }
+
+
+        if (currentHealth == 100 && enemiesKilled == 10)
+        {
+            achievementScript.CompleteAchievement("NO TIME TO DIE");
+        }
+
+        Level levelScript = player.GetComponent<Level>();
+        int currentLevel = levelScript.GetLevel();
+        if (currentHealth == 100 && currentLevel == 5)
+        {
+            achievementScript.CompleteAchievement("MASTER OF COMBAT");
+        }
+
+        achievementScript.CheckLast();
     }
 }
