@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.Playables;
 using Michsky.MUIP;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
