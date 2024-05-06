@@ -18,6 +18,8 @@ public class MainMenu : MonoBehaviour
     public TMP_Text totalDamageDealt;
     public TextMeshProUGUI moneyText;
     private int gamesPlayed;
+    public AudioSource hoverSound;
+    public AudioSource clickSound;
 
     void Start()
     {
@@ -123,5 +125,14 @@ public class MainMenu : MonoBehaviour
             int money = PlayerPrefs.GetInt("Money", 0);
             moneyText.text = "Money: " + money.ToString();
         }
+    }
+
+    public void PlayHoverSound()
+    {
+        hoverSound.PlayOneShot(hoverSound.clip);
+    }
+    public void PlayClickSound()
+    {
+        clickSound.PlayOneShot(clickSound.clip);
     }
 }

@@ -21,6 +21,7 @@ public class Health : MonoBehaviour
     private bool isEnemy;
     public Image damageTakenEffect;
     public LowHealthController lowHealthController;
+    public AudioSource heartbeatEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +57,15 @@ public class Health : MonoBehaviour
             healthBar.SetHealth(currentHealth);
         }
 
+        float healthController = (float)currentHealth / 100;
+
+        if (lowHealthController != null)
+        {
+            lowHealthController.SetPlayerHealthSmoothly(healthController, 0.1f);
+        }
+
+        CheckHeartBeatFX();
+
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    // TakeDamage(20);
@@ -78,10 +88,6 @@ public class Health : MonoBehaviour
 
         if (GetComponent<EnemyScript>() == null)
         {
-            float healthController = (float)currentHealth / 100;
-            Debug.Log(currentHealth + " dabartine");
-            Debug.Log(healthController + " apskaiciuota");
-            lowHealthController.SetPlayerHealthSmoothly(healthController, 0.5f);
             if (currentHealth > 0)
             {
                 damageTakenEffect.gameObject.SetActive(true);
@@ -202,5 +208,20 @@ public class Health : MonoBehaviour
         }
 
         achievementScript.CheckLast();
+    }
+
+    void CheckHeartBeatFX()
+    {
+        if (heartbeatEffect != null)
+        {
+            if (currentHealth <= 30 && !heartbeatEffect.isPlaying)
+            {
+                heartbeatEffect.Play();
+            }
+            else if (currentHealth > 30 && heartbeatEffect.isPlaying)
+            {
+                heartbeatEffect.Stop();
+            }
+        }
     }
 }
