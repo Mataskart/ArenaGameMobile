@@ -6,10 +6,12 @@ using TMPro;
 using UnityEngine.Playables;
 using Michsky.MUIP;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour
 {
-
+    public AudioMixer musicMixer;
+    public AudioMixer sfxMixer;
     public TMP_Text highscoreText;
     public TMP_Text enemiesKilledText;
     public TMP_Text gamesPlayedText;
@@ -24,6 +26,7 @@ public class MainMenu : MonoBehaviour
     {
         gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
         UpdateStats();
+        UpdateVolume();
     }
 
     void Update()
@@ -124,6 +127,12 @@ public class MainMenu : MonoBehaviour
             int money = PlayerPrefs.GetInt("Money", 0);
             moneyText.text = "Money: " + money.ToString();
         }
+    }
+
+    private void UpdateVolume()
+    {
+        musicMixer.SetFloat("volume", PlayerPrefs.GetFloat("musicVolume"));
+        sfxMixer.SetFloat("volume", PlayerPrefs.GetFloat("sfxVolume"));
     }
 
     public void PlayHoverSound()
