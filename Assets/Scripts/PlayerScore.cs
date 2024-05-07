@@ -28,7 +28,6 @@ public class PlayerScore : MonoBehaviour
         scoreUI.gameObject.SetActive(true);
         EnemyScript.OnEnemyKilled += Enemy_OnEnemyKilled;
         UpdateHighScore();
-        highScoreUI.gameObject.SetActive(true);
         totalEnemiesKilled = PlayerPrefs.GetInt("TotalEnemiesKilled", 0);
     }
 
@@ -81,7 +80,9 @@ public class PlayerScore : MonoBehaviour
                 Invoke("EndHighScoreUI", 3);
                 highScoreBeaten = true;
             }
+            highScoreUI.gameObject.SetActive(true);
             PlayerPrefs.SetInt("HighScore", score);
+            scoreUI.gameObject.SetActive(false);
         }
     }
 
