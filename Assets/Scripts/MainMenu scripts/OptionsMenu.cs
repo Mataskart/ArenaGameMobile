@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using Michsky.MUIP;
 using Unity.VisualScripting;
+using System;
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class OptionsMenu : MonoBehaviour
     public SliderManager musicSlider;
     public CustomDropdown resolutionsDropdown;
     Resolution[] resolutions;
+    private List<Resolution> filteredResolutions;
+    private double currentRefreshRate;
+    private int currentResolutionIndex = 0;
     public void SetMusicVolume(float volume)
     {
         musicMixer.SetFloat("volume", volume);
@@ -28,26 +32,53 @@ public class OptionsMenu : MonoBehaviour
 
     void Start()
     {
-        // resolutions = Screen.resolutions;
+        resolutions = Screen.resolutions;
+        filteredResolutions = new List<Resolution>();
 
-        // for (int i = 0; i < resolutions.Length; i++)
-        // {
-        //     string option = resolutions[i].width + " x " + resolutions[i].height;
-        //     resolutionsDropdown.CreateNewItem(option, null);
+        currentRefreshRate = Screen.currentResolution.refreshRateRatio.value;
 
-        //     if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
-        //     {
-        //         resolutionsDropdown.ChangeDropdownInfo(i);
-        //     }
-        // }
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            Debug.Log(resolutions[i].refreshRateRatio.value);
+            if (resolutions[i].refreshRateRatio.value == currentRefreshRate)
+            {
+                filteredResolutions.Add(resolutions[i]);
+            }
+        }
 
-        // resolutionsDropdown.SetupDropdown();
-        // resolutionsDropdown.onValueChanged.AddListener(setResolution);
+        for (int i = 0; i < filteredResolutions.Count; i++)
+        {
+            string resolutionOption = filteredResolutions[i].width + "x" + filteredResolutions[i].height + " " + (int)Math.Round(filteredResolutions[i].refreshRateRatio.value) + " Hz";
+            resolutionsDropdown.CreateNewItem(resolutionOption, null, false);
+            if (filteredResolutions[i].width == Screen.width && filteredResolutions[i].height == Screen.height)
+            {
+                currentResolutionIndex = i;
+            }
+        }
+
+        resolutionsDropdown.SetupDropdown();
+        resolutionsDropdown.ChangeDropdownInfo(currentResolutionIndex);
+
     }
 
-    public void setResolution(int index)
+    public void SetResolution(int resolutionIndex)
     {
-        Resolution resolution = resolutions[index];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        Resolution resolution = filteredResolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, true);
+    }
+
+    public void SetFullscreen()
+    {
+        Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+    }
+
+    public void SetWindow()
+    {
+        Screen.fullScreenMode = FullScreenMode.Windowed;
+    }
+
+    public void SetWindowedFullscreen()
+    {
+        Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
     }
 }

@@ -21,7 +21,10 @@ public class MainMenu : MonoBehaviour
     private int gamesPlayed;
     public AudioSource hoverSound;
     public AudioSource clickSound;
-
+    public TextMeshProUGUI buyButtonText;
+    public Button buyButton;
+    public int Money;
+    [SerializeField] private NotificationManager notificationManager;
     void Start()
     {
         gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
@@ -32,6 +35,8 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
         gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
+        CheckIfPurchaseAvailable();
+        UpdateMoney();
     }
     public void PlayButton()
     {
@@ -120,12 +125,12 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private void UpdateMoney()
+    public void UpdateMoney()
     {
         if (moneyText != null)
         {
-            int money = PlayerPrefs.GetInt("Money", 0);
-            moneyText.text = "Money: " + money.ToString();
+            Money = PlayerPrefs.GetInt("Money", 0);
+            moneyText.text = "Money: " + Money.ToString();
         }
     }
 
@@ -133,6 +138,40 @@ public class MainMenu : MonoBehaviour
     {
         musicMixer.SetFloat("volume", PlayerPrefs.GetFloat("musicVolume"));
         sfxMixer.SetFloat("volume", PlayerPrefs.GetFloat("sfxVolume"));
+    }
+
+    public void CheckIfPurchaseAvailable()
+    {
+        string status = PlayerPrefs.GetString("isHealthPotionAvailable");
+
+        if (status == "true")
+        {
+            buyButtonText.text = "PURCHASED";
+            buyButtonText.color = Color.yellow;
+            buyButton.interactable = false;
+        }
+        else
+        {
+            buyButtonText.text = "BUY";
+            buyButton.interactable = true;
+        }
+    }
+
+    public void BuyButton()
+    {
+        if (Money >= 200)
+        {
+            PlayerPrefs.SetString("isHealthPotionAvailable", "true");
+            int currentMoney = Money - 200;
+            PlayerPrefs.SetInt("Money", currentMoney);
+        }
+        else
+        {
+            if (!notificationManager.isOn)
+            {
+                notificationManager.Open();
+            }
+        }
     }
 
     public void PlayHoverSound()
