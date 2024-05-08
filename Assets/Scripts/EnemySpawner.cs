@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UIElements;
-
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
@@ -22,11 +21,18 @@ public class EnemySpawner : MonoBehaviour
     private float minimumSpawnTime;
     [SerializeField]
     private float maximumSpawnTime;
+    public AudioSource levelTrack1;
+    public AudioSource levelTrack2;
+    public AudioSource levelTrack3;
+    public AudioSource levelTrack4;
+    public AudioSource levelTrack5;
     private float timeUntilSpawn;
     float[] enemyProbabilities = {0.9f, 0.08f, 0.0f, 0.002f, 0f};
     float[] enemyProbabilities2 = {0.6f, 0.15f, 0.15f, 0.095f, 0.005f};
     float[] enemyProbabilities3 = {0.3f, 0.1f, 0.3f, 0.2f, 0.1f};
     float[] enemyProbabilities4 = {0.1f, 0.05f, 0.35f, 0.25f, 0.25f};
+
+    int levelBefore = -1;
 
     // Start is called before the first frame update
     void Awake(){
@@ -38,6 +44,10 @@ public class EnemySpawner : MonoBehaviour
         GameObject levelObject = GameObject.Find("Player");
         Level levelScript = levelObject.GetComponent<Level>();
         int level = levelScript.GetLevel();
+        if(levelBefore != level){
+            CheckLevelFX(levelBefore,level);
+            levelBefore = level;
+        }
         timeUntilSpawn -= Time.deltaTime;
         if(timeUntilSpawn <= 0)
         {
@@ -97,6 +107,59 @@ public class EnemySpawner : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             Destroy(enemy);
+        }
+    }
+
+    void CheckLevelFX(int levelBefore, int level)
+    {
+        if(level == 1){
+            if (levelTrack1 != null)
+            {
+                if (!levelTrack1.isPlaying)
+                {
+                    levelTrack1.Play();
+                }
+            }
+        }
+        if(level == 2){
+            if (levelTrack2 != null)
+            {
+                if (!levelTrack2.isPlaying)
+                {
+                    levelTrack1.Stop();
+                    levelTrack2.Play();
+                }
+            }
+        }
+        if(level == 3){
+            if (levelTrack3 != null)
+            {
+                if (!levelTrack3.isPlaying)
+                {
+                    levelTrack2.Stop();
+                    levelTrack3.Play();
+                }
+            }
+        }
+        if(level == 4){
+            if (levelTrack4 != null)
+            {
+                if (!levelTrack4.isPlaying)
+                {
+                    levelTrack3.Stop();
+                    levelTrack4.Play();
+                }
+            }
+        }
+        if(level == 5){
+            if (levelTrack5 != null)
+            {
+                if (!levelTrack5.isPlaying)
+                {
+                    levelTrack4.Stop();
+                    levelTrack5.Play();
+                }
+            }
         }
     }
 }
