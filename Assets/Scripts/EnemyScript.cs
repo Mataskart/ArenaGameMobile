@@ -8,6 +8,8 @@ public class EnemyScript : MonoBehaviour
 {
     public Animator anim;
     private Vector2 moveDirectionAnim;
+    public AudioSource enemySword;
+    public AudioSource enemyDeath;
 
     public static event Action<EnemyScript> OnEnemyKilled;
 
@@ -42,11 +44,15 @@ public class EnemyScript : MonoBehaviour
     const string ENEMY_TAKE_DAMAGE = "takeDamage";
     private bool isHurt = false;
     Vector3 lastPosition;
+    int DeathSFX = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        GameObject enemySwordObject = GameObject.FindWithTag("enemySword");
+        enemySword = enemySwordObject.GetComponent<AudioSource>();
+        GameObject enemyDeathObject = GameObject.FindWithTag("enemyDeath");
+        enemyDeath = enemyDeathObject.GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         SetEnemyValues();
         attackTimer = 0f; // Initialize timer
@@ -57,7 +63,6 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (isDead)
         {
             slider.gameObject.SetActive(false);
@@ -74,6 +79,7 @@ public class EnemyScript : MonoBehaviour
 
     private void LateUpdate()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         lastPosition = transform.position;
         bool isMoving = Vector3.Distance(transform.position, lastPosition) > 0.1f;
         Vector2 direction = player.transform.position - transform.position;
@@ -83,6 +89,7 @@ public class EnemyScript : MonoBehaviour
         moveDirectionAnim = new Vector2(moveX, moveY);
         if (isDead == true)
         {
+            CheckDeathSFX();
             ChangeAnimationState(ENEMY_DEAD);
         }
         else if (isHurt == true)
@@ -93,6 +100,7 @@ public class EnemyScript : MonoBehaviour
         }
         else if (isAttacking == true)
         {
+            CheckSwordSFX();
             ChangeAnimationState(ENEMY_ATTACK);
             float attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("AttackComplete", attackDelay);
@@ -139,12 +147,8 @@ public class EnemyScript : MonoBehaviour
 
     private void Swarm()
     {
-        float minimumDistance = 0.1f; // Adjust this value as needed
-        if (Vector2.Distance(transform.position, player.transform.position) > minimumDistance)
-        {
             isRunning = true;
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x, player.transform.position.y + 0.5f), speed * Time.deltaTime);
-        }
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -235,5 +239,31 @@ public class EnemyScript : MonoBehaviour
     private void SetTimeUntilFlip()
     {
         timeUntilFlip = 0.25f;
+    }
+
+    void CheckSwordSFX()
+    {
+            if (enemySword != null)
+            {
+                if (!enemySword.isPlaying)
+                {
+                    enemySword.Play();
+                }
+            }
+    }
+    void CheckDeathSFX()
+    {
+            if (enemyDeath != null)
+            {
+                if (!enemyDeath.isPlaying)
+                {
+                    if(DeathSFX == 1)
+                    {
+                        enemyDeath.Play();
+                        DeathSFX--;
+                    }
+                  
+                }
+            }
     }
 }

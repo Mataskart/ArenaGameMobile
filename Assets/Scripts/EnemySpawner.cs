@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.UI;
+using Leguar.LowHealth;
 public class EnemySpawner : MonoBehaviour
 {
+    public TextMeshProUGUI youDied;
+
     [SerializeField]
     private GameObject Type1_EnemyPrefab;
     [SerializeField]
@@ -32,19 +38,24 @@ public class EnemySpawner : MonoBehaviour
     float[] enemyProbabilities3 = {0.3f, 0.1f, 0.3f, 0.2f, 0.1f};
     float[] enemyProbabilities4 = {0.1f, 0.05f, 0.35f, 0.25f, 0.25f};
 
+    
+
     int levelBefore = -1;
+    int level;
+    Level levelScript;
+    GameObject levelObject;
 
     // Start is called before the first frame update
     void Awake(){
         SetTimeUntilSpawn();
+        levelObject = GameObject.Find("Player");
+        levelScript = levelObject.GetComponent<Level>();
     }
     void Update()
     {
         GameObject selected;
-        GameObject levelObject = GameObject.Find("Player");
-        Level levelScript = levelObject.GetComponent<Level>();
-        int level = levelScript.GetLevel();
-        if(levelBefore != level){
+        level = levelScript.GetLevel();
+        if(levelBefore != level || youDied.gameObject.activeSelf){
             CheckLevelFX(levelBefore,level);
             levelBefore = level;
         }
@@ -119,6 +130,10 @@ public class EnemySpawner : MonoBehaviour
                 {
                     levelTrack1.Play();
                 }
+                if(youDied.gameObject.activeSelf)
+                {
+                    levelTrack1.Stop();
+                }
             }
         }
         if(level == 2){
@@ -128,6 +143,10 @@ public class EnemySpawner : MonoBehaviour
                 {
                     levelTrack1.Stop();
                     levelTrack2.Play();
+                }
+                if(youDied.gameObject.activeSelf)
+                {
+                    levelTrack2.Stop();
                 }
             }
         }
@@ -139,6 +158,10 @@ public class EnemySpawner : MonoBehaviour
                     levelTrack2.Stop();
                     levelTrack3.Play();
                 }
+                if(youDied.gameObject.activeSelf)
+                {
+                    levelTrack3.Stop();
+                }
             }
         }
         if(level == 4){
@@ -149,15 +172,23 @@ public class EnemySpawner : MonoBehaviour
                     levelTrack3.Stop();
                     levelTrack4.Play();
                 }
+                if(youDied.gameObject.activeSelf)
+                {
+                    levelTrack4.Stop();
+                }
             }
         }
-        if(level == 5){
+        if(level >= 5){
             if (levelTrack5 != null)
             {
                 if (!levelTrack5.isPlaying)
                 {
                     levelTrack4.Stop();
                     levelTrack5.Play();
+                }
+                if(youDied.gameObject.activeSelf)
+                {
+                    levelTrack5.Stop();
                 }
             }
         }

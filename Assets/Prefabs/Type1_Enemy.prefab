@@ -233,7 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb310fa9e338af04f8be362ed2b5e74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  anim: {fileID: 8391611063306470104}
+  enemySword: {fileID: 0}
+  enemyDeath: {fileID: 0}
   damage: 5
   speed: 1.5
   attackCooldown: 1
@@ -260,6 +262,7 @@ MonoBehaviour:
   slider: {fileID: 1404758801859045397}
   damageTakenEffect: {fileID: 0}
   lowHealthController: {fileID: 0}
+  heartbeatEffect: {fileID: 0}
 --- !u!95 &8391611063306470104
 Animator:
   serializedVersion: 5
