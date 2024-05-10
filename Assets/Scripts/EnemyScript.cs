@@ -60,6 +60,8 @@ public class EnemyScript : MonoBehaviour
         SetEnemyValues();
         attackTimer = 0f; // Initialize timer
         slider = GetComponentInChildren<Slider>();
+        slider.maxValue = data.hp;
+        slider.value = data.hp;
 
     }
 
@@ -147,6 +149,7 @@ public class EnemyScript : MonoBehaviour
         damage = data.damage;
         speed = data.speed;
         slider.maxValue = data.hp;
+        slider.value = data.hp;
     }
 
     private void Swarm()
@@ -280,4 +283,13 @@ public class EnemyScript : MonoBehaviour
             }
         }
     }
+
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+    public float GetSpeed()
+    {
+        return speed;
+    }   
 }
