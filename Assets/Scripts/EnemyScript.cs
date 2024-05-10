@@ -10,6 +10,7 @@ public class EnemyScript : MonoBehaviour
     private Vector2 moveDirectionAnim;
     public AudioSource enemySword;
     public AudioSource enemyDeath;
+    public AudioSource enemyDamage;
 
     public static event Action<EnemyScript> OnEnemyKilled;
 
@@ -53,6 +54,8 @@ public class EnemyScript : MonoBehaviour
         enemySword = enemySwordObject.GetComponent<AudioSource>();
         GameObject enemyDeathObject = GameObject.FindWithTag("enemyDeath");
         enemyDeath = enemyDeathObject.GetComponent<AudioSource>();
+        GameObject enemyDamageObject = GameObject.FindWithTag("enemyDamage");
+        enemyDamage = enemyDamageObject.GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         SetEnemyValues();
         attackTimer = 0f; // Initialize timer
@@ -94,6 +97,7 @@ public class EnemyScript : MonoBehaviour
         }
         else if (isHurt == true)
         {
+            CheckDamageSFX();
             ChangeAnimationState(ENEMY_TAKE_DAMAGE);
             float hurtDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("HurtComplete", hurtDelay);
@@ -147,8 +151,8 @@ public class EnemyScript : MonoBehaviour
 
     private void Swarm()
     {
-            isRunning = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x, player.transform.position.y + 0.5f), speed * Time.deltaTime);
+        isRunning = true;
+        transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x, player.transform.position.y + 0.5f), speed * Time.deltaTime);
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -243,27 +247,37 @@ public class EnemyScript : MonoBehaviour
 
     void CheckSwordSFX()
     {
-            if (enemySword != null)
+        if (enemySword != null)
+        {
+            if (!enemySword.isPlaying)
             {
-                if (!enemySword.isPlaying)
-                {
-                    enemySword.Play();
-                }
+                enemySword.Play();
             }
+        }
     }
     void CheckDeathSFX()
     {
-            if (enemyDeath != null)
+        if (enemyDeath != null)
+        {
+            if (!enemyDeath.isPlaying)
             {
-                if (!enemyDeath.isPlaying)
+                if (DeathSFX == 1)
                 {
-                    if(DeathSFX == 1)
-                    {
-                        enemyDeath.Play();
-                        DeathSFX--;
-                    }
-                  
+                    enemyDeath.Play();
+                    DeathSFX--;
                 }
+
             }
+        }
+    }
+    void CheckDamageSFX()
+    {
+        if (enemyDamage != null)
+        {
+            if (!enemyDamage.isPlaying)
+            {
+                enemyDamage.Play();
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ public class Movement : MonoBehaviour
 
     public AudioSource playerSword;
     public AudioSource playerDeath;
+    public AudioSource playerDamage;
 
     //Animation states
     string currentState;
@@ -75,6 +76,7 @@ public class Movement : MonoBehaviour
         }
         else if (isHurt == true)
         {
+            CheckDamageSFX();
             ChangeAnimationState(PLAYER_TAKE_DAMAGE);
             float hurtDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("HurtComplete", hurtDelay);
@@ -231,5 +233,16 @@ public class Movement : MonoBehaviour
                    playerDeath.Play();
                 }
             }
+    }
+
+    void CheckDamageSFX(){
+
+        if (playerDamage != null)
+        {
+            if (!playerDamage.isPlaying)
+            {
+                playerDamage.Play();
+            }
+        }
     }
 }
