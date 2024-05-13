@@ -31,7 +31,7 @@ Steponas is our level design virtuoso. With a passion for creating immersive env
 
 **Matas** 
 
-Matas is our gameplay systems mastermind. With a focus on enhancing the player experience, Matas has implemented various systems that enrich the gameplay of "Arena Game." From designing the item shop to creating interactive tutorials, Matas ensures that players have access to essential resources and guidance as they progress through the game. Matas is also responsible for balancing enemy stats, ensuring that encounters are challenging yet fair for players of all skill levels.
+Matas is our gameplay systems mastermind with back-end work mixed in. With a focus on enhancing the player experience, Matas has implemented various systems that enrich the gameplay of Arena. From designing the item shop and currency system to creating tutorials and the scoring system, Matas ensures that players have access to essential guidance and motivation as they progress through the game as well as tying the back-end scripts of the game together and implementing a lot of the functionality that isn't visible. Matas is also responsible for balancing enemy stats, ensuring that encounters are challenging yet fair for players of all skill levels.
 
 # Gameplay Mechanics
 
