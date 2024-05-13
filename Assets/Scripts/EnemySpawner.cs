@@ -98,12 +98,14 @@ public class EnemySpawner : MonoBehaviour
             if(level == 3)
             enemyProbabilities = enemyProbabilities3;
             if(level == 4)
-                    {
-                        enemyProbabilities = enemyProbabilities4;
-                        timeUntilSpawn = 60f;
-                        RemoveAllEnemies();
-                        Instantiate(Type6_EnemyPrefab,new Vector3(0,2f,0),Quaternion.identity);
-                    } 
+            enemyProbabilities = enemyProbabilities4;
+
+            if (level == 5)
+            {
+                timeUntilSpawn = 60f;
+                RemoveAllEnemies();
+                Instantiate(Type6_EnemyPrefab, new Vector3(0, 2f, 0), Quaternion.identity);
+            }
         }
     }
 

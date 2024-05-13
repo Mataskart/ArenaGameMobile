@@ -15,7 +15,7 @@ public class Level : MonoBehaviour
     public TextMeshProUGUI levelUI;
     public TextMeshProUGUI playerLevelUI;
     private float timeSinceLastIncrement = 0f;
-    private const float levelDuration = 10f;
+    private const float levelDuration = 3f;
     public static Level Instance { get; private set; }
     public GameObject tilemap_level_1;
     public GameObject tilemap_level_2;
@@ -24,7 +24,6 @@ public class Level : MonoBehaviour
     public GameObject tilemap_boss;
     public Animator transition;
     private const float transitionDuration = 1f;
-    public int bossDead = 0;
 
     void Start()
     {
@@ -44,34 +43,36 @@ public class Level : MonoBehaviour
         CheckAchievement();
         progressBar.isOn = true;
         timeSinceLastIncrement += Time.deltaTime;
+
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         bool bossIsDead = enemies[0].GetComponent<EnemyScript>().CheckDeath();
-
-        if (timeSinceLastIncrement >= levelDuration)
+        if (level == 5)
         {
-            if (level == 4)
-            {
-                foreach (GameObject enemy in enemies)
-                {
-                    EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
-                    if (enemyScript == null || bossIsDead) //    check if boss is dead)
-                    {
-                        UpdateTilemap(tilemap_boss, tilemap_level_4, 5);
-                        break;
-                    }
-                }
-            }
-            else
+            levelUI.gameObject.SetActive(false);
+            playerLevelUI.gameObject.SetActive(false);
+            progressBar.isOn = false;
+            if (bossIsDead)
             {
                 level++;
-                UpdateLevelUI();
-                UpdateNewLevel();
-                timeSinceLastIncrement = 0f;
-                UpdateTilemap(tilemap_level_1, tilemap_level_2, 2);
-                UpdateTilemap(tilemap_level_2, tilemap_level_3, 3);
-                UpdateTilemap(tilemap_level_3, tilemap_boss, 4);
-                TeleportEnemies();
+                UpdateTilemap(tilemap_boss, tilemap_level_1, 6);
+                level--;
             }
+        }
+
+        else if (timeSinceLastIncrement >= levelDuration)
+        {
+            levelUI.gameObject.SetActive(true);
+            playerLevelUI.gameObject.SetActive(true);
+            progressBar.isOn = true;
+            level++;
+            UpdateLevelUI();
+            UpdateNewLevel();
+            timeSinceLastIncrement = 0f;
+            UpdateTilemap(tilemap_level_1, tilemap_level_2, 2);
+            UpdateTilemap(tilemap_level_2, tilemap_level_3, 3);
+            UpdateTilemap(tilemap_level_3, tilemap_level_4, 4);
+            UpdateTilemap(tilemap_level_4, tilemap_boss, 5);
+            TeleportEnemies();
         }
     }
 
@@ -130,7 +131,7 @@ public class Level : MonoBehaviour
     void UpdateTilemap(GameObject tilemap_current, GameObject tilemap_new, int levelNeeded)
     {
         // Toggle the active tilemap based on the level
-        if (level == levelNeeded)
+        if (level >= levelNeeded)
         {
             StartCoroutine(TransitionAndDeactivate(tilemap_current, tilemap_new));
         }
