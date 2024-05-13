@@ -103,7 +103,6 @@ Level Progression
 
 ### Levels 
 in "Arena Game" are designed to progressively increase in difficulty, with each level introducing new enemy types and challenges. The game employs a wave-based spawning system, where enemies spawn in waves, with the intensity and frequency of enemy spawns ramping up as players advance through levels. Upon reaching the final level, players are confronted with a climactic boss fight, requiring mastery of gameplay mechanics and strategic thinking to emerge victorious.
-Testing
 
 ## Challenges and Solutions
 
@@ -115,9 +114,8 @@ Designing levels that offer a balanced and engaging gameplay experience posed an
 
 ### Player Movement
 Player movement mechanics underwent several iterations to achieve a satisfying and intuitive feel. While initially planned for basic movement controls using arrow keys or WASD, the addition of a dash mechanic was introduced to enhance player mobility and responsiveness. This addition not only provided players with more dynamic movement options but also contributed to the overall depth and excitement of gameplay.
-Future Considerations
 
-## Looking ahead, 
+## Looking ahead
 There are several areas for potential improvement and expansion in "Arena Game." Enhancing script quality to improve reusability and maintainability is a priority, ensuring that codebase remains flexible and scalable for future iterations. Additionally, implementing dynamic level loading is a consideration to further enhance gameplay variety and performance. By continuously refining and expanding upon the foundation laid in the current iteration, "Arena Game" aims to provide players with an immersive and captivating gaming experience.
 
 # Testing
