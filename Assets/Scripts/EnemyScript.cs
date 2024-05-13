@@ -183,10 +183,10 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    public void CheckDeath()
+    public bool CheckDeath()
     {
         Debug.Log("CheckDeath() has been called."); // This will print a message to the Unity Console
-        if (isDead) return; // If the enemy is already dead, exit the method
+        if (isDead) return true; // If the enemy is already dead, exit the method
 
         if (GetComponent<Health>().currentHealth <= 0)
         {
@@ -203,7 +203,9 @@ public class EnemyScript : MonoBehaviour
 
             OnEnemyKilled?.Invoke(this);
             Destroy(gameObject, 3f); // Destroy after 3 seconds
+            return true;
         }
+        return false;
     }
     public void HurtAnim()
     {

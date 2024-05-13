@@ -44,16 +44,17 @@ public class Level : MonoBehaviour
         CheckAchievement();
         progressBar.isOn = true;
         timeSinceLastIncrement += Time.deltaTime;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        bool bossIsDead = enemies[0].GetComponent<EnemyScript>().CheckDeath();
 
         if (timeSinceLastIncrement >= levelDuration)
         {
             if (level == 4)
             {
-                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
                 foreach (GameObject enemy in enemies)
                 {
                     EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
-                    if (enemyScript is null) //    || boss is dead)
+                    if (enemyScript == null || bossIsDead) //    check if boss is dead)
                     {
                         UpdateTilemap(tilemap_boss, tilemap_level_4, 5);
                         break;
