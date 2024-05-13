@@ -16,6 +16,7 @@ public class PlayerScore : MonoBehaviour
     public TextMeshProUGUI scoreUI;
     public TextMeshProUGUI highScoreUI;
     public TextMeshProUGUI newHighScoreUI;
+    public UnityEngine.UI.Image controlsUI;
     public bool highScoreBeaten = false;
     private int enemiesKilled = 0;
 
@@ -29,6 +30,20 @@ public class PlayerScore : MonoBehaviour
         EnemyScript.OnEnemyKilled += Enemy_OnEnemyKilled;
         UpdateHighScore();
         totalEnemiesKilled = PlayerPrefs.GetInt("TotalEnemiesKilled", 0);
+
+        // Check if the game has been launched before
+        if (!PlayerPrefs.HasKey("GameLaunched"))
+        {
+            // If not, set the key and show the controls UI for 5 seconds
+            PlayerPrefs.SetInt("GameLaunched", 1);
+            controlsUI.gameObject.SetActive(true);
+            Invoke("HideControlsUI", 5);
+        }
+        else
+        {
+            // If the game has been launched before, hide the controls UI
+            controlsUI.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -99,5 +114,10 @@ public class PlayerScore : MonoBehaviour
     public int GetEnemiesKilled()
     {
         return enemiesKilled;
+    }
+
+    void HideControlsUI()
+    {
+        controlsUI.gameObject.SetActive(false);
     }
 }
