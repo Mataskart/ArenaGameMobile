@@ -37,12 +37,12 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
                 PauseGame();
             }
         }
-        if (levelScript.GetLevel() >= 6 && !winMenuShown)
+        if (levelScript.gameOver && !winMenuShown)
         {
             // Show the win menu
             winMenu.SetActive(true);
             isPaused = true;
-            Time.timeScale = 1f; // Unpause the game
+            Time.timeScale = 1f;
             winMenuShown = true; // Set winMenuShown to true
         }
     }

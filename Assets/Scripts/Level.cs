@@ -25,10 +25,11 @@ public class Level : MonoBehaviour
     public Animator transition;
     private const float transitionDuration = 1f;
 
-    private bool gameOver = false;
+    public bool gameOver = false;
 
     void Start()
     {
+        gameOver = false;
         progressBar.maxValue = levelDuration;
         UpdateLevelUI();
         levelUI.gameObject.SetActive(true);
@@ -55,10 +56,12 @@ public class Level : MonoBehaviour
             levelUI.gameObject.SetActive(false);
             playerLevelUI.gameObject.SetActive(false);
             progressBar.isOn = false;
+            progressBar.gameObject.SetActive(false);
             if (bossIsDead)
             {
                 level++;
                 gameOver = true;
+                progressBar.isOn = false;
                 //UpdateTilemap(tilemap_boss, tilemap_level_1, 6);
             }
         }
@@ -154,6 +157,9 @@ public class Level : MonoBehaviour
 
         // Wait for 0.5 seconds
         yield return new WaitForSeconds(1f);
+
+        // Deactivate the transition GameObject
+        transition.gameObject.SetActive(false);
 
         // Deactivate the current tilemap
         tilemap_current.SetActive(false);
