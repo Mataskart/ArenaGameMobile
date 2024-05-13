@@ -116,7 +116,7 @@ Designing levels that offer a balanced and engaging gameplay experience posed an
 Player movement mechanics underwent several iterations to achieve a satisfying and intuitive feel. While initially planned for basic movement controls using arrow keys or WASD, the addition of a dash mechanic was introduced to enhance player mobility and responsiveness. This addition not only provided players with more dynamic movement options but also contributed to the overall depth and excitement of gameplay.
 
 ## Looking ahead
-There are several areas for potential improvement and expansion in "Arena Game." Enhancing script quality to improve reusability and maintainability is a priority, ensuring that codebase remains flexible and scalable for future iterations. Additionally, implementing dynamic level loading is a consideration to further enhance gameplay variety and performance. By continuously refining and expanding upon the foundation laid in the current iteration, "Arena Game" aims to provide players with an immersive and captivating gaming experience.
+There are several areas for potential improvement and expansion in "Arena Game." Enhancing script quality to improve reusability and maintainability is a priority, ensuring that the codebase remains flexible and scalable for future iterations. Additionally, implementing dynamic level loading and difficulty scaling is a consideration to further enhance gameplay variety, lots of bugs need fixing and the game is a demo in its current state with just the base functionality implemented. By continuously refining and expanding upon the foundation laid in the current iteration, "Arena Game" aims to provide players with an immersive and captivating gaming experience.
 
 # Testing
 
