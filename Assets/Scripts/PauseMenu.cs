@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
     public GameObject pauseMenu;
     public GameObject winMenu;
     public Level levelScript;
+    private TextMeshProUGUI victoryText;
 
     public static bool isPaused;
     private bool winMenuShown = false;
@@ -17,6 +18,7 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
     void Start()
     {
         levelScript = GetComponent<Level>();
+        victoryText = winMenu.GetComponentInChildren<TextMeshProUGUI>();
 
         pauseMenu.SetActive(false);
         winMenu.SetActive(false);
@@ -26,6 +28,13 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
     // Update is called once per frame
     void Update()
     {
+        // victory text colorful animation effect
+        if (winMenu.activeSelf)
+        {
+            float t = Mathf.PingPong(Time.time, 1f) / 1f;
+            victoryText.color = Color.Lerp(Color.red, Color.blue, t);
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
