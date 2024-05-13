@@ -15,7 +15,7 @@ public class Level : MonoBehaviour
     public TextMeshProUGUI levelUI;
     public TextMeshProUGUI playerLevelUI;
     private float timeSinceLastIncrement = 0f;
-    private const float levelDuration = 30f;
+    private const float levelDuration = 5f;
     public static Level Instance { get; private set; }
     public GameObject tilemap_level_1;
     public GameObject tilemap_level_2;
@@ -24,6 +24,8 @@ public class Level : MonoBehaviour
     public GameObject tilemap_boss;
     public Animator transition;
     private const float transitionDuration = 1f;
+
+    private bool gameOver = false;
 
     void Start()
     {
@@ -56,15 +58,12 @@ public class Level : MonoBehaviour
             if (bossIsDead)
             {
                 level++;
-                UpdateTilemap(tilemap_boss, tilemap_level_1, 6);
-                level--;
+                gameOver = true;
+                //UpdateTilemap(tilemap_boss, tilemap_level_1, 6);
             }
         }
-        else if (timeSinceLastIncrement >= levelDuration)
+        else if (timeSinceLastIncrement >= levelDuration && !gameOver)
         {
-            levelUI.gameObject.SetActive(true);
-            playerLevelUI.gameObject.SetActive(true);
-            progressBar.isOn = true;
             level++;
             UpdateLevelUI();
             UpdateNewLevel();
