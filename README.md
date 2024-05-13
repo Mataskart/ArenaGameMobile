@@ -120,11 +120,11 @@ Future Considerations
 ## Looking ahead, 
 There are several areas for potential improvement and expansion in "Arena Game." Enhancing script quality to improve reusability and maintainability is a priority, ensuring that codebase remains flexible and scalable for future iterations. Additionally, implementing dynamic level loading is a consideration to further enhance gameplay variety and performance. By continuously refining and expanding upon the foundation laid in the current iteration, "Arena Game" aims to provide players with an immersive and captivating gaming experience.
 
-# TESTING
+# Testing
 
 Our team rigorously tested the user interface (UI) and game mechanics to ensure a seamless gaming experience. Through comprehensive testing procedures, we verified that all elements function as intended, meeting our quality standards and delivering an immersive gameplay experience.
 
-## UI TESTS
+## UI Tests
 
 Testing if the "Play" button works.
 
@@ -158,7 +158,7 @@ Testing if the "Quit" button works.
 | 2 | Click on the "Yes" button in the confirmation window. | The game should fully close. | The game fully closes. |
 
 
-## GAMEPLAY TESTS
+## Gameplay tests
 
 Testing Player Movement in All Directions:
 
