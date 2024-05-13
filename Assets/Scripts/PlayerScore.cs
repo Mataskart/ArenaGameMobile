@@ -16,6 +16,7 @@ public class PlayerScore : MonoBehaviour
     public TextMeshProUGUI scoreUI;
     public TextMeshProUGUI highScoreUI;
     public TextMeshProUGUI newHighScoreUI;
+    public UnityEngine.UI.Image controlsUI;
     public bool highScoreBeaten = false;
     private int enemiesKilled = 0;
 
@@ -28,8 +29,21 @@ public class PlayerScore : MonoBehaviour
         scoreUI.gameObject.SetActive(true);
         EnemyScript.OnEnemyKilled += Enemy_OnEnemyKilled;
         UpdateHighScore();
-        highScoreUI.gameObject.SetActive(true);
         totalEnemiesKilled = PlayerPrefs.GetInt("TotalEnemiesKilled", 0);
+
+        // Check if the game has been launched before
+        if (!PlayerPrefs.HasKey("GameLaunched"))
+        {
+            // If not, set the key and show the controls UI for 5 seconds
+            PlayerPrefs.SetInt("GameLaunched", 1);
+            controlsUI.gameObject.SetActive(true);
+            Invoke("HideControlsUI", 5);
+        }
+        else
+        {
+            // If the game has been launched before, hide the controls UI
+            controlsUI.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -77,11 +91,12 @@ public class PlayerScore : MonoBehaviour
         {
             if (!highScoreBeaten)
             {
-                newHighScoreUI.gameObject.SetActive(true);
-                Invoke("EndHighScoreUI", 3);
+                StartCoroutine(FlashScoreUI());
                 highScoreBeaten = true;
             }
+            highScoreUI.gameObject.SetActive(true);
             PlayerPrefs.SetInt("HighScore", score);
+            scoreUI.gameObject.SetActive(false);
         }
     }
 
@@ -98,5 +113,37 @@ public class PlayerScore : MonoBehaviour
     public int GetEnemiesKilled()
     {
         return enemiesKilled;
+    }
+
+    void HideControlsUI()
+    {
+        controlsUI.gameObject.SetActive(false);
+    }
+
+    IEnumerator FlashScoreUI()
+    {
+        float duration = 2f; // duration of the color change
+        float elapsedTime = 0f;
+        Color startColor = scoreUI.color;
+        Color endColor = Color.HSVToRGB(1f, 1f, 1f); // rainbow color
+
+        while (elapsedTime < duration)
+        {
+            // Update the color
+            scoreUI.color = Color.Lerp(startColor, endColor, elapsedTime / duration);
+
+            // Update the elapsed time
+            elapsedTime += Time.deltaTime;
+
+            // Yield execution of this coroutine and return to the main loop until next frame
+            yield return null;
+        }
+
+        // Ensure the final color is the desired end color
+        scoreUI.color = endColor;
+
+        // Switch to the newHighScoreUI after a couple of seconds
+        newHighScoreUI.gameObject.SetActive(true);
+        Invoke("EndHighScoreUI", 3);
     }
 }

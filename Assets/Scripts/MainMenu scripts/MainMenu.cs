@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.Playables;
 using Michsky.MUIP;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour
 {
-
+    public AudioMixer musicMixer;
+    public AudioMixer sfxMixer;
     public TMP_Text highscoreText;
     public TMP_Text enemiesKilledText;
     public TMP_Text gamesPlayedText;
@@ -18,16 +19,24 @@ public class MainMenu : MonoBehaviour
     public TMP_Text totalDamageDealt;
     public TextMeshProUGUI moneyText;
     private int gamesPlayed;
-
+    public AudioSource hoverSound;
+    public AudioSource clickSound;
+    public TextMeshProUGUI buyButtonText;
+    public Button buyButton;
+    public int Money;
+    [SerializeField] private NotificationManager notificationManager;
     void Start()
     {
         gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
         UpdateStats();
+        UpdateVolume();
     }
 
     void Update()
     {
         gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
+        CheckIfPurchaseAvailable();
+        UpdateMoney();
     }
     public void PlayButton()
     {
@@ -116,12 +125,61 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private void UpdateMoney()
+    public void UpdateMoney()
     {
         if (moneyText != null)
         {
-            int money = PlayerPrefs.GetInt("Money", 0);
-            moneyText.text = "Money: " + money.ToString();
+            Money = PlayerPrefs.GetInt("Money", 0);
+            moneyText.text = "Money: " + Money.ToString();
         }
+    }
+
+    private void UpdateVolume()
+    {
+        musicMixer.SetFloat("volume", PlayerPrefs.GetFloat("musicVolume"));
+        sfxMixer.SetFloat("volume", PlayerPrefs.GetFloat("sfxVolume"));
+    }
+
+    public void CheckIfPurchaseAvailable()
+    {
+        string status = PlayerPrefs.GetString("isHealthPotionAvailable");
+
+        if (status == "true")
+        {
+            buyButtonText.text = "PURCHASED";
+            buyButtonText.color = Color.yellow;
+            buyButton.interactable = false;
+        }
+        else
+        {
+            buyButtonText.text = "BUY";
+            buyButton.interactable = true;
+        }
+    }
+
+    public void BuyButton()
+    {
+        if (Money >= 200)
+        {
+            PlayerPrefs.SetString("isHealthPotionAvailable", "true");
+            int currentMoney = Money - 200;
+            PlayerPrefs.SetInt("Money", currentMoney);
+        }
+        else
+        {
+            if (!notificationManager.isOn)
+            {
+                notificationManager.Open();
+            }
+        }
+    }
+
+    public void PlayHoverSound()
+    {
+        hoverSound.PlayOneShot(hoverSound.clip);
+    }
+    public void PlayClickSound()
+    {
+        clickSound.PlayOneShot(clickSound.clip);
     }
 }

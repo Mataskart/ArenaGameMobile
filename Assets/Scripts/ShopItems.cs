@@ -11,7 +11,7 @@ public class ShopItems : MonoBehaviour
 
     public ParticleSystem regenParticles;
     public RawImage healthPotionImage;
-    public bool isHealthPotionPurchased = false;
+    public string isHealthPotionPurchased;
     private bool isRegenerating = false;
     public int regenerationRate = 5;
 
@@ -19,10 +19,11 @@ public class ShopItems : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isHealthPotionPurchased = PlayerPrefs.GetString("isHealthPotionAvailable");
         playerHealth = GetComponent<Health>();
         playerMovement = GetComponent<Movement>();
         playerScore = GetComponent<PlayerScore>();
-
+        PlayerPrefs.SetString("isHealthPotionAvailable", "false");
         if (regenParticles != null)
         {
             regenParticles.Stop();
@@ -32,19 +33,15 @@ public class ShopItems : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            isHealthPotionPurchased = true;
-        }
         if (healthPotionImage != null)
         {
             //if health potion is purchased and player's health is less than max health and not already regenerating, start regenerating health
-            if(isHealthPotionPurchased && playerHealth.currentHealth < playerHealth.maxHealth && !isRegenerating)
+            if (isHealthPotionPurchased == "true" && playerHealth.currentHealth < playerHealth.maxHealth && !isRegenerating)
             {
                 StartCoroutine(RegenerateHealth());
             }
 
-            if (isHealthPotionPurchased)
+            if (isHealthPotionPurchased == "true")
             {
                 healthPotionImage.gameObject.SetActive(true);
                 if (!regenParticles.isPlaying)
@@ -61,7 +58,7 @@ public class ShopItems : MonoBehaviour
                 }
             }
         }
-        
+
     }
 
     IEnumerator RegenerateHealth()

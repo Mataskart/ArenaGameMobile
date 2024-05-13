@@ -14,7 +14,7 @@ public class PlayerMoney : MonoBehaviour
     {
         money = PlayerPrefs.GetInt("Money", 0);
         moneyUI.text = "Money: " + money.ToString();
-        moneyUI.gameObject.SetActive(true);
+        //moneyUI.gameObject.SetActive(true);
     }
 
     private void OnDestroy()

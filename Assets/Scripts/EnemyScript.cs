@@ -8,6 +8,9 @@ public class EnemyScript : MonoBehaviour
 {
     public Animator anim;
     private Vector2 moveDirectionAnim;
+    public AudioSource enemySword;
+    public AudioSource enemyDeath;
+    public AudioSource enemyDamage;
 
     public static event Action<EnemyScript> OnEnemyKilled;
 
@@ -27,6 +30,7 @@ public class EnemyScript : MonoBehaviour
     bool facingRight = true;
     public Slider slider;
     private float timeUntilFlip = 0.25f;
+    private float oldSpeed;
 
     //Animation states
     string currentState;
@@ -36,28 +40,35 @@ public class EnemyScript : MonoBehaviour
     const string ENEMY_ATTACK = "attack";
     private bool isAttacking = false;
     const string ENEMY_DEAD = "dead";
-    private bool isDead = false;
+    public bool isDead = false;
     const string ENEMY_PRE_ATTACK = "preAttack";
     private bool isPreAttacking = false;
     const string ENEMY_TAKE_DAMAGE = "takeDamage";
     private bool isHurt = false;
     Vector3 lastPosition;
+    int DeathSFX = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        GameObject enemySwordObject = GameObject.FindWithTag("enemySword");
+        enemySword = enemySwordObject.GetComponent<AudioSource>();
+        GameObject enemyDeathObject = GameObject.FindWithTag("enemyDeath");
+        enemyDeath = enemyDeathObject.GetComponent<AudioSource>();
+        GameObject enemyDamageObject = GameObject.FindWithTag("enemyDamage");
+        enemyDamage = enemyDamageObject.GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         SetEnemyValues();
         attackTimer = 0f; // Initialize timer
         slider = GetComponentInChildren<Slider>();
+        slider.maxValue = data.hp;
+        slider.value = data.hp;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (isDead)
         {
             slider.gameObject.SetActive(false);
@@ -74,6 +85,7 @@ public class EnemyScript : MonoBehaviour
 
     private void LateUpdate()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         lastPosition = transform.position;
         bool isMoving = Vector3.Distance(transform.position, lastPosition) > 0.1f;
         Vector2 direction = player.transform.position - transform.position;
@@ -83,16 +95,19 @@ public class EnemyScript : MonoBehaviour
         moveDirectionAnim = new Vector2(moveX, moveY);
         if (isDead == true)
         {
+            CheckDeathSFX();
             ChangeAnimationState(ENEMY_DEAD);
         }
         else if (isHurt == true)
         {
+            CheckDamageSFX();
             ChangeAnimationState(ENEMY_TAKE_DAMAGE);
             float hurtDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("HurtComplete", hurtDelay);
         }
         else if (isAttacking == true)
         {
+            CheckSwordSFX();
             ChangeAnimationState(ENEMY_ATTACK);
             float attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("AttackComplete", attackDelay);
@@ -135,16 +150,13 @@ public class EnemyScript : MonoBehaviour
         damage = data.damage;
         speed = data.speed;
         slider.maxValue = data.hp;
+        slider.value = data.hp;
     }
 
     private void Swarm()
     {
-        float minimumDistance = 0.1f; // Adjust this value as needed
-        if (Vector2.Distance(transform.position, player.transform.position) > minimumDistance)
-        {
-            isRunning = true;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x, player.transform.position.y + 0.5f), speed * Time.deltaTime);
-        }
+        isRunning = true;
+        transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x, player.transform.position.y + 0.5f), speed * Time.deltaTime);
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -172,10 +184,10 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    public void CheckDeath()
+    public bool CheckDeath()
     {
         Debug.Log("CheckDeath() has been called."); // This will print a message to the Unity Console
-        if (isDead) return; // If the enemy is already dead, exit the method
+        if (isDead) return true; // If the enemy is already dead, exit the method
 
         if (GetComponent<Health>().currentHealth <= 0)
         {
@@ -192,7 +204,9 @@ public class EnemyScript : MonoBehaviour
 
             OnEnemyKilled?.Invoke(this);
             Destroy(gameObject, 3f); // Destroy after 3 seconds
+            return true;
         }
+        return false;
     }
     public void HurtAnim()
     {
@@ -236,4 +250,53 @@ public class EnemyScript : MonoBehaviour
     {
         timeUntilFlip = 0.25f;
     }
+
+    void CheckSwordSFX()
+    {
+        if (enemySword != null)
+        {
+            if (!enemySword.isPlaying)
+            {
+                enemySword.Play();
+            }
+        }
+    }
+    void CheckDeathSFX()
+    {
+        if (enemyDeath != null)
+        {
+            if (!enemyDeath.isPlaying)
+            {
+                if (DeathSFX == 1)
+                {
+                    enemyDeath.Play();
+                    DeathSFX--;
+                }
+
+            }
+        }
+    }
+    void CheckDamageSFX()
+    {
+        if (enemyDamage != null)
+        {
+            if (!enemyDamage.isPlaying)
+            {
+                enemyDamage.Play();
+            }
+        }
+    }
+
+    public void SetNormalSpeed()
+    {
+        this.speed = this.oldSpeed;
+    }
+    public void SetOldSpeed()
+    {
+        this.oldSpeed = this.speed;
+    }
+    public void FreezeSpeed()
+    {
+        this.speed = 0;
+    }  
 }

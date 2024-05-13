@@ -12,6 +12,10 @@ public class Movement : MonoBehaviour
     private Vector3 moveDirectionAnim;
     bool facingRight = true;
 
+    public AudioSource playerSword;
+    public AudioSource playerDeath;
+    public AudioSource playerDamage;
+
     //Animation states
     string currentState;
     const string PLAYER_IDLE = "idle";
@@ -66,11 +70,13 @@ public class Movement : MonoBehaviour
         moveDirectionAnim = new Vector3(moveX, 0, moveY);
         if (isDead)
         {
+            CheckDeathSFX();
             ChangeAnimationState(PLAYER_DEAD);
             return;
         }
         else if (isHurt == true)
         {
+            CheckDamageSFX();
             ChangeAnimationState(PLAYER_TAKE_DAMAGE);
             float hurtDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("HurtComplete", hurtDelay);
@@ -79,7 +85,7 @@ public class Movement : MonoBehaviour
         else if (isAttacking == true)
         {
 
-
+            CheckSwordSFX();
             ChangeAnimationState(PLAYER_ATTACK);
             float attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("AttackComplete", attackDelay);
@@ -207,4 +213,36 @@ public class Movement : MonoBehaviour
         achievementScript.CompleteAchievement("I CAN DO THAT?");
     }
 
+    void CheckSwordSFX()
+    {
+            if (playerSword != null)
+            {
+                if (!playerSword.isPlaying)
+                {
+                    playerSword.Play();
+                }
+            }
+    }
+
+    void CheckDeathSFX()
+    {
+            if (playerDeath != null)
+            {
+                if (!playerDeath.isPlaying)
+                {
+                   playerDeath.Play();
+                }
+            }
+    }
+
+    void CheckDamageSFX(){
+
+        if (playerDamage != null)
+        {
+            if (!playerDamage.isPlaying)
+            {
+                playerDamage.Play();
+            }
+        }
+    }
 }

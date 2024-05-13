@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Type2_Settings
   m_EditorClassIdentifier: 
   hp: 65
-  damage: 10
+  damage: 30
   speed: 2
