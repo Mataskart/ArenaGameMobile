@@ -158,7 +158,7 @@ Testing if the "Quit" button works.
 | 2 | Click on the "Yes" button in the confirmation window. | The game should fully close. | The game fully closes. |
 
 
-## Gameplay tests
+## Gameplay Tests
 
 Testing Player Movement in All Directions:
 
