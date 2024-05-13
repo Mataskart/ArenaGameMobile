@@ -83,6 +83,11 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    public int GetMaxHealth()
+    {
+        return data.hp;
+    }
+
     private void LateUpdate()
     {
         player = GameObject.FindGameObjectWithTag("Player");

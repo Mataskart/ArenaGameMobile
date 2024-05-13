@@ -65,6 +65,16 @@ public class Health : MonoBehaviour
             lowHealthController.SetPlayerHealthSmoothly(healthController, 0.1f);
         }
 
+        //update health bar constantly
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
+        if (slider != null)
+        {
+            slider.value = currentHealth;
+        }
+
         CheckHeartBeatFX();
 
         //if (Input.GetKeyDown(KeyCode.Space))
@@ -81,6 +91,7 @@ public class Health : MonoBehaviour
         this.maxHealth = maxHealth;
         this.currentHealth = health;
     }
+
     public void TakeDamage(int damage)
     {
         damageTaken = true;
