@@ -84,7 +84,6 @@ public class Health : MonoBehaviour
     {
         Movement playerMovement = GetComponent<Movement>();
         currentHealth -= damage;
-        Debug.Log("Player health: " + currentHealth);
 
         if (GetComponent<EnemyScript>() == null)
         {

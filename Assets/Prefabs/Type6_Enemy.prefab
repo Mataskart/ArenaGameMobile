@@ -236,12 +236,14 @@ MonoBehaviour:
   anim: {fileID: 0}
   enemySword: {fileID: 0}
   enemyDeath: {fileID: 0}
+  enemyDamage: {fileID: 0}
   damage: 45
   speed: 2.5
   attackCooldown: 1
   initialAttackDelay: 1
   data: {fileID: 11400000, guid: 46de8e34a42d29c499baacba2a71bcf2, type: 2}
   slider: {fileID: 1404758801859045397}
+  isDead: 0
 --- !u!114 &-2250731894395932651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,18 +330,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -2.11074, y: -13.036143}
-      - {x: 9.394273, y: -13.160286}
-      - {x: 8.619312, y: 0.38068497}
-      - {x: 3.0757093, y: 0.47298312}
-      - {x: 0.21884799, y: 0.5359066}
-      - {x: -1.7977579, y: -0.16060108}
-      - {x: -3.0769, y: -0.55071956}
-      - {x: -3.6761105, y: -2.418562}
-      - {x: -4.397186, y: -4.451604}
-      - {x: -4.008102, y: -6.602968}
-      - {x: -2.86221, y: -9.467513}
-      - {x: -2.7510471, y: -12.908253}
+    - - {x: -2.2, y: -3.9}
+      - {x: 8.28, y: -4.3}
+      - {x: 8.12, y: 4.4}
+      - {x: -1.12, y: 4.44}
   m_UseDelaunayMesh: 0
 --- !u!60 &2093134338967005476
 PolygonCollider2D:
@@ -385,14 +379,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -2.1022797, y: -5.000965}
-      - {x: -2.2401164, y: -5.17568}
-      - {x: -3.2531285, y: -5.3959765}
-      - {x: -3.1640697, y: -7.2086706}
-      - {x: -2.049574, y: -12.446185}
-      - {x: 2.8486478, y: -12.918059}
-      - {x: 3.1735342, y: -8.305321}
-      - {x: 2.8452508, y: -5.0191526}
+    - - {x: -1.2, y: 4.5}
+      - {x: -2.049574, y: -4.12}
+      - {x: 2.56, y: -4.04}
+      - {x: 2.1, y: 4.21}
   m_UseDelaunayMesh: 0
 --- !u!1 &2785616717475930877
 GameObject:

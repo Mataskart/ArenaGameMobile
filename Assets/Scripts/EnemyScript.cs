@@ -30,6 +30,7 @@ public class EnemyScript : MonoBehaviour
     bool facingRight = true;
     public Slider slider;
     private float timeUntilFlip = 0.25f;
+    private float oldSpeed;
 
     //Animation states
     string currentState;
@@ -286,12 +287,16 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    public void SetSpeed(float speed)
+    public void SetNormalSpeed()
     {
-        this.speed = speed;
+        this.speed = this.oldSpeed;
     }
-    public float GetSpeed()
+    public void SetOldSpeed()
     {
-        return speed;
-    }   
+        this.oldSpeed = this.speed;
+    }
+    public void FreezeSpeed()
+    {
+        this.speed = 0;
+    }  
 }

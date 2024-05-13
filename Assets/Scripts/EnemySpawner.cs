@@ -104,7 +104,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 timeUntilSpawn = 60f;
                 RemoveAllEnemies();
-                Instantiate(Type6_EnemyPrefab, new Vector3(0, 2f, 0), Quaternion.identity);
+                Instantiate(Type6_EnemyPrefab, new Vector3(0, 1f, 0), Quaternion.identity);
             }
         }
     }

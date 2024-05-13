@@ -15,7 +15,7 @@ public class Level : MonoBehaviour
     public TextMeshProUGUI levelUI;
     public TextMeshProUGUI playerLevelUI;
     private float timeSinceLastIncrement = 0f;
-    private const float levelDuration = 3f;
+    private const float levelDuration = 30f;
     public static Level Instance { get; private set; }
     public GameObject tilemap_level_1;
     public GameObject tilemap_level_2;
@@ -73,8 +73,16 @@ public class Level : MonoBehaviour
             UpdateTilemap(tilemap_level_2, tilemap_level_3, 3);
             UpdateTilemap(tilemap_level_3, tilemap_level_4, 4);
             UpdateTilemap(tilemap_level_4, tilemap_boss, 5);
-            TeleportEnemies();
+            StartCoroutine(DelayedTeleportEnemies());
         }
+    }
+    IEnumerator DelayedTeleportEnemies()
+    {
+        // Wait for 1 second
+        yield return new WaitForSeconds(1f);
+
+        // Teleport the enemies
+        TeleportEnemies();
     }
 
     private void UpdateLevelUI()
@@ -183,54 +191,49 @@ public class Level : MonoBehaviour
     }
 
     void TeleportEnemies()
-    {      
-
-        // Radius of the circle
-        float radius = 7f;
+    {
+        
+        // Distance from the player to the enemies
+        float distance = 6f;
 
         // Find all enemies
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         int enemyCount = enemies.Length;
 
+        // Calculate the number of enemies per line
+        int enemiesPerLine = enemyCount / 2;
+
         for (int i = 0; i < enemies.Length; i++)
         {
-            // Calculate the position of the enemy in the circle
-            float angle = i * Mathf.PI * 2 / enemyCount;
-            Vector3 enemyPos = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
+            // Calculate the position of the enemy in the line
+            int line = i / enemiesPerLine;
+            int positionInLine = i % enemiesPerLine;
+
+            Vector3 enemyPos;
+
+            if (line == 0)
+            {
+                // Enemies on the left of the player
+                enemyPos = new Vector3(-distance, 0, positionInLine * 2 * distance / enemiesPerLine - distance);
+            }
+            else
+            {
+                // Enemies on the right of the player
+                enemyPos = new Vector3(distance, 0, positionInLine * 2 * distance / enemiesPerLine - distance);
+            }
+
+            // Check if the position is on a collider
+            while (Physics.CheckSphere(enemyPos, 1f))
+                {
+                    // If it is, move the position to the right
+                    enemyPos.x += 0.1f;
+                }
 
             // Move the enemy to the calculated position
             enemies[i].transform.position = enemyPos;
         }
-        StartCoroutine(FreezeEnemies());
     }
-
-    IEnumerator FreezeEnemies()
-    {
-        // Find all enemies
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        float[] speeds = new float[enemies.Length];
 
     
-        for(int i = 0; i < enemies.Length; i++)
-        {
-            if (enemies[i].GetComponent<EnemyScript>() != null)
-            {
-                speeds[i] = enemies[i].GetComponent<EnemyScript>().GetSpeed();
-                enemies[i].GetComponent<EnemyScript>().SetSpeed(0);
-            }
-        }
-
-        // Wait for 1 second
-        yield return new WaitForSeconds(2f);
-
-        // Restore the speed of the enemies
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            if (enemies[i].GetComponent<EnemyScript>() != null)
-            {
-                enemies[i].GetComponent<EnemyScript>().SetSpeed(speeds[i]);
-            }
-        }
-    }
 }
