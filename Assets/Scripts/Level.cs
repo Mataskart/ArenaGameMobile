@@ -43,11 +43,13 @@ public class Level : MonoBehaviour
         CheckAchievement();
         progressBar.isOn = true;
         timeSinceLastIncrement += Time.deltaTime;
+        bool bossIsDead = false;
 
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        bool bossIsDead = enemies[0].GetComponent<EnemyScript>().CheckDeath();
-        if (level == 5)
+        if (level == 5 && bossIsDead == false)
         {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            bossIsDead = enemies[0].GetComponent<EnemyScript>().CheckDeath();
+
             levelUI.gameObject.SetActive(false);
             playerLevelUI.gameObject.SetActive(false);
             progressBar.isOn = false;
@@ -58,7 +60,6 @@ public class Level : MonoBehaviour
                 level--;
             }
         }
-
         else if (timeSinceLastIncrement >= levelDuration)
         {
             levelUI.gameObject.SetActive(true);
@@ -131,7 +132,7 @@ public class Level : MonoBehaviour
     void UpdateTilemap(GameObject tilemap_current, GameObject tilemap_new, int levelNeeded)
     {
         // Toggle the active tilemap based on the level
-        if (level >= levelNeeded)
+        if (level == levelNeeded)
         {
             StartCoroutine(TransitionAndDeactivate(tilemap_current, tilemap_new));
         }

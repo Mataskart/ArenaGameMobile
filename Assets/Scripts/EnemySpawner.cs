@@ -166,7 +166,22 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
         }
-        if(level == 4){
+        if (level == 4)
+        {
+            if (levelTrack3 != null)
+            {
+                if (!levelTrack3.isPlaying)
+                {
+                    levelTrack2.Stop();
+                    levelTrack3.Play();
+                }
+                if (youDied.gameObject.activeSelf)
+                {
+                    levelTrack3.Stop();
+                }
+            }
+        }
+        if (level == 5){
             if (levelTrack4 != null)
             {
                 if (!levelTrack4.isPlaying)
@@ -180,7 +195,8 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
         }
-        if(level >= 5){
+
+        if(level >= 6){
             if (levelTrack5 != null)
             {
                 if (!levelTrack5.isPlaying)
