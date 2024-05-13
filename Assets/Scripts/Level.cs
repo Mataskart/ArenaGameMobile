@@ -24,6 +24,8 @@ public class Level : MonoBehaviour
     public GameObject tilemap_boss;
     public Animator transition;
     private const float transitionDuration = 1f;
+    public int bossDead = 0;
+
     void Start()
     {
         progressBar.maxValue = levelDuration;
@@ -45,15 +47,30 @@ public class Level : MonoBehaviour
 
         if (timeSinceLastIncrement >= levelDuration)
         {
-            level++;
-            UpdateLevelUI();
-            UpdateNewLevel();
-            timeSinceLastIncrement = 0f;
-            UpdateTilemap(tilemap_level_1, tilemap_level_2, 2);
-            UpdateTilemap(tilemap_level_2, tilemap_level_3, 3);
-            UpdateTilemap(tilemap_level_3, tilemap_boss, 4);
-            UpdateTilemap(tilemap_boss, tilemap_level_4, 5);
-            TeleportEnemies();
+            if (level == 4)
+            {
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach (GameObject enemy in enemies)
+                {
+                    EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
+                    if (enemyScript is null) //    || boss is dead)
+                    {
+                        UpdateTilemap(tilemap_boss, tilemap_level_4, 5);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                level++;
+                UpdateLevelUI();
+                UpdateNewLevel();
+                timeSinceLastIncrement = 0f;
+                UpdateTilemap(tilemap_level_1, tilemap_level_2, 2);
+                UpdateTilemap(tilemap_level_2, tilemap_level_3, 3);
+                UpdateTilemap(tilemap_level_3, tilemap_boss, 4);
+                TeleportEnemies();
+            }
         }
     }
 
@@ -213,5 +230,4 @@ public class Level : MonoBehaviour
             }
         }
     }
-
 }

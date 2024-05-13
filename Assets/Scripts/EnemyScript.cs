@@ -39,7 +39,7 @@ public class EnemyScript : MonoBehaviour
     const string ENEMY_ATTACK = "attack";
     private bool isAttacking = false;
     const string ENEMY_DEAD = "dead";
-    private bool isDead = false;
+    public bool isDead = false;
     const string ENEMY_PRE_ATTACK = "preAttack";
     private bool isPreAttacking = false;
     const string ENEMY_TAKE_DAMAGE = "takeDamage";
