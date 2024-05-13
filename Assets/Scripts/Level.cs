@@ -15,7 +15,7 @@ public class Level : MonoBehaviour
     public TextMeshProUGUI levelUI;
     public TextMeshProUGUI playerLevelUI;
     private float timeSinceLastIncrement = 0f;
-    private const float levelDuration = 30f;
+    private const float levelDuration = 5f;
     public static Level Instance { get; private set; }
     public GameObject tilemap_level_1;
     public GameObject tilemap_level_2;
@@ -26,6 +26,9 @@ public class Level : MonoBehaviour
     private const float transitionDuration = 1f;
 
     public bool gameOver = false;
+    private bool firstPass = true;
+
+    private bool firstPass2 = true;
 
     void Start()
     {
@@ -44,14 +47,24 @@ public class Level : MonoBehaviour
     void Update()
     {
         CheckAchievement();
-        progressBar.isOn = true;
         timeSinceLastIncrement += Time.deltaTime;
         bool bossIsDead = false;
 
+        if (firstPass)
+        {
+            progressBar.isOn = true;
+            firstPass = false;
+        }
+
         if (level == 5 && bossIsDead == false)
         {
-
-            progressBar.maxValue = 8;
+            if (firstPass2)
+            {
+                progressBar.isOn = false;
+                progressBar.maxValue = 8;
+                Invoke("TurnProgressBarOn", 0.95f);
+                firstPass2 = false;
+            }
             GameObject boss = GameObject.FindGameObjectWithTag("Boss");
             if (boss != null)
             {
@@ -94,6 +107,11 @@ public class Level : MonoBehaviour
 
         // Teleport the enemies
         TeleportEnemies();
+    }
+
+    void TurnProgressBarOn()
+    {
+        progressBar.isOn = true;
     }
 
     private void UpdateLevelUI()
