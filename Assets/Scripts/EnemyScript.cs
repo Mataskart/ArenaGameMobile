@@ -209,8 +209,10 @@ public class EnemyScript : MonoBehaviour
 
             OnEnemyKilled?.Invoke(this);
             Destroy(gameObject, 3f); // Destroy after 3 seconds
+            Debug.Log("CheckDeath() returned true");
             return true;
         }
+        Debug.Log("CheckDeath() returned false");
         return false;
     }
     public void HurtAnim()

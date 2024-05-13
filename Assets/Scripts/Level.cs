@@ -15,7 +15,7 @@ public class Level : MonoBehaviour
     public TextMeshProUGUI levelUI;
     public TextMeshProUGUI playerLevelUI;
     private float timeSinceLastIncrement = 0f;
-    private const float levelDuration = 10f;
+    private const float levelDuration = 2f;
     public static Level Instance { get; private set; }
     public GameObject tilemap_level_1;
     public GameObject tilemap_level_2;
@@ -50,15 +50,25 @@ public class Level : MonoBehaviour
 
         if (level == 5 && bossIsDead == false)
         {
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            bossIsDead = enemies[0].GetComponent<EnemyScript>().CheckDeath();
 
-            levelUI.gameObject.SetActive(false);
-            playerLevelUI.gameObject.SetActive(false);
-            progressBar.isOn = false;
-            progressBar.gameObject.SetActive(false);
+            progressBar.maxValue = 8;
+            GameObject boss = GameObject.FindGameObjectWithTag("Boss");
+            if (boss != null)
+            {
+                EnemyScript bossScript = boss.GetComponent<EnemyScript>();
+                if (bossScript != null)
+                {
+                    bossIsDead = bossScript.CheckDeath();
+                }
+            }
+
+
             if (bossIsDead)
             {
+                levelUI.gameObject.SetActive(false);
+                playerLevelUI.gameObject.SetActive(false);
+                progressBar.gameObject.SetActive(true);
+
                 level++;
                 gameOver = true;
                 //UpdateTilemap(tilemap_boss, tilemap_level_1, 6);

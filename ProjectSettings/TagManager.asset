@@ -8,6 +8,7 @@ TagManager:
   - enemySword
   - enemyDeath
   - enemyDamage
+  - Boss
   layers:
   - Default
   - TransparentFX
