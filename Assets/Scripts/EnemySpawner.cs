@@ -104,7 +104,53 @@ public class EnemySpawner : MonoBehaviour
             {
                 timeUntilSpawn = 60f;
                 RemoveAllEnemies();
-                Instantiate(Type6_EnemyPrefab, new Vector3(0, 1f, 0), Quaternion.identity);
+                GameObject boss = Instantiate(Type6_EnemyPrefab, new Vector3(0, 0.5f, 0), Quaternion.identity);
+
+
+                // first spawn of the 4 enemies around the boss
+                if (boss != null)
+                {
+                    StartCoroutine(SpawnFirstBossMinionsAfterDelay(boss, 2f));
+                }
+
+                //spawn these 4 enemies every 8 seconds
+                StartCoroutine(SpawnBossMinions(boss));
+            }
+        }
+    }
+
+    private IEnumerator SpawnFirstBossMinionsAfterDelay(GameObject boss, float delay)
+    {
+        yield return new WaitForSeconds(delay); // Wait for the specified delay
+
+        Vector3 bossPosition = boss.transform.position;
+
+        // Spawn the 4 enemies around the boss
+        Instantiate(Type3_EnemyPrefab, bossPosition + new Vector3(0, 0.2f, 0), Quaternion.identity);
+        Instantiate(Type3_EnemyPrefab, bossPosition + new Vector3(0.2f, 0f, 0), Quaternion.identity);
+        Instantiate(Type3_EnemyPrefab, bossPosition + new Vector3(-0.2f, 0f, 0), Quaternion.identity);
+        Instantiate(Type3_EnemyPrefab, bossPosition + new Vector3(0, -0.2f, 0), Quaternion.identity);
+    }
+
+    private IEnumerator SpawnBossMinions(GameObject bossOG)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(8f); // Wait for 8 seconds
+
+            bossOG.tag = "Untagged"; // Untag the boss from the "Enemy" tag
+            bossOG.tag = "Boss"; // Tag the boss
+            // Get the boss's current position
+            GameObject boss = GameObject.FindGameObjectWithTag("Boss"); // Assuming the boss has the tag "Boss"
+            if (boss != null)
+            {
+                Vector3 bossPosition = boss.transform.position;
+
+                // Spawn the 4 enemies around the boss
+                Instantiate(Type3_EnemyPrefab, bossPosition + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                Instantiate(Type3_EnemyPrefab, bossPosition + new Vector3(0.5f, 0f, 0), Quaternion.identity);
+                Instantiate(Type3_EnemyPrefab, bossPosition + new Vector3(-0.5f, 0f, 0), Quaternion.identity);
+                Instantiate(Type3_EnemyPrefab, bossPosition + new Vector3(0, -0.5f, 0), Quaternion.identity);
             }
         }
     }

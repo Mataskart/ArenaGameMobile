@@ -22,6 +22,7 @@ public class Health : MonoBehaviour
     public Image damageTakenEffect;
     public LowHealthController lowHealthController;
     public AudioSource heartbeatEffect;
+    private bool damageTaken = false;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +65,16 @@ public class Health : MonoBehaviour
             lowHealthController.SetPlayerHealthSmoothly(healthController, 0.1f);
         }
 
+        //update health bar constantly
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
+        if (slider != null)
+        {
+            slider.value = currentHealth;
+        }
+
         CheckHeartBeatFX();
 
         //if (Input.GetKeyDown(KeyCode.Space))
@@ -80,8 +91,10 @@ public class Health : MonoBehaviour
         this.maxHealth = maxHealth;
         this.currentHealth = health;
     }
+
     public void TakeDamage(int damage)
     {
+        damageTaken = true;
         Movement playerMovement = GetComponent<Movement>();
         currentHealth -= damage;
 
@@ -194,14 +207,14 @@ public class Health : MonoBehaviour
         }
 
 
-        if (currentHealth == 100 && enemiesKilled == 10)
+        if (currentHealth == 100 && enemiesKilled == 10 && damageTaken == false)
         {
             achievementScript.CompleteAchievement("NO TIME TO DIE");
         }
 
         Level levelScript = player.GetComponent<Level>();
         int currentLevel = levelScript.GetLevel();
-        if (currentHealth == 100 && currentLevel == 5)
+        if (currentHealth == 100 && currentLevel == 5 && damageTaken == false)
         {
             achievementScript.CompleteAchievement("MASTER OF COMBAT");
         }

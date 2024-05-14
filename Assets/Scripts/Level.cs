@@ -26,6 +26,9 @@ public class Level : MonoBehaviour
     private const float transitionDuration = 1f;
 
     public bool gameOver = false;
+    private bool firstPass = true;
+
+    private bool firstPass2 = true;
 
     void Start()
     {
@@ -44,21 +47,41 @@ public class Level : MonoBehaviour
     void Update()
     {
         CheckAchievement();
-        progressBar.isOn = true;
         timeSinceLastIncrement += Time.deltaTime;
         bool bossIsDead = false;
 
+        if (firstPass)
+        {
+            progressBar.isOn = true;
+            firstPass = false;
+        }
+
         if (level == 5 && bossIsDead == false)
         {
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            bossIsDead = enemies[0].GetComponent<EnemyScript>().CheckDeath();
+            if (firstPass2)
+            {
+                progressBar.isOn = false;
+                progressBar.maxValue = 8;
+                Invoke("TurnProgressBarOn", 0.5f);
+                firstPass2 = false;
+            }
+            GameObject boss = GameObject.FindGameObjectWithTag("Boss");
+            if (boss != null)
+            {
+                EnemyScript bossScript = boss.GetComponent<EnemyScript>();
+                if (bossScript != null)
+                {
+                    bossIsDead = bossScript.CheckDeath();
+                }
+            }
 
-            levelUI.gameObject.SetActive(false);
-            playerLevelUI.gameObject.SetActive(false);
-            progressBar.isOn = false;
-            progressBar.gameObject.SetActive(false);
+
             if (bossIsDead)
             {
+                levelUI.gameObject.SetActive(false);
+                playerLevelUI.gameObject.SetActive(false);
+                progressBar.gameObject.SetActive(true);
+
                 level++;
                 gameOver = true;
                 //UpdateTilemap(tilemap_boss, tilemap_level_1, 6);
@@ -84,6 +107,11 @@ public class Level : MonoBehaviour
 
         // Teleport the enemies
         TeleportEnemies();
+    }
+
+    void TurnProgressBarOn()
+    {
+        progressBar.isOn = true;
     }
 
     private void UpdateLevelUI()
