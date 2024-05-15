@@ -4,11 +4,17 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Block
+  - Sword
   - Enemy
-  - enemySword
-  - enemyDeath
-  - enemyDamage
-  - Boss
+  - RiceBall
+  - Kunai
+  - Shuriken
+  - Ground
+  - Riceball
+  - GameManager
+  - AttackArea
+  - Hub
   layers:
   - Default
   - TransparentFX

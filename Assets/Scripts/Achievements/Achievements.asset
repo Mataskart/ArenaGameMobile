@@ -15,41 +15,55 @@ MonoBehaviour:
   achievement:
   - achievementTitle: WELCOME WARRIOR
     achievementShortDescription: Start your first game
-    achievementSpriteCompleted: {fileID: 21300000, guid: 51fd794e247c85240a9ede78ac021547, type: 3}
-    achievementSpriteBW: {fileID: 21300000, guid: 89f451811f9533a468bbc3058fd1f0aa, type: 3}
+    achievementSpriteCompleted: {fileID: 21300000, guid: 51fd794e247c85240a9ede78ac021547,
+      type: 3}
+    achievementSpriteBW: {fileID: 21300000, guid: 89f451811f9533a468bbc3058fd1f0aa,
+      type: 3}
   - achievementTitle: BORN TO KILL
     achievementShortDescription: Kill your first enemy
-    achievementSpriteCompleted: {fileID: 21300000, guid: 3bfa5ea9d74ffa34c8af3c11c3286efc, type: 3}
-    achievementSpriteBW: {fileID: 21300000, guid: 453ce43f6adfe504084a2d7ff166807b, type: 3}
+    achievementSpriteCompleted: {fileID: 21300000, guid: 3bfa5ea9d74ffa34c8af3c11c3286efc,
+      type: 3}
+    achievementSpriteBW: {fileID: 21300000, guid: 453ce43f6adfe504084a2d7ff166807b,
+      type: 3}
   - achievementTitle: I CAN DO THAT?
     achievementShortDescription: Dash for the first time
-    achievementSpriteCompleted: {fileID: 21300000, guid: 22a2b596027cfcf45922ba357dd20208, type: 3}
-    achievementSpriteBW: {fileID: 21300000, guid: 3594468d737e45a4d9d75aa849bfd4f7, type: 3}
+    achievementSpriteCompleted: {fileID: 21300000, guid: 22a2b596027cfcf45922ba357dd20208,
+      type: 3}
+    achievementSpriteBW: {fileID: 21300000, guid: 3594468d737e45a4d9d75aa849bfd4f7,
+      type: 3}
   - achievementTitle: SURVIVAL I
     achievementShortDescription: Reach level 3
-    achievementSpriteCompleted: {fileID: 21300000, guid: 0d800d3b382498b43903cac18dc893a8, type: 3}
-    achievementSpriteBW: {fileID: 21300000, guid: ab9d2781efd55884398b0d994e8d7017, type: 3}
+    achievementSpriteCompleted: {fileID: 21300000, guid: 0d800d3b382498b43903cac18dc893a8,
+      type: 3}
+    achievementSpriteBW: {fileID: 21300000, guid: ab9d2781efd55884398b0d994e8d7017,
+      type: 3}
   - achievementTitle: FRIENDLY WARRIOR
     achievementShortDescription: Reach level 2 without killing enemies
-    achievementSpriteCompleted: {fileID: 21300000, guid: 3e36238090c648843a1302aafd36de13, type: 3}
-    achievementSpriteBW: {fileID: 21300000, guid: 935cdd5ad59b3694e905cba271613ad0, type: 3}
+    achievementSpriteCompleted: {fileID: 21300000, guid: 3e36238090c648843a1302aafd36de13,
+      type: 3}
+    achievementSpriteBW: {fileID: 21300000, guid: 935cdd5ad59b3694e905cba271613ad0,
+      type: 3}
   - achievementTitle: NO TIME TO DIE
     achievementShortDescription: Kill 10 enemies without losing health
-    achievementSpriteCompleted: {fileID: 21300000, guid: 0a42f19ad75ff624d9b087da6c51b07c, type: 3}
-    achievementSpriteBW: {fileID: 21300000, guid: 5f570d9539a92bc418e3711417b00da3, type: 3}
+    achievementSpriteCompleted: {fileID: 21300000, guid: 0a42f19ad75ff624d9b087da6c51b07c,
+      type: 3}
+    achievementSpriteBW: {fileID: 21300000, guid: 5f570d9539a92bc418e3711417b00da3,
+      type: 3}
   - achievementTitle: MASTER OF COMBAT
     achievementShortDescription: Reach level 5 without losing health
-    achievementSpriteCompleted: {fileID: 21300000, guid: 6b224f9ea4406cf4fbec468392b1d4a0, type: 3}
-    achievementSpriteBW: {fileID: 21300000, guid: 8256ff50fca7ce2499e1ce823739e8a6, type: 3}
+    achievementSpriteCompleted: {fileID: 21300000, guid: 6b224f9ea4406cf4fbec468392b1d4a0,
+      type: 3}
+    achievementSpriteBW: {fileID: 21300000, guid: 8256ff50fca7ce2499e1ce823739e8a6,
+      type: 3}
   - achievementTitle: NO MERCY
     achievementShortDescription: Deal 1000 damage to your enemies
-    achievementSpriteCompleted: {fileID: 21300000, guid: ec62cb817f96a0349ab5c325e55b7dc3, type: 3}
-    achievementSpriteBW: {fileID: 21300000, guid: eb539ff65d27b6341acdd10ea94bb1de, type: 3}
-  - achievementTitle: UNBEATABLE WARRIOR
-    achievementShortDescription: Reach level 40
-    achievementSpriteCompleted: {fileID: 21300000, guid: 2278133645c3d1e45ac3d40bd49dc183, type: 3}
-    achievementSpriteBW: {fileID: 21300000, guid: 9766e6e2ceeae2649b425e2cc352cf72, type: 3}
+    achievementSpriteCompleted: {fileID: 21300000, guid: ec62cb817f96a0349ab5c325e55b7dc3,
+      type: 3}
+    achievementSpriteBW: {fileID: 21300000, guid: eb539ff65d27b6341acdd10ea94bb1de,
+      type: 3}
   - achievementTitle: CHAMPION OF ARENA
     achievementShortDescription: Complete all achievements
-    achievementSpriteCompleted: {fileID: 21300000, guid: f7e6a1b22be35f2488d310d8215f24fe, type: 3}
-    achievementSpriteBW: {fileID: 21300000, guid: 8e491c36b2978ae4aa99858393ec5d7f, type: 3}
+    achievementSpriteCompleted: {fileID: 21300000, guid: f7e6a1b22be35f2488d310d8215f24fe,
+      type: 3}
+    achievementSpriteBW: {fileID: 21300000, guid: 8e491c36b2978ae4aa99858393ec5d7f,
+      type: 3}
