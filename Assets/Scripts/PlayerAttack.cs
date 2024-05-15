@@ -6,12 +6,15 @@ public class PlayerAttack : MonoBehaviour
 {
     private GameObject attackArea = default;
     private float timeUntilAttack = 0;
+    private Movement playerMovement;
 
     // Start is called before the first frame update
     void Start()
     {
         attackArea = transform.GetChild(0).gameObject;
         attackArea.SetActive(false);
+
+        playerMovement = GetComponent<Movement>();
     }
 
     // Update is called once per frame
@@ -49,7 +52,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void AttackOnButton()
     {
-        if (timeUntilAttack <= 0)
+        if (timeUntilAttack <= 0 && !playerMovement.GetDeath())
         {
             Attack();
             SetTimeUntilAttack();

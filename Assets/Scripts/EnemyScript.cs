@@ -279,7 +279,6 @@ public class EnemyScript : MonoBehaviour
                     enemyDeath.Play();
                     DeathSFX--;
                 }
-
             }
         }
     }
