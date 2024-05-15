@@ -30,6 +30,8 @@ public class MainMenu : MonoBehaviour
         gamesPlayed = PlayerPrefs.GetInt("GamesPlayed", 0);
         UpdateStats();
         UpdateVolume();
+
+        Application.targetFrameRate = 60;
     }
 
     void Update()

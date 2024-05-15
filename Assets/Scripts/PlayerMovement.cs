@@ -40,6 +40,7 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 90;
         anim = GetComponent<Animator>();
     }
 
