@@ -27,6 +27,7 @@ Matas is our gameplay systems mastermind with back-end work mixed in. With a foc
 
 
 Legacy development:
+
 **Rokas**
 
 Rokas is our character design expert. With a keen eye for detail and a knack for bringing characters to life, Rokas has been instrumental in shaping the visual identity of "Arena Game." From concept sketches to final animations, Rokas ensures that every character in the game is unique and memorable. Additionally, Rokas is responsible for enemy spawning scripting, ensuring that players always face exciting challenges as they navigate the arena.
