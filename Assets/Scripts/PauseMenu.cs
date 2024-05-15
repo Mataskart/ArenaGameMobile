@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCAPE (ESC)
 {
@@ -15,7 +16,7 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
     private bool winMenuShown = false;
 
     public Joystick joystick;
-
+    public GameObject button;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,18 +37,6 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
             float t = Mathf.PingPong(Time.time, 1f) / 1f;
             victoryText.color = Color.Lerp(Color.red, Color.blue, t);
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (isPaused)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                PauseGame();
-            }
-        }
         if (levelScript.gameOver && !winMenuShown)
         {
             // Show the win menu
@@ -64,6 +53,7 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
         Time.timeScale = 0f;
         isPaused = true;
         joystick.gameObject.SetActive(false);
+        button.gameObject.SetActive(false);
     }
 
     public void RestartGame()
@@ -76,6 +66,7 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
     {
         pauseMenu.SetActive(false);
         joystick.gameObject.SetActive(true);
+        button.gameObject.SetActive(true);
         Time.timeScale = 1f;
         isPaused = false;
     }
@@ -87,5 +78,17 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void PauseButton()
+    {
+        if (isPaused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
     }
 }
