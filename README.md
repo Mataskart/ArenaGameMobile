@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # Welcome to ARENA
 
 ![Banner](https://github.com/Stepon4s/ArenaGame/assets/59653657/75ceaeff-f9e6-4638-a0a8-d5b5daf95d9a)
@@ -38,3 +39,6 @@ Rokas is our character design expert. With a keen eye for detail and a knack for
 
 Steponas is our level design virtuoso. With a passion for creating immersive environments, Steponas has crafted the arenas where "Arena Game" unfolds. From intricate layouts to challenging obstacles, Steponas ensures that each level offers a unique and engaging experience for players. In addition to map design, Steponas is also responsible for implementing level logic scripts and refining player movement mechanics, ensuring smooth and responsive gameplay.
 
+=======
+# ArenaGame
+>>>>>>> Stashed changes

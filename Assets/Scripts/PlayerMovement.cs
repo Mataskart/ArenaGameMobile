@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -16,7 +14,7 @@ public class Movement : MonoBehaviour
     public AudioSource playerDeath;
     public AudioSource playerDamage;
 
-    //Animation states
+    // Animation states
     string currentState;
     const string PLAYER_IDLE = "idle";
     const string PLAYER_RUN = "run";
@@ -29,33 +27,27 @@ public class Movement : MonoBehaviour
     private bool isPreAttacking = false;
     const string PLAYER_TAKE_DAMAGE = "take hit";
     private bool isHurt = false;
-    Vector3 lastPosition;
 
     [Header("Dashing")]
-    [SerializeField] private float dashingVelocity = 14f;
+    [SerializeField] private float dashingVelocity = 200f;
     [SerializeField] private float dashingTime = 0.5f;
     [SerializeField] private float dashingCooldown = 5f;
     [SerializeField] private TrailRenderer trail;
     private Vector2 dashingDirection;
     private bool isDashing;
     private bool canDash = true;
+    public Joystick joystick;
 
-    // Update is called once per frame
     void Start()
     {
         anim = GetComponent<Animator>();
     }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canDash)
-        {
-            CheckAchievement();
-            Dash();
-        }
         if (isDashing)
         {
             rb.velocity = dashingDirection.normalized * dashingVelocity;
-            return;
         }
         ProcessInputs();
         PlayAnimation();
@@ -64,27 +56,27 @@ public class Movement : MonoBehaviour
 
     void PlayAnimation()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
+        float moveX = joystick.Horizontal;
+        float moveY = joystick.Vertical;
+
         moveDirection = new Vector2(moveX, moveY).normalized;
         moveDirectionAnim = new Vector3(moveX, 0, moveY);
+
         if (isDead)
         {
             CheckDeathSFX();
             ChangeAnimationState(PLAYER_DEAD);
             return;
         }
-        else if (isHurt == true)
+        else if (isHurt)
         {
             CheckDamageSFX();
             ChangeAnimationState(PLAYER_TAKE_DAMAGE);
             float hurtDelay = anim.GetCurrentAnimatorStateInfo(0).length;
             Invoke("HurtComplete", hurtDelay);
-
         }
-        else if (isAttacking == true)
+        else if (isAttacking)
         {
-
             CheckSwordSFX();
             ChangeAnimationState(PLAYER_ATTACK);
             float attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
@@ -92,7 +84,7 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            if (isPreAttacking == true)
+            if (isPreAttacking)
             {
                 ChangeAnimationState(PLAYER_COOLDOWN);
                 float PreAttackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
@@ -118,15 +110,26 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public void DashOnButton()
+    {
+        if (canDash)
+        {
+            Debug.Log("Dash button pressed and canDash is true");
+            CheckAchievement();
+            Dash();
+        }
+    }
+
     void ProcessInputs()
     {
+        // Implement any additional input processing here
     }
 
     void Move()
     {
         if (!isDead)
         {
-            rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+            rb.velocity = new Vector2(joystick.Horizontal * moveSpeed, joystick.Vertical * moveSpeed);
         }
     }
 
@@ -135,7 +138,6 @@ public class Movement : MonoBehaviour
         Vector3 currentScale = gameObject.transform.localScale;
         currentScale.x *= -1;
         gameObject.transform.localScale = currentScale;
-
         facingRight = !facingRight;
     }
 
@@ -160,18 +162,22 @@ public class Movement : MonoBehaviour
         anim.Play(newState);
         currentState = newState;
     }
+
     public void HurtComplete()
     {
         isHurt = false;
     }
+
     public void HurtAnim()
     {
         isHurt = true;
     }
+
     public void AttackAnim()
     {
         isAttacking = true;
     }
+
     public void AttackComplete()
     {
         isAttacking = false;
@@ -179,21 +185,27 @@ public class Movement : MonoBehaviour
         PLAYER_ATTACK = PLAYER_ATTACKother;
         PLAYER_ATTACKother = temp;
     }
+
     public void PreAttackComplete()
     {
         isPreAttacking = false;
     }
 
-    private void Dash()
+    public void Dash()
     {
         isDashing = true;
         canDash = false;
         trail.emitting = true;
-        dashingDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        dashingDirection = new Vector2(joystick.Horizontal, joystick.Vertical).normalized;
         if (dashingDirection == Vector2.zero)
         {
-            dashingDirection = new Vector2(transform.localScale.x, 0);
+            dashingDirection = new Vector2(transform.localScale.x, transform.localScale.y).normalized;
         }
+
+        rb.velocity = dashingDirection * dashingVelocity;
+
+        Debug.Log("Dashing with direction: " + dashingDirection);
+
         StartCoroutine(StopDash());
     }
 
@@ -202,8 +214,12 @@ public class Movement : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
         trail.emitting = false;
         isDashing = false;
+        rb.velocity = Vector2.zero;  // Stop the dash
+        Debug.Log("Dash stopped");
+
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+        Debug.Log("Dash cooldown completed, can dash again");
     }
 
     private void CheckAchievement()
@@ -215,34 +231,25 @@ public class Movement : MonoBehaviour
 
     void CheckSwordSFX()
     {
-            if (playerSword != null)
-            {
-                if (!playerSword.isPlaying)
-                {
-                    playerSword.Play();
-                }
-            }
+        if (playerSword != null && !playerSword.isPlaying)
+        {
+            playerSword.Play();
+        }
     }
 
     void CheckDeathSFX()
     {
-            if (playerDeath != null)
-            {
-                if (!playerDeath.isPlaying)
-                {
-                   playerDeath.Play();
-                }
-            }
+        if (playerDeath != null && !playerDeath.isPlaying)
+        {
+            playerDeath.Play();
+        }
     }
 
-    void CheckDamageSFX(){
-
-        if (playerDamage != null)
+    void CheckDamageSFX()
+    {
+        if (playerDamage != null && !playerDamage.isPlaying)
         {
-            if (!playerDamage.isPlaying)
-            {
-                playerDamage.Play();
-            }
+            playerDamage.Play();
         }
     }
 }

@@ -14,6 +14,8 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
     public static bool isPaused;
     private bool winMenuShown = false;
 
+    public Joystick joystick;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +63,7 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        joystick.gameObject.SetActive(false);
     }
 
     public void RestartGame()
@@ -72,6 +75,7 @@ public class PauseMenu : MonoBehaviour  // THE BUTTON FOR THE PAUSE MENU IS ESCA
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
+        joystick.gameObject.SetActive(true);
         Time.timeScale = 1f;
         isPaused = false;
     }

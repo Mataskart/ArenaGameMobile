@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private GameObject attackArea = default;
-    private float timeUntilAttack=0;
+    private float timeUntilAttack = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -18,22 +18,17 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         timeUntilAttack -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space) && timeUntilAttack <= 0)
-        {
-            Attack();
-            SetTimeUntilAttack();
-        }
     }
 
     private void Attack()
     {
         Movement movement = GetComponent<Movement>();
         attackArea.SetActive(true);
-        movement.AttackAnim(); 
+        movement.AttackAnim();
 
         Movement playerMovement = GetComponent<Movement>();
         playerMovement.moveSpeed *= 0.3f; // Slow down player movement while attacking
-        Invoke("SpeedReturn",0.15f);
+        Invoke("SpeedReturn", 0.15f);
         Invoke("DeactivateAttackArea", 0.2f); // Delay the deactivation
     }
 
@@ -50,5 +45,14 @@ public class PlayerAttack : MonoBehaviour
     {
         Movement playerMovement = GetComponent<Movement>();
         playerMovement.moveSpeed = 3f; // Reset player movement speed to normal
+    }
+
+    public void AttackOnButton()
+    {
+        if (timeUntilAttack <= 0)
+        {
+            Attack();
+            SetTimeUntilAttack();
+        }
     }
 }
