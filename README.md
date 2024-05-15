@@ -16,7 +16,8 @@ Are you ready to become the ultimate lone fighter, battling against impossible o
 Welcome to the "Arena Game" team page! We're a passionate group of developers who have come together to create an exciting and immersive gaming experience. Get to know the individuals who have contributed their skills and creativity to bring this project to life.W hile each team member specializes in certain areas, "Arena Game" is truly a collaborative effort. We all work closely together, sharing ideas, providing feedback, and supporting each other throughout the development process. Together, we're dedicated to creating an unforgettable gaming experience.
 
 # Team Members
-Mobile development: 
+**Mobile development: **
+
 **Kipras**
 
 Kipras is our UI/UX guru. With a focus on user experience and visual design, Kipras has crafted an intuitive and visually stunning interface for "Arena Game." From the main menu to in-game HUD elements, Kipras ensures that players can navigate the game with ease. Kipras is also responsible for designing achievements and establishing the visual design language of the game, ensuring a cohesive and immersive experience for players.
@@ -26,7 +27,8 @@ Kipras is our UI/UX guru. With a focus on user experience and visual design, Kip
 Matas is our gameplay systems mastermind with back-end work mixed in. With a focus on enhancing the player experience, Matas has implemented various systems that enrich the gameplay of Arena. From designing the item shop and currency system to creating tutorials and the scoring system, Matas ensures that players have access to essential guidance and motivation as they progress through the game as well as tying the back-end scripts of the game together and implementing a lot of the functionality that isn't visible. Matas is also responsible for balancing enemy stats, ensuring that encounters are challenging yet fair for players of all skill levels.
 
 
-Legacy development:
+
+**Legacy development:**
 
 **Rokas**
 
