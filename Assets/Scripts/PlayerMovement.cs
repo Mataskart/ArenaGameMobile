@@ -128,7 +128,7 @@ public class Movement : MonoBehaviour
 
     void Move()
     {
-        if (!isDead)
+        if (!isDead && !isDashing)
         {
             rb.velocity = new Vector2(joystick.Horizontal * moveSpeed, joystick.Vertical * moveSpeed);
         }
