@@ -16,7 +16,7 @@ Are you ready to become the ultimate lone fighter, battling against impossible o
 Welcome to the "Arena Game" team page! We're a passionate group of developers who have come together to create an exciting and immersive gaming experience. Get to know the individuals who have contributed their skills and creativity to bring this project to life.W hile each team member specializes in certain areas, "Arena Game" is truly a collaborative effort. We all work closely together, sharing ideas, providing feedback, and supporting each other throughout the development process. Together, we're dedicated to creating an unforgettable gaming experience.
 
 # Team Members
-**Mobile development: **
+**Mobile development:**
 
 **Kipras**
 
