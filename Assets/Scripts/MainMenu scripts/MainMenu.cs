@@ -138,15 +138,18 @@ public class MainMenu : MonoBehaviour
 
     private void UpdateVolume()
     {
-        musicMixer.SetFloat("volume", PlayerPrefs.GetFloat("musicVolume"));
-        sfxMixer.SetFloat("volume", PlayerPrefs.GetFloat("sfxVolume"));
+        if (musicMixer != null)
+        {
+            musicMixer.SetFloat("volume", PlayerPrefs.GetFloat("musicVolume"));
+            sfxMixer.SetFloat("volume", PlayerPrefs.GetFloat("sfxVolume"));
+        }
     }
 
     public void CheckIfPurchaseAvailable()
     {
         string status = PlayerPrefs.GetString("isHealthPotionAvailable");
 
-        if (status == "true")
+        if (status == "true" && buyButton != null)
         {
             buyButtonText.text = "PURCHASED";
             buyButtonText.color = Color.yellow;
@@ -154,8 +157,11 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-            buyButtonText.text = "BUY";
-            buyButton.interactable = true;
+            if (buyButton != null)
+            {
+                buyButtonText.text = "BUY";
+                buyButton.interactable = true;
+            }
         }
     }
 
